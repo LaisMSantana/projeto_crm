@@ -1,0 +1,8 @@
+com/cliente/projetocrm/util/ClienteMapper.class
+com/cliente/projetocrm/providers/ClienteMessageBodyReader.class
+com/cliente/projetocrm/ClienteController.class
+com/cliente/projetocrm/model/vo/Cliente.class
+com/cliente/projetocrm/model/dao/Banco.class
+com/cliente/projetocrm/model/dao/ClienteDao.class
+com/cliente/projetocrm/ProjetocrmRestApplication.class
+com/cliente/projetocrm/resources/ClienteResource.class

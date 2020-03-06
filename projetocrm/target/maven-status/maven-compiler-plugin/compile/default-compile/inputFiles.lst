@@ -1,0 +1,8 @@
+/home/lais/Documents/projetocrm/src/main/java/com/cliente/projetocrm/model/vo/Cliente.java
+/home/lais/Documents/projetocrm/src/main/java/com/cliente/projetocrm/resources/ClienteResource.java
+/home/lais/Documents/projetocrm/src/main/java/com/cliente/projetocrm/util/ClienteMapper.java
+/home/lais/Documents/projetocrm/src/main/java/com/cliente/projetocrm/ProjetocrmRestApplication.java
+/home/lais/Documents/projetocrm/src/main/java/com/cliente/projetocrm/providers/ClienteMessageBodyReader.java
+/home/lais/Documents/projetocrm/src/main/java/com/cliente/projetocrm/ClienteController.java
+/home/lais/Documents/projetocrm/src/main/java/com/cliente/projetocrm/model/dao/Banco.java
+/home/lais/Documents/projetocrm/src/main/java/com/cliente/projetocrm/model/dao/ClienteDao.java
