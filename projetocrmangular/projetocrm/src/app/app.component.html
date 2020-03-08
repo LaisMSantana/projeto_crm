@@ -1,6 +1,12 @@
 <div class="container-fluid">
-  <h1>Formulario Cliente</h1>
-  <form #userForm="ngForm" (onSubmit)="onSubmit()" >
+  <h1>Formulário Cliente</h1>
+  <div class="alert alert-danger" *ngIf="errorMsg">
+    {{errorMsg}}
+  </div>
+  <div class="alert alert-success" *ngIf="succsessMsg && !hideSuccessMessage">
+    <strong [ngClass] ="FadeOutSuccessMsg()"> Cliente salvo com sucesso! </strong>
+  </div>
+  <form #userForm="ngForm" (ngSubmit)="onSubmit(clienteModel)"  novalidate >
 
     <div class="form-group">
       <label>Nome</label>
@@ -10,23 +16,27 @@
 
     <div class="form-group">
       <label>CPF</label>
-      <input type="cpf" required #cpf="ngModel" pattern="^\d{11}$" [class.is-invalid]="cpf.invalid && cpf.touched" class="form-control" name="cpf" [(ngModel)]="clienteModel.CPF">
+      <input type="cpf" required #cpf="ngModel" pattern="^\d{10}[0-9]$" [class.is-invalid]="cpf.invalid && cpf.touched" class="form-control" name="cpf" [(ngModel)]="clienteModel.CPF">
       <small class="text-danger"[class.d-none]="cpf.valid || cpf.untouched" >CPF é obrigatório e possui 11 digitos</small>
     </div>
 
     <div class="form-group">
       <label>Email</label>
-      <input type="email" required #email="ngModel" [class.is-invalid]="email.invalid && email.touched" class="form-control" name="email" [(ngModel)]="clienteModel.EMAIL">
-      <small class="text-danger"[class.d-none]="email.valid || email.untouched" >Email é obrigatório</small>
+      <input type="email" required #email="ngModel" [class.is-invalid]="email.invalid && email.touched" class="form-control" name="email"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="*exemplo@email.com" [(ngModel)]="clienteModel.EMAIL">
+      <small class="text-danger"[class.d-none]="email.valid || email.untouched">Email é obrigatório</small>
     </div>
 
     <div class="form-group">
       <label>Senha</label>
-      <input type="senha" required #senha="ngModel" [class.is-invalid]="senha.invalid && senha.touched" pattern="^\d{6}$" class="form-control" name="senha" [(ngModel)]="clienteModel.SENHA">
+      <input type="password" required #senha="ngModel" [class.is-invalid]="senha.invalid && senha.touched" pattern=".{6,}" class="form-control" name="senha"
+      placeholder="*Min 6 caracteres"[(ngModel)]="clienteModel.SENHA">
       <small class="text-danger"[class.d-none]="senha.valid || senha.untouched" >Senha é obrigatório e possui no min 6 digitos</small>
     </div>
 
     <button [disabled]="userForm.form.invalid" class="btn btn-primary" type="submit">Salvar</button>
+    <button class="btn btn-primary" type="reset">Limpar Formulário</button>
 
   </form>
+
 </div>
