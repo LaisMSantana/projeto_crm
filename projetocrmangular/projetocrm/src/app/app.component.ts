@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { error } from 'protractor';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,8 @@ export class AppComponent {
   errorMsg = '';
   succsessMsg = ''
   hideSuccessMessage = false;
+  headElements = ['ID', 'Nome', 'CPF', 'Email'];
+  elements: any = [];
 
   url = 'http://localhost:8080/api/clientes';
 
@@ -31,6 +34,11 @@ export class AppComponent {
       error => this.errorMsg = error.statusText
     )
     this.hideSuccessMessage = false;
+  }
+  ngOnInit(){
+      return this.http.get(this.url).subscribe(data =>{
+        console.log(data);
+      });
   }
 
   errorHandler(error: HttpErrorResponse){
