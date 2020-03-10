@@ -2,70 +2,70 @@ package com.cliente.projetocrm.model.vo;
 
 public class Cliente {
 
-	private int idCliente;
-	private String nome;
-	private String cpf;
-	private String email;
-	private String senha;
+	private int IDCLIENTE;
+	private String NOME;
+	private String CPF;
+	private String EMAIL;
+	private String SENHA;
 	
 	
 	public Cliente() {
 		super();
 	}
 
-	public Cliente(int idCliente, String nome, String cpf, String email, String senha) {
+	public Cliente(int IDLCIENTE, String NOME, String CPF, String EMAIL, String SENHA) {
 		super();
-		this.idCliente = idCliente;
-		this.nome = nome;
-		this.cpf = cpf;
-		this.email = email;
-		this.senha = senha;
+		this.IDCLIENTE = IDCLIENTE;
+		this.NOME = NOME;
+		this.CPF = CPF;
+		this.EMAIL = EMAIL;
+		this.SENHA = SENHA;
 	}
 	
 	public int getIdCliente() {
-		return idCliente;
+		return IDCLIENTE;
 	}
 
-	public void setIdCliente(int idCliente) {
-		this.idCliente = idCliente;
+	public void setIdCliente(int IDLCIENTE) {
+		this.IDCLIENTE = IDLCIENTE;
 	}
 
 	public String getNome() {
-		return nome;
+		return NOME;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(String NOME) {
+		this.NOME = NOME;
 	}
 
 	public String getCpf() {
-		return cpf;
+		return CPF;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public void setCpf(String CPF) {
+		this.CPF = CPF;
 	}
 
 	public String getEmail() {
-		return email;
+		return EMAIL;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmail(String EMAIL) {
+		this.EMAIL = EMAIL;
 	}
 
 	public String getSenha() {
-		return senha;
+		return SENHA;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setSenha(String SENHA) {
+		this.SENHA = SENHA;
 	}
 
 	@Override
 	public String toString() {
-		return "Cliente [idCliente=" + idCliente + ", nome=" + nome + ", cpf=" + cpf + ", email=" + email + ", senha="
-				+ senha + "]";
+		return "Cliente [idCliente=" + IDCLIENTE + ", nome=" + NOME + ", cpf=" + CPF + ", email=" + EMAIL + ", senha="
+				+ SENHA + "]";
 	}
 	
 	

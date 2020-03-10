@@ -14,13 +14,13 @@ import { map } from 'rxjs/operators';
 })
 export class AppComponent {
 
-  clienteModel = new Cliente("","","","");
+  clienteModel = new Cliente(null,"","","","");
   submitted = false;
   errorMsg = '';
   succsessMsg = ''
   hideSuccessMessage = false;
-  headElements = ['ID', 'Nome', 'CPF', 'Email'];
-  elements: any = [];
+  headElements = ['Nome', 'CPF', 'Email'];
+  clientes: any = [];
 
   url = 'http://localhost:8080/api/clientes';
 
@@ -36,9 +36,17 @@ export class AppComponent {
     this.hideSuccessMessage = false;
   }
   ngOnInit(){
-      return this.http.get(this.url).subscribe(data =>{
+      return this.http.get(this.url).subscribe((data: any[]) =>{
         console.log(data);
+        this.clientes = data;
       });
+  }
+
+  selecionarClientePorId(cliente){
+    return this.http.put(this.url, cliente).subscribe((data) =>{
+      console.log(data);
+      this.clientes = data;
+    });
   }
 
   errorHandler(error: HttpErrorResponse){

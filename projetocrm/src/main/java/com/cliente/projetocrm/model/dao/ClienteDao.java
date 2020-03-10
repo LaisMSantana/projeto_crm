@@ -14,7 +14,7 @@ public class ClienteDao {
 	public int salvarCliente(Cliente cliente){
 		int novoId = 0;
 
-		String sql = " INSERT INTO CLIENTE (NOME," + "CPF," + "EMAIL," + "SENHA) VALUES (?,?,?,?) ";
+		String sql = " INSERT INTO cliente (NOME," + "CPF," + "EMAIL," + "SENHA) VALUES (?,?,?,?) ";
 
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
@@ -42,7 +42,7 @@ public class ClienteDao {
 	public ArrayList<Cliente> listarTodos() {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 		
-		String sql = "SELECT * FROM CLIENTE";
+		String sql = "SELECT * FROM cliente";
 		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
@@ -67,6 +67,63 @@ public class ClienteDao {
 			Banco.closeConnection(conexao);
 		}
 		return clientes;
+	}
+	
+	public boolean atualizar(Cliente cliente) {
+		boolean sucessoUpdate = false;
+
+		String sql = " UPDATE cliente SET NOME = ? , CPF = ? , EMAIL = ? , SENHA = ? WHERE IDCLIENTE = " + cliente.getIdCliente();
+		Connection conexao = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
+
+		try {
+			prepStmt.setString(1, cliente.getNome());
+			prepStmt.setString(2, cliente.getCpf());
+			prepStmt.setString(3, cliente.getEmail());
+			prepStmt.setString(4, cliente.getSenha());
+
+			int codigoRetorno = prepStmt.executeUpdate(sql);
+
+			if (codigoRetorno == 1) {
+				sucessoUpdate = true;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Erro ao atualizar Cliente. Causa: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conexao);
+		}
+
+		return sucessoUpdate;
+	}
+
+	public Cliente encontrarPorId(int id) {
+		Cliente cliente = new Cliente();
+
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		ResultSet rs = null;
+
+		String query = "SELECT * FROM cliente WHERE IDCLIENTE = " + id;
+		try {
+			rs = stmt.executeQuery(query);
+			if (rs.next()) {
+				cliente.setIdCliente(rs.getInt(1));
+				cliente.setNome(rs.getString(2));
+				cliente.setCpf(rs.getString(3));
+				cliente.setEmail(rs.getString(4));
+				cliente.setSenha(rs.getString(5));
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar a Query que verifica existência de Cliente por ID. Erro:"
+					+ e.getMessage());
+		} finally {
+			Banco.closeResultSet(rs);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return cliente;
 	}
 
 }

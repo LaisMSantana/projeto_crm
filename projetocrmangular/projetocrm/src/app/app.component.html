@@ -38,5 +38,25 @@
     <button class="btn btn-primary" type="reset">Limpar Formulário</button>
 
   </form>
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th *ngFor="let head of headElements" scope="col">{{head}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of clientes">
+          <td>{{c.NOME}}</td>
+          <td>{{c.CPF}}</td>
+          <td>{{c.EMAIL}}</td>
+          <td><button class="btn-primary" (click)="selecionarClientePorId(c)" >Editar</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 </div>
+
+
+<router-outlet></router-outlet>
