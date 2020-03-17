@@ -21,6 +21,7 @@ export class AppComponent {
   hideSuccessMessage = false;
   headElements = ['Nome', 'CPF', 'Email'];
   clientes: any = [];
+  selectedFile = null;
 
   url = 'http://localhost:8080/api/clientes';
 
@@ -32,13 +33,21 @@ export class AppComponent {
     this.http.post<any>(this.url,cliente).pipe(catchError(this.errorHandler)).subscribe(
       data => this.succsessMsg = "Cliente salvo com sucesso!",
       error => this.errorMsg = error.statusText
-    )
+    );
+
+    // const fd = new FormData();
+    // fd.append('image', this.selectedFile, this.selectedFile.name);
+    // this.http.post(this.url, fd).subscribe( res => console.log(res));
+
+    this.ngOnInit;
     this.hideSuccessMessage = false;
+
+
   }
   ngOnInit(){
       return this.http.get(this.url).subscribe((data: any[]) =>{
-        console.log(data);
         this.clientes = data;
+        console.log(this.clientes);
       });
   }
 
@@ -48,6 +57,10 @@ export class AppComponent {
       this.clientes = data;
     });
   }
+
+  // onFileSelected(event){
+  //   this.selectedFile = <File> event.target.files[0];
+  // }
 
   errorHandler(error: HttpErrorResponse){
     return throwError(error);

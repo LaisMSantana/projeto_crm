@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +8,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
 
-  ngOnInit(): void {
-  }
+  headElements = ['Nome', 'CPF', 'Email'];
+  clientes: any = [];
+
+  url = 'http://localhost:8080/api/clientes';
+
+  constructor(private http: HttpClient){}
+
+
+  ngOnInit(){
+    return this.http.get(this.url).subscribe((data: any[]) =>{
+      this.clientes = data;
+      console.log(this.clientes);
+    });
+}
+
+
+selecionarClientePorId(cliente){
+  return this.http.put(this.url, cliente).subscribe((data) =>{
+    console.log(data);
+    this.clientes = data;
+  });
+}
 
 }

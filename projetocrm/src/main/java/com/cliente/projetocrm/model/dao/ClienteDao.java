@@ -14,7 +14,7 @@ public class ClienteDao {
 	public int salvarCliente(Cliente cliente){
 		int novoId = 0;
 
-		String sql = " INSERT INTO cliente (NOME," + "CPF," + "EMAIL," + "SENHA) VALUES (?,?,?,?) ";
+		String sql = " INSERT INTO CLIENTE (NOME," + "CPF," + "EMAIL," + "SENHA) VALUES (?,?,?,?) ";
 
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
@@ -42,13 +42,13 @@ public class ClienteDao {
 	public ArrayList<Cliente> listarTodos() {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 		
-		String sql = "SELECT * FROM cliente";
+		String sql = "SELECT * FROM CLIENTE";
 		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
 		
 		try {
-			ResultSet rs = stmt.executeQuery(sql);
+			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
 				Cliente cliente = new Cliente();
@@ -72,7 +72,7 @@ public class ClienteDao {
 	public boolean atualizar(Cliente cliente) {
 		boolean sucessoUpdate = false;
 
-		String sql = " UPDATE cliente SET NOME = ? , CPF = ? , EMAIL = ? , SENHA = ? WHERE IDCLIENTE = " + cliente.getIdCliente();
+		String sql = " UPDATE CLIENTE SET NOME = ? , CPF = ? , EMAIL = ? , SENHA = ? WHERE IDCLIENTE = " + cliente.getIdCliente();
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
 
@@ -105,7 +105,7 @@ public class ClienteDao {
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet rs = null;
 
-		String query = "SELECT * FROM cliente WHERE IDCLIENTE = " + id;
+		String query = "SELECT * FROM CLIENTE WHERE IDCLIENTE = " + id;
 		try {
 			rs = stmt.executeQuery(query);
 			if (rs.next()) {
