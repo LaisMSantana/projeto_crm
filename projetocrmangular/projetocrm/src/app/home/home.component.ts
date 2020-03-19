@@ -32,4 +32,11 @@ selecionarClientePorId(id){
   });
 }
 
+applyFilter(filterValue: string){
+  this.url += '/' + filterValue.trim().toLocaleLowerCase();
+  return this.http.get(this.url).subscribe((data) =>{
+    this.clientes = data;
+  });
+}
+
 }
