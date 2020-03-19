@@ -7,13 +7,12 @@ public class Cliente {
 	private String CPF;
 	private String EMAIL;
 	private String SENHA;
-	
-	
+
 	public Cliente() {
 		super();
 	}
 
-	public Cliente(int IDLCIENTE, String NOME, String CPF, String EMAIL, String SENHA) {
+	public Cliente(int IDCLIENTE, String NOME, String CPF, String EMAIL, String SENHA) {
 		super();
 		this.IDCLIENTE = IDCLIENTE;
 		this.NOME = NOME;
@@ -21,7 +20,7 @@ public class Cliente {
 		this.EMAIL = EMAIL;
 		this.SENHA = SENHA;
 	}
-	
+
 	public int getIdCliente() {
 		return IDCLIENTE;
 	}
@@ -67,8 +66,5 @@ public class Cliente {
 		return "Cliente [idCliente=" + IDCLIENTE + ", nome=" + NOME + ", cpf=" + CPF + ", email=" + EMAIL + ", senha="
 				+ SENHA + "]";
 	}
-	
-	
-	
 
 }

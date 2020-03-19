@@ -25,8 +25,8 @@ export class HomeComponent implements OnInit {
 }
 
 
-selecionarClientePorId(cliente){
-  return this.http.put(this.url, cliente).subscribe((data) =>{
+selecionarClientePorId(id){
+  return this.http.put(this.url, id).subscribe((data) =>{
     console.log(data);
     this.clientes = data;
   });

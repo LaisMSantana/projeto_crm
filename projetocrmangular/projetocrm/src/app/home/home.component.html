@@ -7,10 +7,10 @@
     </thead>
     <tbody>
       <tr *ngFor="let c of clientes">
-        <td>{{c.NOME}}</td>
-        <td>{{c.CPF}}</td>
-        <td>{{c.EMAIL}}</td>
-        <td><button class="btn-primary" (click)="selecionarClientePorId(c)" >Editar</button></td>
+        <td>{{c.nome}}</td>
+        <td>{{c.cpf}}</td>
+        <td>{{c.email}}</td>
+        <td><button class="btn-primary" (click)="selecionarClientePorId(c.idCliente)" >Editar</button></td>
       </tr>
     </tbody>
   </table>

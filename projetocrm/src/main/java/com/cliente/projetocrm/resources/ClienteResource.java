@@ -1,5 +1,6 @@
 package com.cliente.projetocrm.resources;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,11 +44,21 @@ public class ClienteResource {
 		return Response.ok(clienteDao.listarTodos()).build();
 	}
 	
+	@GET
+	@Path("{cliente}")
+    @Produces(MediaType.APPLICATION_JSON)
+	public Response listarPorNome(@PathParam("cliente") String cliente) {
+		ArrayList<Cliente> clientes = clienteDao.listarPorFiltro(cliente);
+		
+		return Response.ok(clientes).build();
+	}
+	
+
 	@PUT
-	@Path("{IDCLIENTE}")
+	@Path("{idCliente}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response atualizarCliente(@PathParam("IDCLIENTE") int id, Cliente cliente) {
+	public Response atualizarCliente(@PathParam("idCliente") int id, Cliente cliente) {
 		Cliente atualizarCliente = clienteDao.encontrarPorId(id);
 		
 		System.out.println(cliente.toString());
