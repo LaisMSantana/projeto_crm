@@ -1,0 +1,43 @@
+<div class="container-fluid">
+  <h1>Formulário Produto</h1>
+  <div class="alert alert-danger" *ngIf="errorMsg">
+    {{errorMsg}}
+  </div>
+  <div class="alert alert-success" *ngIf="succsessMsg && !hideSuccessMessage">
+    <strong [ngClass] ="FadeOutSuccessMsg()"> Produto salvo com sucesso! </strong>
+  </div>
+  <form #userForm="ngForm" (ngSubmit)="onSubmit(produtoModel)"  novalidate >
+
+    <div class="form-group">
+      <label>Nome</label>
+      <input type="text" required #nome="ngModel" [class.is-invalid]="nome.invalid && nome.touched" class="form-control" name="nome" [(ngModel)]="produtoModel.NOME">
+      <small class="text-danger"[class.d-none]="nome.valid || nome.untouched" >Nome é obrigatório</small>
+    </div>
+
+    <div class="form-group">
+      <label>Código</label>
+      <input type="codigo" required #codigo="ngModel" [class.is-invalid]="codigo.invalid && codigo.touched" class="form-control" name="codigo" [(ngModel)]="produtoModel.CODIGO">
+      <small class="text-danger"[class.d-none]="codigo.valid || codigo.untouched" >Código é obrigatório</small>
+    </div>
+
+    <div class="form-group">
+      <label>Marca</label>
+      <input type="marca" required #marca="ngModel" [class.is-invalid]="marca.invalid && marca.touched" class="form-control" name="marca"
+      [(ngModel)]="produtoModel.MARCA">
+      <small class="text-danger"[class.d-none]="marca.valid || marca.untouched">Marca é obrigatória</small>
+    </div>
+
+    <div class="form-group">
+      <label>Tipo</label>
+      <input type="tipo" required #tipo="ngModel" [class.is-invalid]="tipo.invalid && tipo.touched" class="form-control" name="senha"
+      [(ngModel)]="produtoModel.TIPO">
+      <small class="text-danger"[class.d-none]="tipo.valid || tipo.untouched" >Tipo é obrigatório</small>
+    </div>
+
+    <button [disabled]="userForm.form.invalid" class="btn btn-primary" type="submit">Salvar</button>
+    <button class="btn btn-primary" type="reset">Limpar Formulário</button>
+
+  </form>
+
+</div>
+

@@ -1,7 +1,12 @@
 com/cliente/projetocrm/util/ClienteMapper.class
 com/cliente/projetocrm/providers/ClienteMessageBodyReader.class
-com/cliente/projetocrm/model/vo/Cliente.class
 com/cliente/projetocrm/model/dao/Banco.class
-com/cliente/projetocrm/model/dao/ClienteDao.class
-com/cliente/projetocrm/ProjetocrmRestApplication.class
+com/cliente/projetocrm/providers/ProdutoMessageBodyReader.class
 com/cliente/projetocrm/resources/ClienteResource.class
+com/cliente/projetocrm/util/ProdutoMapper.class
+com/cliente/projetocrm/model/dao/ProdutoDao.class
+com/cliente/projetocrm/model/vo/Cliente.class
+com/cliente/projetocrm/model/vo/Produto.class
+com/cliente/projetocrm/model/dao/ClienteDao.class
+com/cliente/projetocrm/resources/ProdutoResource.class
+com/cliente/projetocrm/ProjetocrmRestApplication.class

@@ -1,0 +1,21 @@
+<div>
+  <br>
+  <h2>Tabela Clientes</h2>
+    <input class="form-control" id="myInput" type="text" (keyup)="applyFilter($event.target.value)" placeholder="Pesquise..">
+    <br>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th *ngFor="let head of headElements" scope="col">{{head}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of clientes">
+        <td>{{c.nome}}</td>
+        <td>{{c.cpf}}</td>
+        <td>{{c.email}}</td>
+        <td><button class="btn-primary" (click)="selecionarClientePorId(c.idCliente)" >Editar</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

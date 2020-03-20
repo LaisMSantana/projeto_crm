@@ -14,16 +14,18 @@ public class ClienteDao {
 	public int salvarCliente(Cliente cliente) {
 		int novoId = 0;
 
-		String sql = " INSERT INTO CLIENTE (NOME," + "CPF," + "EMAIL," + "SENHA) VALUES (?,?,?,?) ";
-
+		String sql = " INSERT INTO CLIENTE (NOME, CPF, EMAIL, DATA_NASCIMENTO) VALUES (?,?,?,?) ";
+		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
 
 		try {
+			
+			
 			prepStmt.setString(1, cliente.getNome());
 			prepStmt.setString(2, cliente.getCpf());
 			prepStmt.setString(3, cliente.getEmail());
-			prepStmt.setString(4, cliente.getSenha());
+			prepStmt.setString(4,cliente.getDataDeNascimento());
 			prepStmt.execute();
 
 			ResultSet generatedKeys = prepStmt.getGeneratedKeys();
@@ -57,7 +59,7 @@ public class ClienteDao {
 				cliente.setNome(rs.getString(2));
 				cliente.setCpf(rs.getString(3));
 				cliente.setEmail(rs.getString(4));
-				cliente.setSenha(rs.getString(5));
+				cliente.setDataDeNascimento(rs.getString(5));
 				clientes.add(cliente);
 			}
 		} catch (SQLException e) {
@@ -88,7 +90,7 @@ public class ClienteDao {
 				cliente.setNome(rs.getString(2));
 				cliente.setCpf(rs.getString(3));
 				cliente.setEmail(rs.getString(4));
-				cliente.setSenha(rs.getString(5));
+				cliente.setDataDeNascimento(rs.getString(5));
 				clientes.add(cliente);
 			}
 		} catch (SQLException e) {
@@ -104,7 +106,7 @@ public class ClienteDao {
 	public boolean atualizar(Cliente cliente) {
 		boolean sucessoUpdate = false;
 
-		String sql = " UPDATE CLIENTE SET NOME = ? , CPF = ? , EMAIL = ? , SENHA = ? WHERE IDCLIENTE = "
+		String sql = " UPDATE CLIENTE SET NOME = ? , CPF = ? , EMAIL = ? , DATA_NASCIMENTO = ? WHERE IDCLIENTE = "
 				+ cliente.getIdCliente();
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
@@ -113,7 +115,7 @@ public class ClienteDao {
 			prepStmt.setString(1, cliente.getNome());
 			prepStmt.setString(2, cliente.getCpf());
 			prepStmt.setString(3, cliente.getEmail());
-			prepStmt.setString(4, cliente.getSenha());
+			prepStmt.setString(4,cliente.getDataDeNascimento());
 
 			int codigoRetorno = prepStmt.executeUpdate(sql);
 
@@ -146,7 +148,7 @@ public class ClienteDao {
 				cliente.setNome(rs.getString(2));
 				cliente.setCpf(rs.getString(3));
 				cliente.setEmail(rs.getString(4));
-				cliente.setSenha(rs.getString(5));
+				cliente.setDataDeNascimento(rs.getString(5));
 			}
 		} catch (SQLException e) {
 			System.out.println(

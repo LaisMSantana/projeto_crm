@@ -4,6 +4,6 @@ export class Cliente {
     public NOME: string,
     public CPF: string,
     public EMAIL: string,
-    public SENHA: string
+    public DATA_NASCIMENTO: string
   ) {}
 }

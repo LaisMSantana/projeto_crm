@@ -47,7 +47,7 @@ public class ClienteResource {
 	@GET
 	@Path("{cliente}")
     @Produces(MediaType.APPLICATION_JSON)
-	public Response listarPorNome(@PathParam("cliente") String cliente) {
+	public Response listarPorFiltro(@PathParam("cliente") String cliente) {
 		ArrayList<Cliente> clientes = clienteDao.listarPorFiltro(cliente);
 		
 		return Response.ok(clientes).build();
@@ -67,7 +67,7 @@ public class ClienteResource {
 		atualizarCliente.setNome(cliente.getNome());
 		atualizarCliente.setCpf(cliente.getCpf());
 		atualizarCliente.setEmail(cliente.getEmail());
-		atualizarCliente.setSenha(cliente.getSenha());
+		atualizarCliente.setDataDeNascimento(cliente.getDataDeNascimento());
 		
 		clienteDao.atualizar(atualizarCliente);
 		

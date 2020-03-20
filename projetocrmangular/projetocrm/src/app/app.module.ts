@@ -11,12 +11,18 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { HomeComponent } from './home/home.component';
 import { EditarComponent } from './editar/editar.component';
+import { ClienteComponent } from './cliente/cliente.component';
+import { ProdutoComponent } from './produto/produto.component';
+import { ListagemClientesComponent } from './listagem-clientes/listagem-clientes.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    EditarComponent
+    EditarComponent,
+    ClienteComponent,
+    ProdutoComponent,
+    ListagemClientesComponent
   ],
   imports: [
     BrowserModule,

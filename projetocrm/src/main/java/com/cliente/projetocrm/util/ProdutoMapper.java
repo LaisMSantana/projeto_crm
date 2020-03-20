@@ -4,20 +4,20 @@ import java.io.InputStream;
 
 import javax.json.*;
 
-import com.cliente.projetocrm.model.vo.Cliente;
+import com.cliente.projetocrm.model.vo.Produto;
 
-public class ClienteMapper {
+public class ProdutoMapper {
 
-	public static Cliente map(InputStream is) {
+	public static Produto map(InputStream is) {
 		try (JsonReader jsonReader = Json.createReader(is)) {
 			JsonObject jsonObject = jsonReader.readObject();
-			Cliente cliente = new Cliente();
-			cliente.setNome(getStringFromJson("NOME", jsonObject));
-			cliente.setCpf(getStringFromJson("CPF", jsonObject));
-			cliente.setEmail(getStringFromJson("EMAIL", jsonObject));
-			cliente.setDataDeNascimento(getStringFromJson("DATA_NASCIMENTO", jsonObject));
+			Produto produto = new Produto();
+			produto.setNome(getStringFromJson("NOME", jsonObject));
+			produto.setCodigo(getStringFromJson("CODIGO", jsonObject));
+			produto.setMarca(getStringFromJson("MARCA", jsonObject));
+			produto.setTipo(getStringFromJson("TIPO", jsonObject));
 			
-			return cliente;
+			return produto;
 		}
 	}
 	

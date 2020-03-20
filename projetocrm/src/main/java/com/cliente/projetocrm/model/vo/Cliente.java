@@ -1,70 +1,72 @@
 package com.cliente.projetocrm.model.vo;
 
+import java.util.Date;
+
 public class Cliente {
 
-	private int IDCLIENTE;
-	private String NOME;
-	private String CPF;
-	private String EMAIL;
-	private String SENHA;
+	private int idCliente;
+	private String nome;
+	private String cpf;
+	private String email;
+	private String dataDeNascimento;
 
 	public Cliente() {
 		super();
 	}
 
-	public Cliente(int IDCLIENTE, String NOME, String CPF, String EMAIL, String SENHA) {
+	public Cliente(int idCliente, String nome, String cpf, String email, String dataDeNascimento) {
 		super();
-		this.IDCLIENTE = IDCLIENTE;
-		this.NOME = NOME;
-		this.CPF = CPF;
-		this.EMAIL = EMAIL;
-		this.SENHA = SENHA;
+		this.idCliente = idCliente;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.email = email;
+		this.dataDeNascimento = dataDeNascimento;
 	}
 
 	public int getIdCliente() {
-		return IDCLIENTE;
+		return idCliente;
 	}
 
-	public void setIdCliente(int IDLCIENTE) {
-		this.IDCLIENTE = IDLCIENTE;
+	public void setIdCliente(int idCliente) {
+		this.idCliente = idCliente;
 	}
 
 	public String getNome() {
-		return NOME;
+		return nome;
 	}
 
-	public void setNome(String NOME) {
-		this.NOME = NOME;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getCpf() {
-		return CPF;
+		return cpf;
 	}
 
-	public void setCpf(String CPF) {
-		this.CPF = CPF;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public String getEmail() {
-		return EMAIL;
+		return email;
 	}
 
-	public void setEmail(String EMAIL) {
-		this.EMAIL = EMAIL;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getSenha() {
-		return SENHA;
+	public String getDataDeNascimento() {
+		return dataDeNascimento;
 	}
 
-	public void setSenha(String SENHA) {
-		this.SENHA = SENHA;
+	public void setDataDeNascimento(String dataDeNascimento) {
+		this.dataDeNascimento = dataDeNascimento;
 	}
 
 	@Override
 	public String toString() {
-		return "Cliente [idCliente=" + IDCLIENTE + ", nome=" + NOME + ", cpf=" + CPF + ", email=" + EMAIL + ", senha="
-				+ SENHA + "]";
+		return "Cliente [idCliente=" + idCliente + ", nome=" + nome + ", cpf=" + cpf + ", email=" + email
+				+ ", dataDeNascimento=" + dataDeNascimento + "]";
 	}
 
 }
