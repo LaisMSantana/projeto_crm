@@ -104,7 +104,7 @@ public class ProdutoDao {
 	public boolean atualizar (Produto produto) {
 		boolean sucessoUpdate = false;
 
-		String sql = " UPDATE Produto SET NOME = ? , CODIGO = ? , MARCA = ? , TIPO = ? WHERE IDPRODUTO = "
+		String sql = " UPDATE PRODUTO SET NOME = ? , CODIGO = ? , MARCA = ? , TIPO = ? WHERE IDPRODUTO = "
 				+ produto.getIdProduto();
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
@@ -138,7 +138,7 @@ public class ProdutoDao {
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet rs = null;
 
-		String query = "SELECT * FROM CLIENTE WHERE IDCLIENTE = " + id;
+		String query = "SELECT * FROM PRODUTO WHERE IDPRODUTO = " + id;
 		try {
 			rs = stmt.executeQuery(query);
 			if (rs.next()) {
