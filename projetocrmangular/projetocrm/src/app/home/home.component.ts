@@ -33,8 +33,7 @@ selecionarClientePorId(id){
 }
 
 applyFilter(filterValue: string){
-  this.url += '/' + filterValue.trim().toLocaleLowerCase();
-  return this.http.get(this.url).subscribe((data) =>{
+  return this.http.get(this.url + '/' +filterValue.trim().toLocaleLowerCase()).subscribe((data) =>{
     this.clientes = data;
   });
 }
