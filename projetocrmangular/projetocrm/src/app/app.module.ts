@@ -14,6 +14,7 @@ import { EditarComponent } from './editar/editar.component';
 import { ClienteComponent } from './cliente/cliente.component';
 import { ProdutoComponent } from './produto/produto.component';
 import { ListagemClientesComponent } from './listagem-clientes/listagem-clientes.component';
+import { VendaComponent } from './venda/venda.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ListagemClientesComponent } from './listagem-clientes/listagem-clientes
     EditarComponent,
     ClienteComponent,
     ProdutoComponent,
-    ListagemClientesComponent
+    ListagemClientesComponent,
+    VendaComponent
   ],
   imports: [
     BrowserModule,

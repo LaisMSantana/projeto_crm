@@ -5,13 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.cliente.projetocrm.model.vo.Cliente;
 
 public class ClienteDao {
 
-	public int salvarCliente(Cliente cliente) {
+	public int salvarCliente(Cliente cliente) throws Exception {
 		int novoId = 0;
 
 		String sql = " INSERT INTO CLIENTE (NOME, CPF, EMAIL, DATA_NASCIMENTO) VALUES (?,?,?,?) ";
@@ -20,12 +22,12 @@ public class ClienteDao {
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
 
 		try {
-			
+			Date data = new SimpleDateFormat("yyyy-MM-dd").parse(cliente.getDataDeNascimento());
 			
 			prepStmt.setString(1, cliente.getNome());
 			prepStmt.setString(2, cliente.getCpf());
 			prepStmt.setString(3, cliente.getEmail());
-			prepStmt.setString(4,cliente.getDataDeNascimento());
+			prepStmt.setDate(4, new java.sql.Date(data.getTime()));
 			prepStmt.execute();
 
 			ResultSet generatedKeys = prepStmt.getGeneratedKeys();
@@ -103,7 +105,7 @@ public class ClienteDao {
 		return clientes;
 	}
 
-	public boolean atualizar(Cliente cliente) {
+	public boolean atualizar(Cliente cliente) throws Exception {
 		boolean sucessoUpdate = false;
 
 		String sql = " UPDATE CLIENTE SET NOME = ? , CPF = ? , EMAIL = ? , DATA_NASCIMENTO = ? WHERE IDCLIENTE = "
@@ -112,10 +114,12 @@ public class ClienteDao {
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
 
 		try {
+			Date data = new SimpleDateFormat("yyyy-MM-dd").parse(cliente.getDataDeNascimento());
+			
 			prepStmt.setString(1, cliente.getNome());
 			prepStmt.setString(2, cliente.getCpf());
 			prepStmt.setString(3, cliente.getEmail());
-			prepStmt.setString(4,cliente.getDataDeNascimento());
+			prepStmt.setDate(4, new java.sql.Date(data.getTime()));
 
 			int codigoRetorno = prepStmt.executeUpdate(sql);
 

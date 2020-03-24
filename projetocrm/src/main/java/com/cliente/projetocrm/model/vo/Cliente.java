@@ -1,7 +1,5 @@
 package com.cliente.projetocrm.model.vo;
 
-import java.util.Date;
-
 public class Cliente {
 
 	private int idCliente;

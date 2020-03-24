@@ -1,0 +1,59 @@
+<div class="container-fluid">
+  <h1>Nova Venda</h1>
+  <form #userForm="ngForm" (ngSubmit)="onSubmit(vendaModel)"  novalidate >
+    <div class="row">
+
+      <div class="form-group">
+        <label>Cliente</label>
+        <select name="IdCliente" #IdCliente="ngModel" [(ngModel)]="vendaModel.IDCLIENTE" class="form-control">
+          <option value="0">- Select</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Pagamento</label>
+        <input type="text" name="FormaDePagamento" #FormaDePagamento="ngModel" [(ngModel)]="vendaModel.FORMADEPAGAMENTO" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Valor Total</label>
+        <input type="text" name="ValorTotal" #ValorTotal="ngModel" [(ngModel)]="vendaModel.VALOR" class="form-control">
+      </div>
+    </div>
+
+  <table class="table table-borderless">
+    <thead class="thead-light">
+      <th>Produto</th>
+      <th>Codigo</th>
+      <th>Marca</th>
+      <th>Tipo</th>
+      <th>Quantidade</th>
+      <th>
+        <a class="btn btn-sm btn-success text" (click)="AddouEditarItem(null, vendaModel.IDVENDA)">Add Produto</a>
+      </th>
+    </thead>
+    <tbody>
+      <tr *ngIf="itemProduto.lenght==0">
+        <td class="font-italic text-center" colspan="5">
+          Nenhum produto Selecionado.
+        </td>
+      </tr>
+        <tr *ngFor="let p of itemProduto; let i=index;">
+          <td>{{itemProduto.NOME}}</td>
+          <td>{{itemProduto.CODIGO}}</td>
+          <td>{{itemProduto.MARCA}}</td>
+          <td>{{itemProduto.TIPO}}</td>
+          <td>{{itemProduto.QUANTIDADE}}</td>
+          <td>
+            <a class="btn btn-sm btn-success text" (click)="AddouEditarItem(i, vendaModel.IDVENDA)">Editar</a>
+          </td>>
+        </tr>
+    </tbody>
+  </table>
+
+    <button [disabled]="userForm.form.invalid" class="m-1 btn btn-light btn-outline-primary" Buttonlable="DepScreen" type="submit">Salvar</button>
+    <button class="m-1 btn btn-light btn-outline-primary" Buttonlable="DepScreen" type="reset">Limpar Formulário</button>
+  </form>
+
+
+</div>

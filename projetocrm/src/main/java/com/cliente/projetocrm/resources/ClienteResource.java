@@ -30,7 +30,7 @@ public class ClienteResource {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response salvarCliente(Cliente cliente) {
+	public Response salvarCliente(Cliente cliente) throws Exception {
 		System.out.println(cliente.toString());
 		int clienteId = clienteDao.salvarCliente(cliente);
 		Map<String, Integer> stringMessage = new HashMap<String, Integer>();
@@ -58,7 +58,7 @@ public class ClienteResource {
 	@Path("{idCliente}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response atualizarCliente(@PathParam("idCliente") int id, Cliente cliente) {
+	public Response atualizarCliente(@PathParam("idCliente") int id, Cliente cliente) throws Exception {
 		Cliente atualizarCliente = clienteDao.encontrarPorId(id);
 		
 		System.out.println(cliente.toString());
