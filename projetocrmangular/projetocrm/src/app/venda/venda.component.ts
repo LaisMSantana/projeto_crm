@@ -4,6 +4,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ItemProdutoComponent } from '../item-produto/item-produto.component';
+import { ItemProduto } from '../item-produto';
 
 @Component({
   selector: 'app-venda',
@@ -11,6 +14,7 @@ import { throwError } from 'rxjs';
   styleUrls: ['./venda.component.css']
 })
 export class VendaComponent implements OnInit {
+
 
   vendaModel = new VendaModel(null, "", "", 0);
   itemProduto : any = [];
@@ -21,7 +25,8 @@ export class VendaComponent implements OnInit {
 
   url = 'http://localhost:8080/api/vendas';
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient, private dialog:MatDialog){}
+
 
   onSubmit(venda){
     this.submitted = true;
@@ -33,7 +38,12 @@ export class VendaComponent implements OnInit {
     this.hideSuccessMessage = false;
   }
   AddouEditarItem(itemProdutoIndex, idVenda){
-
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.autoFocus = true;
+    dialogConfig.disableClose = true;
+    dialogConfig.width="50%";
+    dialogConfig.data = {itemProdutoIndex, idVenda};
+    this.dialog.open(ItemProdutoComponent, dialogConfig);
   }
 
   errorHandler(error: HttpErrorResponse){
@@ -47,6 +57,10 @@ export class VendaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  onDeleteItem(IdItemProduto: number, i: number){
+    this.itemProduto.splice(i,1);
   }
 
 }

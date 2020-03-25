@@ -6,6 +6,7 @@ import { throwError } from 'rxjs';
 import { error } from 'protractor';
 import { map } from 'rxjs/operators';
 import { Cliente } from '../cliente';
+import { ListagemClientesComponent } from '../listagem-clientes/listagem-clientes.component';
 
 @Component({
   selector: 'app-cliente',
@@ -32,18 +33,8 @@ export class ClienteComponent implements OnInit {
       error => this.errorMsg = error.statusText
     );
 
-    // const fd = new FormData();
-    // fd.append('image', this.selectedFile, this.selectedFile.name);
-    // this.http.post(this.url, fd).subscribe( res => console.log(res));
-
     this.hideSuccessMessage = false;
-
-
   }
-
-  // onFileSelected(event){
-  //   this.selectedFile = <File> event.target.files[0];
-  // }
 
   errorHandler(error: HttpErrorResponse){
     return throwError(error);

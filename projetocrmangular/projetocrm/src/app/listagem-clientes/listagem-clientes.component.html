@@ -10,11 +10,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let c of clientes">
+      <tr *ngFor="let c of clientes; let i=index;">
         <td>{{c.nome}}</td>
         <td>{{c.cpf}}</td>
         <td>{{c.email}}</td>
-        <td><button class="btn-primary" (click)="selecionarClientePorId(c.idCliente)" routerLink="cliente" >Editar</button></td>
+        <td><button class="btn-primary" (click)="editarItem(c.idCliente)" routerLink="cliente" >Editar</button></td>
       </tr>
     </tbody>
   </table>

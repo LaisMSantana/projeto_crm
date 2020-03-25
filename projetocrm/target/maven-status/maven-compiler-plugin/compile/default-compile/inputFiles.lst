@@ -1,4 +1,3 @@
-/home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/util/VendaMapper.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/util/ProdutoMapper.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/providers/ProdutoMessageBodyReader.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/model/vo/Cliente.java
@@ -14,5 +13,4 @@
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/model/vo/Produto.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/resources/ClienteResource.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/model/dao/ProdutoDao.java
-/home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/providers/VendaMessageBodyReader.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/resources/ProdutoResource.java

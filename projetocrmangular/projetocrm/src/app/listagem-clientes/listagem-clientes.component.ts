@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ClienteComponent } from '../cliente/cliente.component';
 
 @Component({
   selector: 'app-listagem-clientes',
@@ -13,7 +14,7 @@ export class ListagemClientesComponent implements OnInit {
 
   url = 'http://localhost:8080/api/clientes';
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient,){}
 
 
   ngOnInit(){
@@ -23,12 +24,8 @@ export class ListagemClientesComponent implements OnInit {
     });
 }
 
+editarItem(id){
 
-selecionarClientePorId(id){
-  return this.http.put(this.url, id).subscribe((data) =>{
-    console.log(data);
-    this.clientes = data;
-  });
 }
 
 applyFilter(filterValue: string){
