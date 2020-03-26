@@ -10,7 +10,7 @@
 
     <div class="form-group">
       <label>Nome</label>
-      <input type="text" required #nome="ngModel" [class.is-invalid]="nome.invalid && nome.touched" class="form-control" name="nome" [(ngModel)]="produtoModel.NOME">
+      <input type="text" required #nome="ngModel" [class.is-invalid]="nome.invalid && nome.touched" class="form-control" name="nome" [(ngModel)]="produtoModel.nome">
       <small class="text-danger"[class.d-none]="nome.valid || nome.untouched" >Nome é obrigatório</small>
     </div>
 

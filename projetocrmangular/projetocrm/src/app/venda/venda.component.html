@@ -6,14 +6,15 @@
       <div class="form-group">
         <label>Cliente</label>
         <select name="IDCLIENTE" #IDCLIENTE="ngModel" [(ngModel)]="service.formData.IDCLIENTE" class="form-control">
-          <option value="0">- Select</option>
+          <option value="0">Select</option>
+          <option *ngFor="let item of listaClientes" value="{{item.idCliente}}">{{item.nome}}</option>
         </select>
       </div>
 
       <div class="form-group">
         <label>Pagamento</label>
         <select name="FORMADEPAGAMENTO" #FORMADEPAGAMENTO="ngModel" [(ngModel)]="service.formData.FORMADEPAGAMENTO" class="form-control">
-          <option value="0">- Select</option>
+          <option value="0">Select</option>
           <option value="Dinheiro">Dinheiro</option>
           <option value="Debito">Débito</option>
           <option value="Credito">Crédito</option>

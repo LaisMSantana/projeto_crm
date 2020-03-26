@@ -7,8 +7,8 @@ import { ItemProduto } from '../item-produto';
   providedIn: 'root'
 })
 export class VendaService {
-  formData: VendaModel;
-  itensProduto: ItemProduto[];
+  formData: VendaModel = new VendaModel();
+  itensProduto: ItemProduto[] = new Array<ItemProduto>();
 
   url = 'http://localhost:8080/api/vendas';
 

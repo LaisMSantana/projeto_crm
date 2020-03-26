@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { ProdutoModel } from '../produto-model';
 import { NgForm } from '@angular/forms';
 import { VendaService } from '../service/venda.service';
+import { ProdutoService } from '../service/produto.service';
 
 @Component({
   selector: 'app-item-produto',
@@ -12,8 +13,8 @@ import { VendaService } from '../service/venda.service';
   styleUrls: ['./item-produto.component.css']
 })
 export class ItemProdutoComponent implements OnInit {
-  formData:ItemProduto;
-  listaProdutos: ProdutoModel[];
+  formData:ItemProduto = new ItemProduto();
+  listaProdutos: ProdutoModel[]= new Array<ProdutoModel>();
   isValid: boolean = true;
 
   url = 'http://localhost:8080/api/produtos';
@@ -21,10 +22,11 @@ export class ItemProdutoComponent implements OnInit {
   constructor(private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef:MatDialogRef<ItemProdutoComponent>,
-    private vendaService:VendaService) { }
+    private vendaService:VendaService,
+    private produtoService: ProdutoService) { }
 
   ngOnInit(){
-    this.getProdutos().then(res => this.listaProdutos = res as ProdutoModel[]);
+    this.produtoService.getProdutos().then(res => this.listaProdutos = res as Array<ProdutoModel>);
     if(this.data.itemProdutoIndex==null)
     this.formData ={
       IDITEMPRODUTO: null,
@@ -45,7 +47,7 @@ export class ItemProdutoComponent implements OnInit {
     if(ctrl.selectedIndex == 0) {
       this.formData.ITEMNOME = '';
     }else{
-      this.formData.ITEMNOME = this.listaProdutos[ctrl.selectedIndex-1].NOME;
+      this.formData.ITEMNOME = this.listaProdutos[ctrl.selectedIndex-1].nome;
     }
   }
 

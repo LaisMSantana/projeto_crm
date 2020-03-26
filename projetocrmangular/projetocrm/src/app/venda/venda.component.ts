@@ -6,6 +6,7 @@ import { VendaService } from '../service/venda.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Cliente } from '../cliente';
+import { ClienteService } from '../service/cliente.service';
 
 @Component({
   selector: 'app-venda',
@@ -13,10 +14,12 @@ import { Cliente } from '../cliente';
   styleUrls: ['./venda.component.css']
 })
 export class VendaComponent implements OnInit {
+  listaClientes: Cliente[] = new Array<Cliente>();
 
   constructor(private dialog:MatDialog,
     public service: VendaService,
-    private router: Router){}
+    private router: Router,
+    private clienteService: ClienteService){}
 
     resetForm(userForm?: NgForm){
         userForm.resetForm();
@@ -27,7 +30,6 @@ export class VendaComponent implements OnInit {
           VALOR: 0
         };
         this.service.itensProduto= [];
-
     }
 
   AddouEditarItem(itemProdutoIndex, idVenda){
@@ -41,6 +43,7 @@ export class VendaComponent implements OnInit {
 
   ngOnInit() {
     this.resetForm();
+    this.clienteService.getListaClientes().then(res => this.listaClientes = res as Array<Cliente>);
   }
 
   onDeleteItem(IdItemProduto: number, i: number){

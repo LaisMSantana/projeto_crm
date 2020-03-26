@@ -1,4 +1,4 @@
-<h4 class="display-4">Item Produto Venda</h4>
+<h4 class="display-4">Produto</h4>
 <hr>
 <form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
   <input type="hidden" name="IDITEMPRODUTO" #IDITEMPRODUTO="ngModel" [(ngModel)]="formData.IDITEMPRODUTO">
@@ -6,18 +6,14 @@
   <input type="hidden" name="ITEMNOME" #ITEMNOME="ngModel" [(ngModel)]="formData.ITEMNOME">
   <div class="form-group">
     <label>Produto</label>
-    <select name="IdItem" #IdItem="ngModel" [(ngModel)]="formData.IDITEMPRODUTO" class="form-control" (change)="atualizarNomeItem($event.target)"
-    [class.is-invalid]="isValid && formData.IDITEMPRODUTO==0">
+    <select name="IDITEMPRODUTO" #IDITEMPRODUTO="ngModel" [(ngModel)]="formData.IDPRODUTO" class="form-control" (change)="atualizarNomeItem($event.target)">
       <option value="0">- Select</option>
-      <option *ngFor="let produto of listaProdutos" value="{{produto.IDPRODUTO}}">{{produto.NOME}}</option>
+      <option *ngFor="let produto of listaProdutos" value="{{produto.idProduto}}">{{produto.nome}}</option>
       </select>
   </div>
   <div class="form-group">
     <label>Quantidade</label>
-    <select name="Quantidade" #Quantidade="ngModel" [(ngModel)]="formData.QUANTIDADE" class="form-control"
-    [class.is-invalid]="isValid && formData.QUANTIDADE==0">
-      <option value="0">- Select</option>
-      </select>
+      <input type="text" name="QUANTIDADE" #QUANTIDADE="ngModel" [(ngModel)]="formData.QUANTIDADE" class="form-control">
   </div>
   <div class="form-group">
     <button  class="m-1 btn btn-light btn-outline-primary" type="submit">Adicionar</button>
