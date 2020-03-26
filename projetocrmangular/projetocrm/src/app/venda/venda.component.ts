@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { VendaModel } from '../venda-model';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ItemProdutoComponent } from '../item-produto/item-produto.component';
-import { ItemProduto } from '../item-produto';
+import { VendaService } from '../service/venda.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
+import { Cliente } from '../cliente';
 
 @Component({
   selector: 'app-venda',
@@ -15,28 +14,22 @@ import { ItemProduto } from '../item-produto';
 })
 export class VendaComponent implements OnInit {
 
+  constructor(private dialog:MatDialog,
+    public service: VendaService,
+    private router: Router){}
 
-  vendaModel = new VendaModel(null, "", "", 0);
-  itemProduto : any = [];
-  submitted = false;
-  errorMsg = '';
-  succsessMsg = ''
-  hideSuccessMessage = false;
+    resetForm(userForm?: NgForm){
+        userForm.resetForm();
+        this.service.formData = {
+          IDVENDA: null,
+          IDCLIENTE: 0,
+          FORMADEPAGAMENTO: '',
+          VALOR: 0
+        };
+        this.service.itensProduto= [];
 
-  url = 'http://localhost:8080/api/vendas';
+    }
 
-  constructor(private http: HttpClient, private dialog:MatDialog){}
-
-
-  onSubmit(venda){
-    this.submitted = true;
-    this.http.post<any>(this.url,venda).pipe(catchError(this.errorHandler)).subscribe(
-      data => this.succsessMsg = "Produto salvo com sucesso!",
-      error => this.errorMsg = error.statusText
-    );
-
-    this.hideSuccessMessage = false;
-  }
   AddouEditarItem(itemProdutoIndex, idVenda){
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
@@ -46,21 +39,12 @@ export class VendaComponent implements OnInit {
     this.dialog.open(ItemProdutoComponent, dialogConfig);
   }
 
-  errorHandler(error: HttpErrorResponse){
-    return throwError(error);
-  }
-
-  FadeOutSuccessMsg() {
-     setTimeout( () => {
-           this.hideSuccessMessage = true;
-        }, 3000);
-  }
-
-  ngOnInit(): void {
+  ngOnInit() {
+    this.resetForm();
   }
 
   onDeleteItem(IdItemProduto: number, i: number){
-    this.itemProduto.splice(i,1);
+    this.service.itensProduto.splice(i,1);
   }
 
 }

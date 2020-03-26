@@ -4,7 +4,7 @@ import { ItemProduto } from '../item-produto';
 import { HttpClient } from '@angular/common/http';
 import { ProdutoModel } from '../produto-model';
 import { NgForm } from '@angular/forms';
-import { VendaComponent } from '../venda/venda.component';
+import { VendaService } from '../service/venda.service';
 
 @Component({
   selector: 'app-item-produto',
@@ -21,8 +21,7 @@ export class ItemProdutoComponent implements OnInit {
   constructor(private http: HttpClient,
     @Inject(MAT_DIALOG_DATA) public data,
     public dialogRef:MatDialogRef<ItemProdutoComponent>,
-    private vendaComponent:VendaComponent) { }
-   // private vendaComponent:VendaComponent
+    private vendaService:VendaService) { }
 
   ngOnInit(){
     this.getProdutos().then(res => this.listaProdutos = res as ProdutoModel[]);
@@ -35,9 +34,9 @@ export class ItemProdutoComponent implements OnInit {
       ITEMNOME:''
     }
     else
-    this.formData = Object.assign({},this.vendaComponent.itemProduto[this.data.itemProdutoIndex]);
+    this.formData = Object.assign({},this.vendaService.itensProduto[this.data.itemProdutoIndex]);
   }
-  //,this.vendaComponent.itemProduto[this.data.itemProdutoIndex]
+
   getProdutos(){
     return this.http.get(this.url).toPromise();
   }
@@ -52,10 +51,10 @@ export class ItemProdutoComponent implements OnInit {
 
   onSubmit(form:NgForm){
     if(this.validarForm(form.value)){
-      //if(this.data.itemProdutoIndex==null)
-      //this.vendaComponent.itemProduto.push(form.value);
-      //else
-        //this.vendaComponent.itemProduto[this.data.itemProdutoIndex] = form.value;
+      if(this.data.itemProdutoIndex==null)
+      this.vendaService.itensProduto.push(form.value);
+      else
+        this.vendaService.itensProduto[this.data.itemProdutoIndex] = form.value;
       this.dialogRef.close();
     }
   }

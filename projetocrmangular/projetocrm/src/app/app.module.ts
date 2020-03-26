@@ -20,6 +20,7 @@ import { ProdutoComponent } from './produto/produto.component';
 import { ListagemClientesComponent } from './listagem-clientes/listagem-clientes.component';
 import { VendaComponent } from './venda/venda.component';
 import { ItemProdutoComponent } from './item-produto/item-produto.component';
+import { VendaService } from './service/venda.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { ItemProdutoComponent } from './item-produto/item-produto.component';
     ReactiveFormsModule
   ],
   entryComponents: [ItemProdutoComponent],
-  providers: [],
+  providers: [VendaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

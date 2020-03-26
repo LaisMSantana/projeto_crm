@@ -1,54 +1,59 @@
 <div class="container-fluid">
   <h1>Nova Venda</h1>
-  <form #userForm="ngForm" (ngSubmit)="onSubmit(vendaModel)" >
+  <form #userForm="ngForm">
+    <input type="hidden"  name="IDVENDA" #IDVENDA="ngModel" [(ngModel)]="service.formData.IDVENDA">
     <div class="row">
-
       <div class="form-group">
         <label>Cliente</label>
-        <select name="IdCliente" #IdCliente="ngModel" [(ngModel)]="vendaModel.IDCLIENTE" class="form-control">
+        <select name="IDCLIENTE" #IDCLIENTE="ngModel" [(ngModel)]="service.formData.IDCLIENTE" class="form-control">
           <option value="0">- Select</option>
         </select>
       </div>
 
       <div class="form-group">
         <label>Pagamento</label>
-        <input type="text" name="FormaDePagamento" #FormaDePagamento="ngModel" [(ngModel)]="vendaModel.FORMADEPAGAMENTO" class="form-control">
+        <select name="FORMADEPAGAMENTO" #FORMADEPAGAMENTO="ngModel" [(ngModel)]="service.formData.FORMADEPAGAMENTO" class="form-control">
+          <option value="0">- Select</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Debito">Débito</option>
+          <option value="Credito">Crédito</option>
+        </select>
       </div>
 
       <div class="form-group">
         <label>Valor Total</label>
-        <input type="text" name="ValorTotal" #ValorTotal="ngModel" [(ngModel)]="vendaModel.VALOR" class="form-control">
+        <input type="text" name="VALOR" #VALOR="ngModel" [(ngModel)]="service.formData.VALOR" class="form-control">
       </div>
     </div>
 
-  <table class="table table-borderless">
-    <thead class="thead-light">
-      <th>Produto</th>
-      <th>Quantidade</th>
-      <th>
-        <a class="btn btn-sm btn-success text" (click)="AddouEditarItem(null, vendaModel.IDVENDA)">Add Produto</a>
-      </th>
-    </thead>
-    <tbody>
-      <tr *ngIf="itemProduto.lenght==0">
-        <td class="font-italic text-center" colspan="5">
-          Nenhum produto Selecionado.
-        </td>
-      </tr>
-        <tr *ngFor="let p of itemProduto; let i=index;">
-          <td>{{itemProduto.ITEMNOME}}</td>
-          <td>{{itemProduto.QUANTIDADE}}</td>
-          <td>
-            <a class="btn btn-sm btn-info text" (click)="AddouEditarItem(i, vendaModel.IDVENDA)">Editar</a>
-            <a class="btn btn-sm btn-danger text ml-1" (click)="onDeleteItem(itemProduto.IDITEMPRODUTO,i)">Excluir</a>
-          </td>>
+    <table class="table table-borderless">
+      <thead class="thead-light">
+        <th>Produto</th>
+        <th>Quantidade</th>
+        <th>
+          <a class="btn btn-sm btn-success text" (click)="AddouEditarItem(null, service.formData.IDVENDA)">Add Produto</a>
+        </th>
+      </thead>
+      <tbody>
+        <tr *ngIf="service.itensProduto.length==0">
+          <td class="font-italic text-center" colspan="5">
+            Nenhum produto Selecionado.
+          </td>
         </tr>
-    </tbody>
-  </table>
+          <tr *ngFor="let p of service.itensProduto; let i=index;">
+            <td>{{p.ITEMNOME}}</td>
+            <td>{{p.QUANTIDADE}}</td>
+            <td>
+              <a class="btn btn-sm btn-info text" (click)="AddouEditarItem(i, service.formData.IDVENDA)">Editar</a>
+              <a class="btn btn-sm btn-danger text ml-1" (click)="onDeleteItem(p.IDITEMPRODUTO, i)">Excluir</a>
+            </td>>
+          </tr>
+      </tbody>
+    </table>
+
 
     <button [disabled]="userForm.form.invalid" class="m-1 btn btn-light btn-outline-primary" Buttonlable="DepScreen" type="submit">Salvar</button>
     <button class="m-1 btn btn-light btn-outline-primary" Buttonlable="DepScreen" type="reset">Limpar Formulário</button>
   </form>
-
 
 </div>
