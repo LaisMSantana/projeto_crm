@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { VendaModel } from '../venda-model';
-import { ItemProduto } from '../item-produto';
+import { VendaModel } from '../models/venda-model';
+import { ItemProduto } from '../models/item-produto';
 
 @Injectable({
   providedIn: 'root'
@@ -14,4 +14,11 @@ export class VendaService {
 
   constructor(private http: HttpClient) { }
 
+  salvarVenda(){
+    var body ={
+      ...this.formData,
+      produtos : this.itensProduto
+    }
+    return this.http.post(this.url, body);
+  }
 }

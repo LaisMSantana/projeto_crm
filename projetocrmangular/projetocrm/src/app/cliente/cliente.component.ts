@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { error } from 'protractor';
 import { map } from 'rxjs/operators';
-import { Cliente } from '../cliente';
+import { Cliente } from '../models/cliente';
 import { ListagemClientesComponent } from '../listagem-clientes/listagem-clientes.component';
 import { FormGroup } from '@angular/forms';
 

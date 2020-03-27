@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { VendaModel } from '../venda-model';
+import { VendaModel } from '../models/venda-model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ItemProdutoComponent } from '../item-produto/item-produto.component';
 import { VendaService } from '../service/venda.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { Cliente } from '../cliente';
+import { Cliente } from '../models/cliente';
 import { ClienteService } from '../service/cliente.service';
-import { ItemProduto } from '../item-produto';
+import { ItemProduto } from '../models/item-produto';
 
 @Component({
   selector: 'app-venda',
@@ -16,6 +16,7 @@ import { ItemProduto } from '../item-produto';
 })
 export class VendaComponent implements OnInit {
   listaClientes: any = [];
+  isValid: Boolean = true;
 
   constructor(private dialog:MatDialog,
     public service: VendaService,
@@ -37,12 +38,32 @@ export class VendaComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.resetForm();
     this.clienteService.getListaClientes().then(res => this.listaClientes = res as Array<Cliente>);
   }
 
   onDeleteItem(IdItemProduto: number, i: number){
     this.service.itensProduto.splice(i,1);
+  }
+
+  validateForm(){
+    this.isValid = true;
+    if(this.service.formData.idCliente==0){
+      this.isValid = false;
+    }else if(this.service.itensProduto.length==0){
+        this.isValid = false;
+      }
+      return this.isValid;
+  }
+
+
+  onSubmit(form: NgForm){
+    if(this.validateForm()){
+      this.service.salvarVenda().subscribe(res => {
+        this.resetForm();
+      });
+
+    }
+
   }
 
 }

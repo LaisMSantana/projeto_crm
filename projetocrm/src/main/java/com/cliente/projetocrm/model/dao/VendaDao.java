@@ -12,16 +12,15 @@ public class VendaDao {
 	public int cadastrarVenda(Venda venda) {
 		int novoId = 0;
 		
-		String sql = " INSERT INTO VENDA (DATA_VENDA, VALOR, FORMA_DE_PAGAMENTO, IDCLIENTE) VALUES (?,?,?) ";
+		String sql = " INSERT INTO VENDA (DATA_VENDA, VALOR, FORMA_DE_PAGAMENTO, IDCLIENTE) VALUES (CURRENT_DATE,?,?,?) ";
 		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
 		
 		try {
-			prepStmt.setDate(1, new java.sql.Date(venda.getDataVenda().getTime()));
-			prepStmt.setDouble(2, venda.getValor());
-			prepStmt.setString(3, venda.getFormaDePagamento());
-			prepStmt.setInt(4, venda.getCliente().getIdCliente());
+			prepStmt.setDouble(1, venda.getValor());
+			prepStmt.setString(1, venda.getFormaDePagamento());
+			prepStmt.setInt(3, venda.getCliente().getIdCliente());
 			prepStmt.execute();
 
 			ResultSet generatedKeys = prepStmt.getGeneratedKeys();

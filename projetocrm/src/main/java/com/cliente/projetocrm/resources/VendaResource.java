@@ -23,8 +23,8 @@ public class VendaResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response salvarVenda(Venda venda) throws Exception {
 		System.out.println(venda.toString());
-		int vendaId = vendaDao.cadastrarVenda(venda);
-		int itemProdutoId = vendaDao.cadastrarItemProduto(venda);
+		vendaDao.cadastrarVenda(venda);
+		vendaDao.cadastrarItemProduto(venda);
 		
 		return Response.status(Status.CREATED).entity(venda).build();
 	}

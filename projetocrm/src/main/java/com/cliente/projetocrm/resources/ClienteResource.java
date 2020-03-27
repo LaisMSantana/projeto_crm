@@ -34,7 +34,7 @@ public class ClienteResource {
 		System.out.println(cliente.toString());
 		int clienteId = clienteDao.salvarCliente(cliente);
 		Map<String, Integer> stringMessage = new HashMap<String, Integer>();
-		stringMessage.put("IDCLIENTE", clienteId);
+		stringMessage.put("idCliente", clienteId);
 		return Response.status(Status.CREATED).entity(stringMessage).build();
 	}
 
@@ -59,7 +59,6 @@ public class ClienteResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response atualizarCliente(@PathParam("idCliente") int id, Cliente cliente) throws Exception {
 		Cliente atualizarCliente = clienteDao.encontrarPorId(cliente.getIdCliente());
-		System.out.println(cliente.toString());
 		
 		atualizarCliente.setIdCliente(cliente.getIdCliente());
 		atualizarCliente.setNome(cliente.getNome());

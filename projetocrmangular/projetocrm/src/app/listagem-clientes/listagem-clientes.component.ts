@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { ClienteComponent } from '../cliente/cliente.component';
 import { Router } from '@angular/router';
 import { FormArray, FormGroup, FormControl } from '@angular/forms';
-import { Cliente } from '../cliente';
+import { Cliente } from '../models/cliente';
 
 @Component({
   selector: 'app-listagem-clientes',

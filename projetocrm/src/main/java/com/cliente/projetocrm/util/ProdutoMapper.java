@@ -12,10 +12,10 @@ public class ProdutoMapper {
 		try (JsonReader jsonReader = Json.createReader(is)) {
 			JsonObject jsonObject = jsonReader.readObject();
 			Produto produto = new Produto();
-			produto.setNome(getStringFromJson("NOME", jsonObject));
-			produto.setCodigo(getStringFromJson("CODIGO", jsonObject));
-			produto.setMarca(getStringFromJson("MARCA", jsonObject));
-			produto.setTipo(getStringFromJson("TIPO", jsonObject));
+			produto.setNome(getStringFromJson("nome", jsonObject));
+			produto.setCodigo(getStringFromJson("codigo", jsonObject));
+			produto.setMarca(getStringFromJson("marca", jsonObject));
+			produto.setTipo(getStringFromJson("tipo", jsonObject));
 			
 			return produto;
 		}

@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { error } from 'protractor';
 import { map } from 'rxjs/operators';
-import { ProdutoModel } from '../produto-model';
+import { ProdutoModel } from '../models/produto-model';
 
 @Component({
   selector: 'app-produto',

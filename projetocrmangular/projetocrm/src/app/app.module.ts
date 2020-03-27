@@ -14,7 +14,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { HomeComponent } from './home/home.component';
-import { EditarComponent } from './editar/editar.component';
 import { ClienteComponent } from './cliente/cliente.component';
 import { ProdutoComponent } from './produto/produto.component';
 import { ListagemClientesComponent } from './listagem-clientes/listagem-clientes.component';
@@ -26,7 +25,6 @@ import { VendaService } from './service/venda.service';
   declarations: [
     AppComponent,
     HomeComponent,
-    EditarComponent,
     ClienteComponent,
     ProdutoComponent,
     ListagemClientesComponent,

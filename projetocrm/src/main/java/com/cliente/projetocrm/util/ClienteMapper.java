@@ -12,10 +12,10 @@ public class ClienteMapper {
 		try (JsonReader jsonReader = Json.createReader(is)) {
 			JsonObject jsonObject = jsonReader.readObject();
 			Cliente cliente = new Cliente();
-			cliente.setNome(getStringFromJson("NOME", jsonObject));
-			cliente.setCpf(getStringFromJson("CPF", jsonObject));
-			cliente.setEmail(getStringFromJson("EMAIL", jsonObject));
-			cliente.setDataDeNascimento(getStringFromJson("DATA_NASCIMENTO", jsonObject));
+			cliente.setNome(getStringFromJson("nome", jsonObject));
+			cliente.setCpf(getStringFromJson("cpf", jsonObject));
+			cliente.setEmail(getStringFromJson("email", jsonObject));
+			cliente.setDataDeNascimento(getStringFromJson("dataDeNascimento", jsonObject));
 			
 			return cliente;
 		}

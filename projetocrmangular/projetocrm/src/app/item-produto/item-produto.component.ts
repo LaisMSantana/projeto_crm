@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import { ItemProduto } from '../item-produto';
+import { ItemProduto } from '../models/item-produto';
 import { HttpClient } from '@angular/common/http';
-import { ProdutoModel } from '../produto-model';
+import { ProdutoModel } from '../models/produto-model';
 import { NgForm } from '@angular/forms';
 import { VendaService } from '../service/venda.service';
 import { ProdutoService } from '../service/produto.service';
@@ -28,13 +28,7 @@ export class ItemProdutoComponent implements OnInit {
   ngOnInit(){
     this.produtoService.getProdutos().then(res => this.listaProdutos = res as Array<ProdutoModel>);
     if(this.data.itemProdutoIndex==null)
-    this.formData ={
-      idItemProduto: null,
-      idVenda : this.data.idVenda,
-      idProduto:0,
-      quantidade:0,
-      itemNome:''
-    }
+    this.formData = new ItemProduto();
     else
     this.formData = Object.assign({},this.vendaService.itensProduto[this.data.itemProdutoIndex]);
   }

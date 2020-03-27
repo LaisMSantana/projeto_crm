@@ -12,13 +12,13 @@
     <tbody>
       <tr *ngFor="let c of clientes; let id = index">
         <td>
-          <span (keyup)="changeValue(id, 'nome', $event)" (blur)="updateList(id, 'nome', $event)" contenteditable="true">{{c.nome}}</span>
+          <span  contenteditable="true" (keyup)="changeValue(id, 'nome', $event)" (blur)="updateList(id, 'nome', $event)">{{c.nome}}</span>
         </td>
         <td>
-          <span contenteditable="true" (keyup)="changeValue(id, 'age', $event)" (blur)="updateList(id, 'age', $event)">{{c.cpf}}</span>
+          <span contenteditable="true" (keyup)="changeValue(id, 'cpf', $event)" (blur)="updateList(id, 'cpf', $event)">{{c.cpf}}</span>
         </td>
         <td>
-          <span contenteditable="true" (keyup)="changeValue(id, 'companyName', $event)" (blur)="updateList(id, 'companyName', $event)">{{c.email}}</span>
+          <span contenteditable="true" (keyup)="changeValue(id, 'email', $event)" (blur)="updateList(id, 'email', $event)">{{c.email}}</span>
         </td>
         <td><button class="btn-primary" (click)="editarItem(c)">Editar</button></td>
       </tr>

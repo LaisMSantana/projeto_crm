@@ -1,6 +1,6 @@
 <div class="container-fluid">
   <h1>Nova Venda</h1>
-  <form #userForm="ngForm">
+  <form #userForm="ngForm" (submit)="onSubmit(userForm)">
     <input type="hidden"  name="idVenda" #idVenda="ngModel" [(ngModel)]="service.formData.idVenda">
     <div class="row">
       <div class="form-group">

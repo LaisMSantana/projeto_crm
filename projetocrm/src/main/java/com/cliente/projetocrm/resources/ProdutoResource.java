@@ -34,7 +34,7 @@ public class ProdutoResource {
 		System.out.println(produto.toString());
 		int produtoId = produtoDao.salvarProduto(produto);
 		Map<String, Integer> stringMessage = new HashMap<String, Integer>();
-		stringMessage.put("IDPRODUTO", produtoId);
+		stringMessage.put("idProduto", produtoId);
 		return Response.status(Status.CREATED).entity(stringMessage).build();
 	}
 

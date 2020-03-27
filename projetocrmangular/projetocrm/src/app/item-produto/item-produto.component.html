@@ -1,9 +1,9 @@
 <h4 class="display-4">Produto</h4>
 <hr>
 <form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
-  <input type="hidden" name="IDITEMPRODUTO" #IDITEMPRODUTO="ngModel" [(ngModel)]="formData.idItemProduto">
-  <input type="hidden" name="IDVENDA" #IDVENDA="ngModel" [(ngModel)]="formData.idVenda">
-  <input type="hidden" name="ITEMNOME" #ITEMNOME="ngModel" [(ngModel)]="formData.itemNome">
+  <input type="hidden" name="idItemProduto" #idItemProduto="ngModel" [(ngModel)]="formData.idItemProduto">
+  <input type="hidden" name="idVenda" #idVenda="ngModel" [(ngModel)]="formData.idVenda">
+  <input type="hidden" name="itemNome" #itemNome="ngModel" [(ngModel)]="formData.itemNome">
   <div class="form-group">
     <label>Produto</label>
     <select name="idItemProduto" #idItemProduto="ngModel" [(ngModel)]="formData.idProduto" class="form-control" (change)="atualizarNomeItem($event.target)">
