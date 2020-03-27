@@ -110,6 +110,7 @@ public class ClienteDao {
 
 		String sql = " UPDATE CLIENTE SET NOME = ? , CPF = ? , EMAIL = ? , DATA_NASCIMENTO = ? WHERE IDCLIENTE = "
 				+ cliente.getIdCliente();
+		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
 

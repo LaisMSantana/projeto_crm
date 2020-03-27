@@ -7,6 +7,7 @@ import { error } from 'protractor';
 import { map } from 'rxjs/operators';
 import { Cliente } from '../cliente';
 import { ListagemClientesComponent } from '../listagem-clientes/listagem-clientes.component';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-cliente',
@@ -14,7 +15,7 @@ import { ListagemClientesComponent } from '../listagem-clientes/listagem-cliente
   styleUrls: ['./cliente.component.css']
 })
 export class ClienteComponent implements OnInit {
-  clienteModel = new Cliente(null,"","","","");
+  clienteModel = new Cliente(null, '', '','','');
   submitted = false;
   errorMsg = '';
   succsessMsg = ''
@@ -26,7 +27,7 @@ export class ClienteComponent implements OnInit {
   constructor(private http: HttpClient){}
 
 
-  onSubmit(cliente){
+  onSubmit(cliente: Cliente){
     this.submitted = true;
     this.http.post<any>(this.url,cliente).pipe(catchError(this.errorHandler)).subscribe(
       data => this.succsessMsg = "Cliente salvo com sucesso!",
@@ -45,7 +46,7 @@ export class ClienteComponent implements OnInit {
            this.hideSuccessMessage = true;
         }, 3000);
   }
-  ngOnInit(): void {
+  ngOnInit(){
   }
 
 }

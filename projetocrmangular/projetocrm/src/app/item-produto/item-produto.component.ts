@@ -47,7 +47,7 @@ export class ItemProdutoComponent implements OnInit {
     if(ctrl.selectedIndex == 0) {
       this.formData.ITEMNOME = '';
     }else{
-      this.formData.ITEMNOME = this.listaProdutos[ctrl.selectedIndex-1].nome;
+      this.formData.ITEMNOME = this.listaProdutos[ctrl.selectedIndex-1].NOME;
     }
   }
 

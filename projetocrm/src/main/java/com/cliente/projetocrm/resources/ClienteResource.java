@@ -53,14 +53,12 @@ public class ClienteResource {
 		return Response.ok(clientes).build();
 	}
 	
-
 	@PUT
-	@Path("{idCliente}")
+	@Path("/{idCliente}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response atualizarCliente(@PathParam("idCliente") int id, Cliente cliente) throws Exception {
-		Cliente atualizarCliente = clienteDao.encontrarPorId(id);
-		
+		Cliente atualizarCliente = clienteDao.encontrarPorId(cliente.getIdCliente());
 		System.out.println(cliente.toString());
 		
 		atualizarCliente.setIdCliente(cliente.getIdCliente());

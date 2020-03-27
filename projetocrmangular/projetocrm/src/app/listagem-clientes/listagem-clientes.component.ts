@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ClienteComponent } from '../cliente/cliente.component';
+import { Router } from '@angular/router';
+import { FormArray, FormGroup, FormControl } from '@angular/forms';
+import { Cliente } from '../cliente';
 
 @Component({
   selector: 'app-listagem-clientes',
@@ -11,10 +14,14 @@ export class ListagemClientesComponent implements OnInit {
 
   headElements = ['Nome', 'CPF', 'Email'];
   clientes: any = [];
+  editField: string;
+
+  controls: FormArray;
 
   url = 'http://localhost:8080/api/clientes';
 
-  constructor(private http: HttpClient,){}
+  constructor(private http: HttpClient,
+    private router: Router){}
 
 
   ngOnInit(){
@@ -22,10 +29,18 @@ export class ListagemClientesComponent implements OnInit {
       this.clientes = data;
       console.log(this.clientes);
     });
+
+}
+updateList(id: number, property: string, event: any) {
+  const editField = event.target.textContent;
+  this.clientes[id][property] = editField;
+}
+changeValue(id: number, property: string, event: any) {
+  this.editField = event.target.textContent;
 }
 
-editarItem(id){
-
+editarItem(cliente: Cliente){
+  return this.http.put<Cliente>(this.url + '/'  + cliente.idCliente, cliente).subscribe();
 }
 
 applyFilter(filterValue: string){
