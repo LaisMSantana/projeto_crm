@@ -1,19 +1,19 @@
 <div class="container-fluid">
   <h1>Nova Venda</h1>
   <form #userForm="ngForm">
-    <input type="hidden"  name="IDVENDA" #IDVENDA="ngModel" [(ngModel)]="service.formData.IDVENDA">
+    <input type="hidden"  name="idVenda" #idVenda="ngModel" [(ngModel)]="service.formData.idVenda">
     <div class="row">
       <div class="form-group">
         <label>Cliente</label>
-        <select name="IDCLIENTE" #IDCLIENTE="ngModel" [(ngModel)]="service.formData.IDCLIENTE" class="form-control">
+        <select name="idCliente" #idCliente="ngModel" [(ngModel)]="service.formData.idCliente" class="form-control">
           <option value="0">Select</option>
-          <option *ngFor="let item of listaClientes" value="{{item.idCliente}}">{{item.nome}}</option>
+          <option *ngFor="let cliente of listaClientes" value="{{cliente.idCliente}}">{{cliente.nome}}</option>
         </select>
       </div>
 
       <div class="form-group">
         <label>Pagamento</label>
-        <select name="FORMADEPAGAMENTO" #FORMADEPAGAMENTO="ngModel" [(ngModel)]="service.formData.FORMADEPAGAMENTO" class="form-control">
+        <select name="formaDePagamento" #formaDePagamento="ngModel" [(ngModel)]="service.formData.formaDePagamento" class="form-control">
           <option value="0">Select</option>
           <option value="Dinheiro">Dinheiro</option>
           <option value="Debito">Débito</option>
@@ -23,7 +23,7 @@
 
       <div class="form-group">
         <label>Valor Total</label>
-        <input type="text" name="VALOR" #VALOR="ngModel" [(ngModel)]="service.formData.VALOR" class="form-control">
+        <input type="text" name="valor" #valor="ngModel" [(ngModel)]="service.formData.valor" class="form-control">
       </div>
     </div>
 
@@ -32,7 +32,7 @@
         <th>Produto</th>
         <th>Quantidade</th>
         <th>
-          <a class="btn btn-sm btn-success text" (click)="AddouEditarItem(null, service.formData.IDVENDA)">Add Produto</a>
+          <a class="btn btn-sm btn-success text" (click)="AddouEditarItem(null, service.formData.idVenda)">Add Produto</a>
         </th>
       </thead>
       <tbody>
@@ -42,11 +42,11 @@
           </td>
         </tr>
           <tr *ngFor="let p of service.itensProduto; let i=index;">
-            <td>{{p.ITEMNOME}}</td>
-            <td>{{p.QUANTIDADE}}</td>
+            <td>{{p.itemNome}}</td>
+            <td>{{p.quantidade}}</td>
             <td>
-              <a class="btn btn-sm btn-info text" (click)="AddouEditarItem(i, service.formData.IDVENDA)">Editar</a>
-              <a class="btn btn-sm btn-danger text ml-1" (click)="onDeleteItem(p.IDITEMPRODUTO, i)">Excluir</a>
+              <a class="btn btn-sm btn-info text" (click)="AddouEditarItem(i, service.formData.idVenda)">Editar</a>
+              <a class="btn btn-sm btn-danger text ml-1" (click)="onDeleteItem(p.idItemProduto, i)">Excluir</a>
             </td>>
           </tr>
       </tbody>

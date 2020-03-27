@@ -17,7 +17,7 @@ export class ProdutoComponent implements OnInit {
   produtoModel = new ProdutoModel(null,"","","","");
   submitted = false;
   errorMsg = '';
-  succsessMsg = ''
+  succsessMsg = '';
   hideSuccessMessage = false;
   selectedFile = null;
 

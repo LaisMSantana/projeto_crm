@@ -14,7 +14,7 @@ import { ProdutoService } from '../service/produto.service';
 })
 export class ItemProdutoComponent implements OnInit {
   formData:ItemProduto = new ItemProduto();
-  listaProdutos: ProdutoModel[]= new Array<ProdutoModel>();
+  listaProdutos: any = [];
   isValid: boolean = true;
 
   url = 'http://localhost:8080/api/produtos';
@@ -29,11 +29,11 @@ export class ItemProdutoComponent implements OnInit {
     this.produtoService.getProdutos().then(res => this.listaProdutos = res as Array<ProdutoModel>);
     if(this.data.itemProdutoIndex==null)
     this.formData ={
-      IDITEMPRODUTO: null,
-      IDVENDA : this.data.IDVENDA,
-      IDPRODUTO:0,
-      QUANTIDADE:0,
-      ITEMNOME:''
+      idItemProduto: null,
+      idVenda : this.data.idVenda,
+      idProduto:0,
+      quantidade:0,
+      itemNome:''
     }
     else
     this.formData = Object.assign({},this.vendaService.itensProduto[this.data.itemProdutoIndex]);
@@ -45,9 +45,9 @@ export class ItemProdutoComponent implements OnInit {
 
   atualizarNomeItem(ctrl){
     if(ctrl.selectedIndex == 0) {
-      this.formData.ITEMNOME = '';
+      this.formData.itemNome = '';
     }else{
-      this.formData.ITEMNOME = this.listaProdutos[ctrl.selectedIndex-1].NOME;
+      this.formData.itemNome = this.listaProdutos[ctrl.selectedIndex-1].nome;
     }
   }
 
@@ -63,9 +63,9 @@ export class ItemProdutoComponent implements OnInit {
 
   validarForm(formData: ItemProduto){
     this.isValid = true;
-    if(formData.IDITEMPRODUTO == 0)
+    if(formData.idItemProduto == 0)
       this.isValid = false;
-    else if(formData.QUANTIDADE == 0)
+    else if(formData.quantidade == 0)
       this.isValid = false;
     return this.isValid;
   }

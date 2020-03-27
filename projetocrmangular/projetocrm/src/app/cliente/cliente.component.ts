@@ -18,9 +18,8 @@ export class ClienteComponent implements OnInit {
   clienteModel = new Cliente(null, '', '','','');
   submitted = false;
   errorMsg = '';
-  succsessMsg = ''
+  succsessMsg = '';
   hideSuccessMessage = false;
-  selectedFile = null;
 
   url = 'http://localhost:8080/api/clientes';
 

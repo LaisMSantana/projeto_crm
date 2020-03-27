@@ -10,27 +10,27 @@
 
     <div class="form-group">
       <label>Nome</label>
-      <input type="text" required #nome="ngModel" [class.is-invalid]="nome.invalid && nome.touched" class="form-control" name="nome" [(ngModel)]="produtoModel.NOME">
+      <input type="text" required #nome="ngModel" [class.is-invalid]="nome.invalid && nome.touched" class="form-control" name="nome" [(ngModel)]="produtoModel.nome">
       <small class="text-danger"[class.d-none]="nome.valid || nome.untouched" >Nome é obrigatório</small>
     </div>
 
     <div class="form-group">
       <label>Código</label>
-      <input type="codigo" required #codigo="ngModel" [class.is-invalid]="codigo.invalid && codigo.touched" class="form-control" name="codigo" [(ngModel)]="produtoModel.CODIGO">
+      <input type="codigo" required #codigo="ngModel" [class.is-invalid]="codigo.invalid && codigo.touched" class="form-control" name="codigo" [(ngModel)]="produtoModel.codigo">
       <small class="text-danger"[class.d-none]="codigo.valid || codigo.untouched" >Código é obrigatório</small>
     </div>
 
     <div class="form-group">
       <label>Marca</label>
       <input type="marca" required #marca="ngModel" [class.is-invalid]="marca.invalid && marca.touched" class="form-control" name="marca"
-      [(ngModel)]="produtoModel.MARCA">
+      [(ngModel)]="produtoModel.marca">
       <small class="text-danger"[class.d-none]="marca.valid || marca.untouched">Marca é obrigatória</small>
     </div>
 
     <div class="form-group">
       <label>Tipo</label>
       <input type="tipo" required #tipo="ngModel" [class.is-invalid]="tipo.invalid && tipo.touched" class="form-control" name="senha"
-      [(ngModel)]="produtoModel.TIPO">
+      [(ngModel)]="produtoModel.tipo">
       <small class="text-danger"[class.d-none]="tipo.valid || tipo.untouched" >Tipo é obrigatório</small>
     </div>
 

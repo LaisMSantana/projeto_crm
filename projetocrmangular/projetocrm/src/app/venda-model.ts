@@ -1,6 +1,7 @@
 export class VendaModel {
-  IDVENDA : number;
-  IDCLIENTE : number;
- FORMADEPAGAMENTO : string;
-  VALOR : number;
+  idVenda : number;
+  idCliente : number;
+  idItemProduto: number;
+  formaDePagamento : string;
+  valor : number;
 }

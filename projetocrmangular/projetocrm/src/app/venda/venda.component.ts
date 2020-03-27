@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Cliente } from '../cliente';
 import { ClienteService } from '../service/cliente.service';
+import { ItemProduto } from '../item-produto';
 
 @Component({
   selector: 'app-venda',
@@ -14,7 +15,7 @@ import { ClienteService } from '../service/cliente.service';
   styleUrls: ['./venda.component.css']
 })
 export class VendaComponent implements OnInit {
-  listaClientes: Cliente[] = new Array<Cliente>();
+  listaClientes: any = [];
 
   constructor(private dialog:MatDialog,
     public service: VendaService,
@@ -22,14 +23,8 @@ export class VendaComponent implements OnInit {
     private clienteService: ClienteService){}
 
     resetForm(userForm?: NgForm){
-        userForm.resetForm();
-        this.service.formData = {
-          IDVENDA: null,
-          IDCLIENTE: 0,
-          FORMADEPAGAMENTO: '',
-          VALOR: 0
-        };
-        this.service.itensProduto= [];
+        this.service.formData = new VendaModel();
+        this.service.itensProduto= new Array<ItemProduto>();
     }
 
   AddouEditarItem(itemProdutoIndex, idVenda){

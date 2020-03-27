@@ -1,7 +1,7 @@
 export class ItemProduto {
-    IDITEMPRODUTO: number;
-    IDVENDA: number;
-    IDPRODUTO: number;
-    QUANTIDADE: number;
-    ITEMNOME: string;
+    idItemProduto: number;
+    idVenda: number;
+    idProduto: number;
+    quantidade: number;
+    itemNome: string;
 }
