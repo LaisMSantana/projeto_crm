@@ -52,6 +52,9 @@ public class VendaDao {
 		
 		try {
 			for(int i = 0; i < venda.getProdutos().size(); i++){
+				
+				venda.getProdutos().get(i).setIdVenda(venda.getIdVenda());
+				
 				sql = "INSERT INTO ITEMPRODUTO (IDPRODUTO, IDVENDA, QUANTIDADE) VALUES (" 
 						+ venda.getProdutos().get(i).getIdProduto() + ", " 
 						+ venda.getIdVenda() + ","

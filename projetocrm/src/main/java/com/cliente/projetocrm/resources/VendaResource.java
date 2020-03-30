@@ -26,7 +26,8 @@ public class VendaResource {
 	public Response salvarVenda(Venda venda) throws Exception {
 		venda.setDataVenda(LocalDate.now());
 		System.out.println(venda.toString());
-		vendaDao.cadastrarVenda(venda);
+		int novoId = vendaDao.cadastrarVenda(venda);
+		venda.setIdVenda(novoId);
 		vendaDao.cadastrarItemProduto(venda);
 		
 		return Response.status(Status.CREATED).entity(venda).build();

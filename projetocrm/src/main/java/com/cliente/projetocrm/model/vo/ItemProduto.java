@@ -10,7 +10,7 @@ public class ItemProduto {
 	public ItemProduto() {
 		super();
 	}
-	
+
 	public ItemProduto(int idItemProduto, int idProduto, int idVenda, int quantidade) {
 		super();
 		this.idItemProduto = idItemProduto;
@@ -18,30 +18,40 @@ public class ItemProduto {
 		this.idVenda = idVenda;
 		this.quantidade = quantidade;
 	}
-	
+
 	public int getIdItemProduto() {
 		return idItemProduto;
 	}
+
 	public void setIdItemProduto(int idItemProduto) {
 		this.idItemProduto = idItemProduto;
 	}
+
 	public int getIdProduto() {
 		return idProduto;
 	}
+
 	public void setIdProduto(int idProduto) {
 		this.idProduto = idProduto;
 	}
+
 	public int getIdVenda() {
 		return idVenda;
 	}
+
 	public void setIdVenda(int idVenda) {
 		this.idVenda = idVenda;
 	}
+
 	public int getQuantidade() {
 		return quantidade;
 	}
+
 	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
+
+	
+	
 	
 }
