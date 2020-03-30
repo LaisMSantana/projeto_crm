@@ -1,8 +1,11 @@
+/home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/util/VendaMapper.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/util/ProdutoMapper.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/providers/ProdutoMessageBodyReader.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/model/vo/Cliente.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/model/vo/Venda.java
+/home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/providers/ItemProdutoMessageBodyReader.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/resources/VendaResource.java
+/home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/util/ItemProdutoMapper.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/ProjetocrmRestApplication.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/util/ClienteMapper.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/model/dao/Banco.java
@@ -13,4 +16,5 @@
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/model/vo/Produto.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/resources/ClienteResource.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/model/dao/ProdutoDao.java
+/home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/providers/VendaMessageBodyReader.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/resources/ProdutoResource.java

@@ -122,7 +122,7 @@ public class ClienteDao {
 			prepStmt.setString(3, cliente.getEmail());
 			prepStmt.setDate(4, new java.sql.Date(data.getTime()));
 
-			int codigoRetorno = prepStmt.executeUpdate(sql);
+			int codigoRetorno = prepStmt.executeUpdate();
 
 			if (codigoRetorno == 1) {
 				sucessoUpdate = true;

@@ -16,6 +16,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
+
 import javax.ws.rs.core.MediaType;
 
 import com.cliente.projetocrm.model.dao.ClienteDao;
@@ -57,7 +59,7 @@ public class ClienteResource {
 	@Path("/{idCliente}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response atualizarCliente(@PathParam("idCliente") int id, Cliente cliente) throws Exception {
+	public Response atualizarCliente(@PathParam("idCliente") int id, @RequestBody Cliente cliente) throws Exception {
 		Cliente atualizarCliente = clienteDao.encontrarPorId(cliente.getIdCliente());
 		
 		atualizarCliente.setIdCliente(cliente.getIdCliente());

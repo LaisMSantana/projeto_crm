@@ -1,31 +1,33 @@
 package com.cliente.projetocrm.model.vo;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Venda {
 	
 	private int idVenda;
-	private Cliente cliente;
+	private String idCliente;
 	private ArrayList<ItemProduto> produtos;
-	private Date dataVenda;
-	private Double valor;
+	private LocalDate dataVenda;
+	private String valor;
 	private String formaDePagamento;
 	
 	public Venda() {
 		super();
 	}
 
-	public Venda(int idVenda, Cliente cliente, ArrayList<ItemProduto> produtos, Date dataVenda, Double valor,
+	public Venda(int idVenda, String idCliente, ArrayList<ItemProduto> produtos, LocalDate dataVenda, String valor,
 			String formaDePagamento) {
 		super();
 		this.idVenda = idVenda;
-		this.cliente = cliente;
+		this.idCliente = idCliente;
 		this.produtos = produtos;
 		this.dataVenda = dataVenda;
 		this.valor = valor;
 		this.formaDePagamento = formaDePagamento;
 	}
+
 
 	public int getIdVenda() {
 		return idVenda;
@@ -35,12 +37,12 @@ public class Venda {
 		this.idVenda = idVenda;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public String getIdCliente() {
+		return idCliente;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setIdCliente(String idCliente) {
+		this.idCliente = idCliente;
 	}
 
 	public ArrayList<ItemProduto> getProdutos() {
@@ -51,19 +53,19 @@ public class Venda {
 		this.produtos = produtos;
 	}
 
-	public Date getDataVenda() {
+	public LocalDate getDataVenda() {
 		return dataVenda;
 	}
 
-	public void setDataVenda(Date dataVenda) {
+	public void setDataVenda(LocalDate dataVenda) {
 		this.dataVenda = dataVenda;
 	}
 
-	public Double getValor() {
+	public String getValor() {
 		return valor;
 	}
 
-	public void setValor(Double valor) {
+	public void setValor(String valor) {
 		this.valor = valor;
 	}
 
@@ -77,7 +79,7 @@ public class Venda {
 
 	@Override
 	public String toString() {
-		return "Venda [idVenda=" + idVenda + ", cliente=" + cliente + ", produtos=" + produtos + ", dataVenda="
+		return "Venda [idVenda=" + idVenda + ", cliente=" + idCliente + ", dataVenda="
 				+ dataVenda + ", valor=" + valor + ", formaDePagamento=" + formaDePagamento + "]";
 	}
 	
