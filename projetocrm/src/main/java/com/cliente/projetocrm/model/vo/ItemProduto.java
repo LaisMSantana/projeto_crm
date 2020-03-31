@@ -51,7 +51,11 @@ public class ItemProduto {
 		this.quantidade = quantidade;
 	}
 
-	
-	
+	@Override
+	public String toString() {
+		return "ItemProduto [idItemProduto=" + idItemProduto + ", idProduto=" + idProduto + ", idVenda=" + idVenda
+				+ ", quantidade=" + quantidade + "]";
+	}
+
 	
 }

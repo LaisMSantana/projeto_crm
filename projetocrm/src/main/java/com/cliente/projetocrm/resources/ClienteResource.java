@@ -60,7 +60,7 @@ public class ClienteResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response atualizarCliente(@PathParam("idCliente") int id, @RequestBody Cliente cliente) throws Exception {
-		Cliente atualizarCliente = clienteDao.encontrarPorId(cliente.getIdCliente());
+		Cliente atualizarCliente = clienteDao.encontrarPorId(id);
 		
 		atualizarCliente.setIdCliente(cliente.getIdCliente());
 		atualizarCliente.setNome(cliente.getNome());

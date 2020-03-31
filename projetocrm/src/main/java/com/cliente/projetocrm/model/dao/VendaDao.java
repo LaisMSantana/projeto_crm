@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.Date;
 
 import com.cliente.projetocrm.model.vo.Venda;
 
@@ -55,10 +53,11 @@ public class VendaDao {
 				
 				venda.getProdutos().get(i).setIdVenda(venda.getIdVenda());
 				
-				sql = "INSERT INTO ITEMPRODUTO (IDPRODUTO, IDVENDA, QUANTIDADE) VALUES (" 
-						+ venda.getProdutos().get(i).getIdProduto() + ", " 
-						+ venda.getIdVenda() + ","
-						+ venda.getProdutos().get(i).getQuantidade();
+				sql = "INSERT INTO ITEMPRODUTO (IDPRODUTO, IDVENDA, QUANTIDADE) VALUES (?,?,?)";
+				
+				prepStmt.setInt(1, venda.getProdutos().get(i).getIdProduto());
+				prepStmt.setInt(2, venda.getProdutos().get(i).getIdVenda());
+				prepStmt.setInt(2, venda.getProdutos().get(i).getQuantidade());
 				
 				resultado = prepStmt.execute(sql);
 				if(resultado == true){
