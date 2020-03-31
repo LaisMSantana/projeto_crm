@@ -1,13 +1,12 @@
 <div class="container-fluid">
   <h1>Nova Venda</h1>
   <form #userForm="ngForm" (submit)="onSubmit(userForm)">
-    <input type="hidden"  name="idVenda" #idVenda="ngModel" [(ngModel)]="service.formData.idVenda">
     <div class="row">
       <div class="form-group">
         <label>Cliente</label>
         <select name="idCliente" #idCliente="ngModel" [(ngModel)]="service.formData.idCliente" class="form-control">
           <option value="0">Select</option>
-          <option *ngFor="let cliente of listaClientes" value="cliente.idCliente">{{cliente.nome}}</option>
+          <option *ngFor="let cliente of listaClientes" [ngValue]="cliente.idCliente">{{cliente.nome}}</option>
         </select>
       </div>
 
@@ -23,7 +22,7 @@
 
       <div class="form-group">
         <label>Valor Total</label>
-        <input type="text" name="valor" #valor="ngModel" [(ngModel)]="service.formData.valor" class="form-control">
+        <input type="number" name="valor" #valor="ngModel" [(ngModel)]="service.formData.valor" class="form-control">
       </div>
     </div>
 

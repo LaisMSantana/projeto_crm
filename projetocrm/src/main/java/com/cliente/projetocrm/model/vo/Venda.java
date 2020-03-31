@@ -7,17 +7,17 @@ import java.util.Date;
 public class Venda {
 	
 	private int idVenda;
-	private String idCliente;
+	private int idCliente;
 	private ArrayList<ItemProduto> produtos;
-	private LocalDate dataVenda;
-	private String valor;
+	private Date dataVenda;
+	private double valor;
 	private String formaDePagamento;
 	
 	public Venda() {
 		super();
 	}
 
-	public Venda(int idVenda, String idCliente, ArrayList<ItemProduto> produtos, LocalDate dataVenda, String valor,
+	public Venda(int idVenda, int idCliente, ArrayList<ItemProduto> produtos, Date dataVenda, double valor,
 			String formaDePagamento) {
 		super();
 		this.idVenda = idVenda;
@@ -37,11 +37,11 @@ public class Venda {
 		this.idVenda = idVenda;
 	}
 
-	public String getIdCliente() {
+	public int getIdCliente() {
 		return idCliente;
 	}
 
-	public void setIdCliente(String idCliente) {
+	public void setIdCliente(int idCliente) {
 		this.idCliente = idCliente;
 	}
 
@@ -53,19 +53,19 @@ public class Venda {
 		this.produtos = produtos;
 	}
 
-	public LocalDate getDataVenda() {
+	public Date getDataVenda() {
 		return dataVenda;
 	}
 
-	public void setDataVenda(LocalDate dataVenda) {
+	public void setDataVenda(Date dataVenda) {
 		this.dataVenda = dataVenda;
 	}
 
-	public String getValor() {
+	public double getValor() {
 		return valor;
 	}
 
-	public void setValor(String valor) {
+	public void setValor(double valor) {
 		this.valor = valor;
 	}
 

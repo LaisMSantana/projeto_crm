@@ -1,6 +1,6 @@
 package com.cliente.projetocrm.resources;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -24,7 +24,6 @@ public class VendaResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response salvarVenda(Venda venda) throws Exception {
-		venda.setDataVenda(LocalDate.now());
 		System.out.println(venda.toString());
 		int novoId = vendaDao.cadastrarVenda(venda);
 		venda.setIdVenda(novoId);
