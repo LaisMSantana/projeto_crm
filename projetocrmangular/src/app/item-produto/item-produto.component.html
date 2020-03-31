@@ -8,7 +8,7 @@
     <label>Produto</label>
     <select name="idItemProduto" #idItemProduto="ngModel" [(ngModel)]="formData.idProduto" class="form-control" (change)="atualizarNomeItem($event.target)">
       <option value="0">- Select</option>
-      <option *ngFor="let produto of listaProdutos" value="{{produto.idProduto}}">{{produto.nome}}</option>
+      <option *ngFor="let produto of listaProdutos" [value]="produto.idProduto">{{produto.nome}}</option>
       </select>
   </div>
   <div class="form-group">

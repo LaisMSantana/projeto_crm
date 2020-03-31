@@ -19,6 +19,7 @@ export class VendaService {
       ...this.formData,
       produtos : this.itensProduto
     }
+    console.log(body);
     return this.http.post(this.url, body);
   }
 }
