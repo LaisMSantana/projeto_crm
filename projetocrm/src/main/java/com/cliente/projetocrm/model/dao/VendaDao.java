@@ -54,7 +54,7 @@ public class VendaDao {
 		String sql = "";
 
 		Connection conexao = Banco.getConnection();
-		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
+		PreparedStatement prepStmt = null;
 		
 		try {
 			for(int i = 0; i < venda.getProdutos().size(); i++){
@@ -63,11 +63,13 @@ public class VendaDao {
 				
 				sql += "INSERT INTO ITEMPRODUTO (IDPRODUTO, IDVENDA, QUANTIDADE) VALUES (?,?,?)";
 				
+				prepStmt = Banco.getPreparedStatement(conexao, sql); 
+				
 				prepStmt.setInt(1, venda.getProdutos().get(i).getIdProduto());
 				prepStmt.setInt(2, venda.getProdutos().get(i).getIdVenda());
 				prepStmt.setInt(3, venda.getProdutos().get(i).getQuantidade());
 				
-				resultado = prepStmt.executeUpdate(sql);
+				resultado = prepStmt.executeUpdate();
 				if(resultado == 1){
 					contador++;
 				}
