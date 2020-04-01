@@ -6,6 +6,7 @@ import { throwError } from 'rxjs';
 import { error } from 'protractor';
 import { map } from 'rxjs/operators';
 import { ProdutoModel } from '../models/produto-model';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-produto',
@@ -13,8 +14,7 @@ import { ProdutoModel } from '../models/produto-model';
   styleUrls: ['./produto.component.css']
 })
 export class ProdutoComponent implements OnInit {
-
-  produtoModel = new ProdutoModel(null,"","","","");
+  formData: ProdutoModel = new ProdutoModel();
   submitted = false;
   errorMsg = '';
   succsessMsg = '';
@@ -26,9 +26,9 @@ export class ProdutoComponent implements OnInit {
   constructor(private http: HttpClient){}
 
 
-  onSubmit(produto){
+  onSubmit(form: NgForm){
     this.submitted = true;
-    this.http.post<any>(this.url,produto).pipe(catchError(this.errorHandler)).subscribe(
+    this.http.post(this.url,this.formData).subscribe(
       data => this.succsessMsg = "Produto salvo com sucesso!",
       error => this.errorMsg = error.statusText
     );

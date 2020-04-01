@@ -1,7 +1,5 @@
 package com.cliente.projetocrm.resources;
 
-import java.util.Date;
-
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -24,9 +22,9 @@ public class VendaResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response salvarVenda(Venda venda) throws Exception {
-		System.out.println(venda.toString());
 		int novoId = vendaDao.cadastrarVenda(venda);
 		venda.setIdVenda(novoId);
+		System.out.println(venda.toString());
 		vendaDao.cadastrarItemProduto(venda);
 		
 		return Response.status(Status.CREATED).entity(venda).build();

@@ -17,6 +17,9 @@ import { ItemProduto } from '../models/item-produto';
 export class VendaComponent implements OnInit {
   listaClientes: any = [];
   isValid: Boolean = true;
+  errorMsg = '';
+  succsessMsg = '';
+  hideSuccessMessage = false;
 
   constructor(private dialog:MatDialog,
     public service: VendaService,
@@ -55,15 +58,20 @@ export class VendaComponent implements OnInit {
       return this.isValid;
   }
 
-
   onSubmit(form: NgForm){
     if(this.validateForm()){
       this.service.salvarVenda().subscribe(res => {
-        this.resetForm();
+        this.resetForm(),
+        data => this.succsessMsg = "Venda salva com sucesso!",
+        error => this.errorMsg = error.statusText
       });
-
     }
-
   }
+
+  FadeOutSuccessMsg() {
+    setTimeout( () => {
+          this.hideSuccessMessage = true;
+       }, 3000);
+ }
 
 }

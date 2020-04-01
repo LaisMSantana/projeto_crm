@@ -1,8 +1,6 @@
 package com.cliente.projetocrm.resources;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -15,6 +13,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 
 import javax.ws.rs.core.MediaType;
 
@@ -31,11 +31,11 @@ public class ProdutoResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response salvarProduto(Produto produto) {
-		System.out.println(produto.toString());
 		int produtoId = produtoDao.salvarProduto(produto);
-		Map<String, Integer> stringMessage = new HashMap<String, Integer>();
-		stringMessage.put("idProduto", produtoId);
-		return Response.status(Status.CREATED).entity(stringMessage).build();
+		produto.setIdProduto(produtoId);
+		System.out.println(produto.toString());
+		
+		return Response.status(Status.CREATED).entity(produto).build();
 	}
 
 	@GET
@@ -55,19 +55,18 @@ public class ProdutoResource {
 	
 
 	@PUT
-	@Path("{idProduto}")
+	@Path("/{idProduto}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response atualizarProduto(@PathParam("idProduto") int id, Produto produto) {
+	public Response atualizarProduto(@PathParam("idProduto") int id, @RequestBody Produto produto) {
 		Produto atualizarProduto = produtoDao.encontrarPorId(id);
 		
-		System.out.println(produto.toString());
-		
-		atualizarProduto.setIdProduto(produto.getIdProduto());
+		atualizarProduto.setIdProduto(id);
 		atualizarProduto.setNome(produto.getNome());
 		atualizarProduto.setCodigo(produto.getCodigo());
 		atualizarProduto.setMarca(produto.getMarca());
 		atualizarProduto.setTipo(produto.getTipo());
+		System.out.println(atualizarProduto);
 		
 		produtoDao.atualizar(atualizarProduto);
 		

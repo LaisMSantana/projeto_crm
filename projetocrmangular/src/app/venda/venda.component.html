@@ -1,5 +1,11 @@
 <div class="container-fluid">
   <h1>Nova Venda</h1>
+  <div class="alert alert-danger" *ngIf="errorMsg">
+    <strong [ngClass] ="FadeOutSuccessMsg()"> {{errorMsg}} </strong>
+  </div>
+  <div class="alert alert-success" *ngIf="succsessMsg && !hideSuccessMessage">
+    <strong [ngClass] ="FadeOutSuccessMsg()"> {{succsessMsg}} </strong>
+  </div>
   <form #userForm="ngForm" (submit)="onSubmit(userForm)">
     <div class="row">
       <div class="form-group">

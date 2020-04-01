@@ -1,8 +1,6 @@
 package com.cliente.projetocrm.resources;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -33,11 +31,11 @@ public class ClienteResource {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response salvarCliente(Cliente cliente) throws Exception {
-		System.out.println(cliente.toString());
 		int clienteId = clienteDao.salvarCliente(cliente);
-		Map<String, Integer> stringMessage = new HashMap<String, Integer>();
-		stringMessage.put("idCliente", clienteId);
-		return Response.status(Status.CREATED).entity(stringMessage).build();
+		cliente.setIdCliente(clienteId);
+		System.out.println(cliente.toString());
+		
+		return Response.status(Status.CREATED).entity(cliente).build();
 	}
 
 	@GET
@@ -62,11 +60,12 @@ public class ClienteResource {
 	public Response atualizarCliente(@PathParam("idCliente") int id, @RequestBody Cliente cliente) throws Exception {
 		Cliente atualizarCliente = clienteDao.encontrarPorId(id);
 		
-		atualizarCliente.setIdCliente(cliente.getIdCliente());
+		atualizarCliente.setIdCliente(id);
 		atualizarCliente.setNome(cliente.getNome());
 		atualizarCliente.setCpf(cliente.getCpf());
 		atualizarCliente.setEmail(cliente.getEmail());
 		atualizarCliente.setDataDeNascimento(cliente.getDataDeNascimento());
+		System.out.println(atualizarCliente);
 		
 		clienteDao.atualizar(atualizarCliente);
 		

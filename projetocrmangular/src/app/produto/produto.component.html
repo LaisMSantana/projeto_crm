@@ -1,36 +1,36 @@
 <div class="container-fluid">
   <h1>Formulário Produto</h1>
   <div class="alert alert-danger" *ngIf="errorMsg">
-    {{errorMsg}}
+    <strong [ngClass] ="FadeOutSuccessMsg()"> {{errorMsg}} </strong>
   </div>
   <div class="alert alert-success" *ngIf="succsessMsg && !hideSuccessMessage">
-    <strong [ngClass] ="FadeOutSuccessMsg()"> Produto salvo com sucesso! </strong>
+    <strong [ngClass] ="FadeOutSuccessMsg()"> {{succsessMsg}} </strong>
   </div>
-  <form #userForm="ngForm" (ngSubmit)="onSubmit(produtoModel)"  novalidate >
+  <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)"  novalidate >
 
     <div class="form-group">
       <label>Nome</label>
-      <input type="text" required #nome="ngModel" [class.is-invalid]="nome.invalid && nome.touched" class="form-control" name="nome" [(ngModel)]="produtoModel.nome">
+      <input type="text" required #nome="ngModel" [class.is-invalid]="nome.invalid && nome.touched" class="form-control" name="nome" [(ngModel)]="formData.nome">
       <small class="text-danger"[class.d-none]="nome.valid || nome.untouched" >Nome é obrigatório</small>
     </div>
 
     <div class="form-group">
       <label>Código</label>
-      <input type="codigo" required #codigo="ngModel" [class.is-invalid]="codigo.invalid && codigo.touched" class="form-control" name="codigo" [(ngModel)]="produtoModel.codigo">
+      <input type="text" required #codigo="ngModel" [class.is-invalid]="codigo.invalid && codigo.touched" class="form-control" name="codigo" [(ngModel)]="formData.codigo">
       <small class="text-danger"[class.d-none]="codigo.valid || codigo.untouched" >Código é obrigatório</small>
     </div>
 
     <div class="form-group">
       <label>Marca</label>
-      <input type="marca" required #marca="ngModel" [class.is-invalid]="marca.invalid && marca.touched" class="form-control" name="marca"
-      [(ngModel)]="produtoModel.marca">
+      <input type="text" required #marca="ngModel" [class.is-invalid]="marca.invalid && marca.touched" class="form-control" name="marca"
+      [(ngModel)]="formData.marca">
       <small class="text-danger"[class.d-none]="marca.valid || marca.untouched">Marca é obrigatória</small>
     </div>
 
     <div class="form-group">
       <label>Tipo</label>
-      <input type="tipo" required #tipo="ngModel" [class.is-invalid]="tipo.invalid && tipo.touched" class="form-control" name="senha"
-      [(ngModel)]="produtoModel.tipo">
+      <input type="text" required #tipo="ngModel" [class.is-invalid]="tipo.invalid && tipo.touched" class="form-control" name="tipo"
+      [(ngModel)]="formData.tipo">
       <small class="text-danger"[class.d-none]="tipo.valid || tipo.untouched" >Tipo é obrigatório</small>
     </div>
 

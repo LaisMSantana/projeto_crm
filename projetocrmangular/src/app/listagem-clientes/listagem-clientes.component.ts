@@ -15,6 +15,9 @@ export class ListagemClientesComponent implements OnInit {
   headElements = ['Nome', 'CPF', 'Email'];
   clientes: any = [];
   editField: string;
+  errorMsg = '';
+  succsessMsg = '';
+  hideSuccessMessage = false;
 
   controls: FormArray;
 
@@ -40,13 +43,22 @@ changeValue(id: number, property: string, event: any) {
 }
 
 editarItem(cliente: Cliente){
-  return this.http.put<Cliente>(this.url + '/'  + cliente.idCliente, cliente).subscribe();
+  return this.http.put<Cliente>(this.url + '/'  + cliente.idCliente, cliente).subscribe(
+    data => this.succsessMsg = "Cliente atualizado com sucesso!",
+    error => this.errorMsg = error.statusText
+  );
 }
 
 applyFilter(filterValue: string){
   return this.http.get(this.url + '/' +filterValue.trim().toLocaleLowerCase()).subscribe((data) =>{
     this.clientes = data;
   });
+}
+
+FadeOutSuccessMsg() {
+  setTimeout( () => {
+        this.hideSuccessMessage = true;
+     }, 3000);
 }
 
 

@@ -115,7 +115,7 @@ public class ProdutoDao {
 			prepStmt.setString(3, produto.getMarca());
 			prepStmt.setString(4,produto.getTipo());
 
-			int codigoRetorno = prepStmt.executeUpdate(sql);
+			int codigoRetorno = prepStmt.executeUpdate();
 
 			if (codigoRetorno == 1) {
 				sucessoUpdate = true;

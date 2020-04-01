@@ -1,6 +1,5 @@
 package com.cliente.projetocrm.model.vo;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 

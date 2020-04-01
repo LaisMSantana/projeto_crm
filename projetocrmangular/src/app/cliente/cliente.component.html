@@ -1,36 +1,36 @@
 <div class="container-fluid">
   <h1>Cadastro Cliente</h1>
   <div class="alert alert-danger" *ngIf="errorMsg">
-    {{errorMsg}}
+    <strong [ngClass] ="FadeOutSuccessMsg()"> {{errorMsg}} </strong>
   </div>
   <div class="alert alert-success" *ngIf="succsessMsg && !hideSuccessMessage">
-    <strong [ngClass] ="FadeOutSuccessMsg()"> Cliente salvo com sucesso! </strong>
+    <strong [ngClass] ="FadeOutSuccessMsg()"> {{succsessMsg}} </strong>
   </div>
-  <form #userForm="ngForm" (ngSubmit)="onSubmit(clienteModel)"  novalidate >
+  <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)"  novalidate >
 
     <div class="form-group">
       <label>Nome</label>
-      <input type="text" required #nome="ngModel" [class.is-invalid]="nome.invalid && nome.touched" class="form-control" name="nome" [(ngModel)]="clienteModel.nome">
+      <input type="text" required #nome="ngModel" [class.is-invalid]="nome.invalid && nome.touched" class="form-control" name="nome" [(ngModel)]="formData.nome">
       <small class="text-danger"[class.d-none]="nome.valid || nome.untouched" >Nome é obrigatório</small>
     </div>
 
     <div class="form-group">
       <label>CPF</label>
-      <input type="cpf" required #cpf="ngModel" pattern="^\d{10}[0-9]$" [class.is-invalid]="cpf.invalid && cpf.touched" class="form-control" name="cpf" [(ngModel)]="clienteModel.cpf">
+      <input type="text" required #cpf="ngModel" pattern="^\d{10}[0-9]$" [class.is-invalid]="cpf.invalid && cpf.touched" class="form-control" name="cpf" [(ngModel)]="formData.cpf">
       <small class="text-danger"[class.d-none]="cpf.valid || cpf.untouched" >CPF é obrigatório e possui 11 digitos</small>
     </div>
 
     <div class="form-group">
       <label>Email</label>
-      <input type="email" required #email="ngModel" [class.is-invalid]="email.invalid && email.touched" class="form-control" name="email"
-      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="*exemplo@email.com" [(ngModel)]="clienteModel.email">
+      <input type="text" required #email="ngModel" [class.is-invalid]="email.invalid && email.touched" class="form-control" name="email"
+      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" placeholder="*exemplo@email.com" [(ngModel)]="formData.email">
       <small class="text-danger"[class.d-none]="email.valid || email.untouched">Email é obrigatório</small>
     </div>
 
     <div class="form-group">
       <label>Data de Nascimento</label>
       <input type="date"  placeholder="yyyy-MM-dd" required #dataDeNascimento="ngModel" [class.is-invalid]="dataDeNascimento.invalid && dataDeNascimento.touched" class="form-control" name="dataDeNascimento"
-      [(ngModel)]="clienteModel.dataDeNascimento">
+      [(ngModel)]="formData.dataDeNascimento">
       <small class="text-danger"[class.d-none]="dataDeNascimento.valid || dataDeNascimento.untouched" >Data de nascimento é obrigatório</small>
     </div>
 

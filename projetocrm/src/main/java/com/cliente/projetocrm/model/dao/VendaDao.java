@@ -23,6 +23,7 @@ public class VendaDao {
 		
 		String dataAtual = this.getDateTime();
 		Date data = new SimpleDateFormat("yyyy-MM-dd").parse(dataAtual);
+		venda.setDataVenda(data);
 		
 		try {
 			prepStmt.setDate(1, new java.sql.Date(data.getTime()));
@@ -61,7 +62,7 @@ public class VendaDao {
 				
 				venda.getProdutos().get(i).setIdVenda(venda.getIdVenda());
 				
-				sql += "INSERT INTO ITEMPRODUTO (IDPRODUTO, IDVENDA, QUANTIDADE) VALUES (?,?,?)";
+				sql = "INSERT INTO ITEMPRODUTO (IDPRODUTO, IDVENDA, QUANTIDADE) VALUES (?,?,?)";
 				
 				prepStmt = Banco.getPreparedStatement(conexao, sql); 
 				
