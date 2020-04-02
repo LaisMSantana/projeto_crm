@@ -1,9 +1,19 @@
-<div class="container-fluid">
-  <h1>Home</h1>
-  <button routerLink="produto" class="m-1 btn btn-light btn-outline-primary" Buttonlable="DepScreen" >Cadastro Produto</button>
-  <button routerLink="cliente" class="m-1 btn btn-light btn-outline-primary" Buttonlable="DepScreen" >Cadastro Cliente</button>
-  <button routerLink="listagem-clientes" class="m-1 btn btn-light btn-outline-primary" Buttonlable="DepScreen" >Lista Clientes</button>
-  <button routerLink="venda" class="m-1 btn btn-light btn-outline-primary" Buttonlable="DepScreen" >Venda</button>
-</div>
+  <h3 class="display-4 text-center">Projeto Loja</h3>
+  <div class="container">
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link active" routerLink="produto">Produto</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" routerLink="cliente">Cliente</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" routerLink="listagem-clientes">Lista Clientes</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" routerLink="venda">Venda</a>
+      </li>
+    </ul>
+  </div>
 
 <router-outlet></router-outlet>

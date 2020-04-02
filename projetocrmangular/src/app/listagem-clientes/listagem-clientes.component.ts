@@ -12,7 +12,7 @@ import { Cliente } from '../models/cliente';
 })
 export class ListagemClientesComponent implements OnInit {
 
-  headElements = ['Nome', 'CPF', 'Email'];
+  headElements = ['Nome', 'CPF', 'Email', ' '];
   clientes: any = [];
   editField: string;
   errorMsg = '';
@@ -34,19 +34,9 @@ export class ListagemClientesComponent implements OnInit {
     });
 
 }
-updateList(id: number, property: string, event: any) {
-  const editField = event.target.textContent;
-  this.clientes[id][property] = editField;
-}
-changeValue(id: number, property: string, event: any) {
-  this.editField = event.target.textContent;
-}
 
 editarItem(cliente: Cliente){
-  return this.http.put<Cliente>(this.url + '/'  + cliente.idCliente, cliente).subscribe(
-    data => this.succsessMsg = "Cliente atualizado com sucesso!",
-    error => this.errorMsg = error.statusText
-  );
+  this.router.navigate(['/editar', cliente.idCliente]);
 }
 
 applyFilter(filterValue: string){

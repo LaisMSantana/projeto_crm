@@ -1,43 +1,53 @@
 <div class="container-fluid">
-  <h1>Nova Venda</h1>
+  <h2>Nova Venda</h2>
   <div class="alert alert-danger" *ngIf="errorMsg">
-    <strong [ngClass] ="FadeOutSuccessMsg()"> {{errorMsg}} </strong>
+    <strong [ngClass]="FadeOutSuccessMsg()"> {{errorMsg}} </strong>
   </div>
   <div class="alert alert-success" *ngIf="succsessMsg && !hideSuccessMessage">
-    <strong [ngClass] ="FadeOutSuccessMsg()"> {{succsessMsg}} </strong>
+    <strong [ngClass]="FadeOutSuccessMsg()"> {{succsessMsg}} </strong>
   </div>
   <form #userForm="ngForm" (submit)="onSubmit(userForm)">
     <div class="row">
-      <div class="form-group">
-        <label>Cliente</label>
-        <select name="idCliente" #idCliente="ngModel" [(ngModel)]="service.formData.idCliente" class="form-control">
-          <option value="0">Select</option>
-          <option *ngFor="let cliente of listaClientes" [ngValue]="cliente.idCliente">{{cliente.nome}}</option>
-        </select>
+
+      <div class="col-5">
+        <div class="form-group">
+          <label>Cliente</label>
+          <select name="idCliente" #idCliente="ngModel" [(ngModel)]="service.formData.idCliente" class="form-control">
+            <option value="0">Select</option>
+            <option *ngFor="let cliente of listaClientes" [ngValue]="cliente.idCliente">{{cliente.nome}}</option>
+          </select>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label>Pagamento</label>
-        <select name="formaDePagamento" #formaDePagamento="ngModel" [(ngModel)]="service.formData.formaDePagamento" class="form-control">
-          <option value="0">Select</option>
-          <option value="Dinheiro">Dinheiro</option>
-          <option value="Debito">Débito</option>
-          <option value="Credito">Crédito</option>
-        </select>
+      <div class="col">
+        <div class="form-group">
+          <label>Pagamento</label>
+          <select name="formaDePagamento" #formaDePagamento="ngModel" [(ngModel)]="service.formData.formaDePagamento"
+            class="form-control">
+            <option value="0">Select</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Debito">Débito</option>
+            <option value="Credito">Crédito</option>
+          </select>
+        </div>
       </div>
 
-      <div class="form-group">
-        <label>Valor Total</label>
-        <input type="number" name="valor" #valor="ngModel" [(ngModel)]="service.formData.valor" class="form-control">
+      <div class="col">
+        <div class="form-group">
+          <label>Valor Total</label>
+          <input type="number" name="valor" #valor="ngModel" [(ngModel)]="service.formData.valor" class="form-control">
+        </div>
       </div>
     </div>
+
 
     <table class="table table-borderless">
       <thead class="thead-light">
         <th>Produto</th>
         <th>Quantidade</th>
         <th>
-          <a class="btn btn-sm btn-success text" (click)="AddouEditarItem(null, service.formData.idVenda)">Add Produto</a>
+          <a class="btn btn-sm btn-success text" (click)="AddouEditarItem(null, service.formData.idVenda)">Add
+            Produto</a>
         </th>
       </thead>
       <tbody>
@@ -46,20 +56,20 @@
             Nenhum produto Selecionado.
           </td>
         </tr>
-          <tr *ngFor="let p of service.itensProduto; let i=index;">
-            <td>{{p.itemNome}}</td>
-            <td>{{p.quantidade}}</td>
-            <td>
-              <a class="btn btn-sm btn-info text" (click)="AddouEditarItem(i, service.formData.idVenda)">Editar</a>
-              <a class="btn btn-sm btn-danger text ml-1" (click)="onDeleteItem(p.idItemProduto, i)">Excluir</a>
-            </td>>
-          </tr>
+        <tr *ngFor="let p of service.itensProduto; let i=index;">
+          <td>{{p.itemNome}}</td>
+          <td>{{p.quantidade}}</td>
+          <td>
+            <a class="btn btn-sm btn-info text" (click)="AddouEditarItem(i, service.formData.idVenda)">Editar</a>
+            <a class="btn btn-sm btn-danger text ml-1" (click)="onDeleteItem(p.idItemProduto, i)">Excluir</a>
+          </td>>
+        </tr>
       </tbody>
     </table>
 
 
-    <button [disabled]="userForm.form.invalid" class="m-1 btn btn-light btn-outline-primary" Buttonlable="DepScreen" type="submit">Salvar</button>
-    <button class="m-1 btn btn-light btn-outline-primary" Buttonlable="DepScreen" type="reset">Limpar Formulário</button>
+    <button [disabled]="userForm.form.invalid" class="m-1 btn btn-light btn-outline-primary" Buttonlable="DepScreen"
+      type="submit">Salvar</button>
   </form>
 
 </div>

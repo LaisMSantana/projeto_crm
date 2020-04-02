@@ -53,6 +53,14 @@ public class ClienteResource {
 		return Response.ok(clientes).build();
 	}
 	
+	@GET
+	@Path("/cliente/{idCliente}")
+    @Produces(MediaType.APPLICATION_JSON)
+	public Response listarPorId(@PathParam("idCliente") int idCliente) {
+		Cliente cliente = clienteDao.encontrarPorId(idCliente);
+		return Response.ok(cliente).build();
+	}
+	
 	@PUT
 	@Path("/{idCliente}")
 	@Consumes(MediaType.APPLICATION_JSON)
