@@ -1,18 +1,13 @@
 <div>
   <br>
-  <h2>Tabela Clientes</h2>
-  <div class="alert alert-danger" *ngIf="errorMsg">
-    <strong [ngClass] ="FadeOutSuccessMsg()"> {{errorMsg}} </strong>
-  </div>
-  <div class="alert alert-success" *ngIf="succsessMsg && !hideSuccessMessage">
-    <strong [ngClass] ="FadeOutSuccessMsg()"> {{succsessMsg}} </strong>
-  </div>
+  <h2>Clientes</h2>
     <input class="form-control" id="myInput" type="text" (keyup)="applyFilter($event.target.value)" placeholder="Pesquise..">
     <br>
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
         <th *ngFor="let head of headElements" scope="col">{{head}}</th>
+        <th><button class="btn-primary" (click)="cadastrarNovo()">Novo</button></th>
       </tr>
     </thead>
     <tbody>
@@ -20,6 +15,7 @@
         <td>{{c.nome}}</td>
         <td>{{c.cpf}} </td>
         <td>{{c.email}} </td>
+        <td>{{c.dataDeNascimento}} </td>
         <td><button class="btn-primary" (click)="editarItem(c)">Editar</button></td>
       </tr>
     </tbody>

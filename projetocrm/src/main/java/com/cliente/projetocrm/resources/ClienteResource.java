@@ -47,7 +47,7 @@ public class ClienteResource {
 	@GET
 	@Path("{cliente}")
     @Produces(MediaType.APPLICATION_JSON)
-	public Response listarPorFiltro(@PathParam("cliente") String cliente) {
+	public Response listarPorFiltro(@PathParam("cliente") String cliente) throws Exception {
 		ArrayList<Cliente> clientes = clienteDao.listarPorFiltro(cliente);
 		
 		return Response.ok(clientes).build();

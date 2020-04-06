@@ -15,21 +15,21 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 import { HomeComponent } from './home/home.component';
 import { ClienteComponent } from './cliente/cliente.component';
-import { ProdutoComponent } from './produto/produto.component';
 import { ListagemClientesComponent } from './listagem-clientes/listagem-clientes.component';
 import { VendaComponent } from './venda/venda.component';
-import { ItemProdutoComponent } from './item-produto/item-produto.component';
 import { VendaService } from './service/venda.service';
+import { MarcaComponent } from './marca/marca.component';
+import { CategoriaComponent } from './categoria/categoria.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ClienteComponent,
-    ProdutoComponent,
     ListagemClientesComponent,
     VendaComponent,
-    ItemProdutoComponent
+    MarcaComponent,
+    CategoriaComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +43,7 @@ import { VendaService } from './service/venda.service';
     MatDialogModule,
     ReactiveFormsModule
   ],
-  entryComponents: [ItemProdutoComponent],
+  entryComponents: [],
   providers: [VendaService],
   bootstrap: [AppComponent]
 })

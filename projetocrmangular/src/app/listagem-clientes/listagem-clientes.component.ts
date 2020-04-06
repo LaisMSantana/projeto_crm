@@ -12,7 +12,7 @@ import { Cliente } from '../models/cliente';
 })
 export class ListagemClientesComponent implements OnInit {
 
-  headElements = ['Nome', 'CPF', 'Email', ' '];
+  headElements = ['Nome', 'CPF', 'Email', 'Data de Nascimento'];
   clientes: any = [];
   editField: string;
   errorMsg = '';
@@ -39,6 +39,9 @@ editarItem(cliente: Cliente){
   this.router.navigate(['/editar', cliente.idCliente]);
 }
 
+cadastrarNovo(){
+  this.router.navigate(['/cliente']);
+}
 applyFilter(filterValue: string){
   return this.http.get(this.url + '/' +filterValue.trim().toLocaleLowerCase()).subscribe((data) =>{
     this.clientes = data;

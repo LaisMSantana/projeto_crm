@@ -1,0 +1,48 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h2>{{titulo}}</h2>
+      <div class="alert alert-danger" *ngIf="errorMsg">
+        <strong [ngClass]="FadeOutSuccessMsg()"> {{errorMsg}} </strong>
+      </div>
+      <div class="alert alert-success" *ngIf="succsessMsg && !hideSuccessMessage">
+        <strong [ngClass]="FadeOutSuccessMsg()"> {{succsessMsg}} </strong>
+      </div>
+      <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" novalidate>
+
+        <div class="form-group">
+          <input type="text" required #categoria="ngModel" [class.is-invalid]="categoria.invalid && categoria.touched"
+            class="form-control" name="categoria" [(ngModel)]="formData.categoria">
+          <small class="text-danger" [class.d-none]="categoria.valid || categoria.untouched">Categoria é
+            obrigatório</small>
+        </div>
+
+        <button [disabled]="userForm.form.invalid" class="m-1 btn btn-light btn-outline-primary" Buttonlable="DepScreen"
+          type="submit">Salvar</button>
+        <button class="m-1 btn btn-light btn-outline-primary" Buttonlable="DepScreen" type="reset">Limpar
+          Formulário</button>
+      </form>
+    </div>
+
+    <div class="col">
+      <br>
+      <input class="form-control" id="myInput" type="text" (keyup)="applyFilter($event.target.value)"
+        placeholder="Pesquise..">
+      <br>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th *ngFor="let head of headElements" scope="col">{{head}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of categorias; let id = index">
+            <td>{{c.categoria}}</td>
+            <td><button class="btn-primary" (click)="editarItem(c)">Editar</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

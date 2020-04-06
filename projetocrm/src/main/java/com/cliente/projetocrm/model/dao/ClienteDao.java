@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,7 +48,7 @@ public class ClienteDao {
 	public ArrayList<Cliente> listarTodos() {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
-		String sql = "SELECT * FROM CLIENTE";
+		String sql = "SELECT * FROM CLIENTE ORDER BY IDCLIENTE DESC";
 
 		Connection conexao = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
@@ -74,11 +75,13 @@ public class ClienteDao {
 		return clientes;
 	}
 
-	public ArrayList<Cliente> listarPorFiltro(String clienteFiltro) {
+	public ArrayList<Cliente> listarPorFiltro(String clienteFiltro) throws Exception {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 		
+		Date data = new SimpleDateFormat("yyyy-MM-dd").parse(clienteFiltro);
+		
 		String sql = "SELECT * FROM CLIENTE c WHERE c.NOME LIKE '%" + clienteFiltro
-				+ "%' OR c.CPF LIKE '%" + clienteFiltro + "%' OR c.EMAIL LIKE '%" + clienteFiltro + "%'";
+				+ "%' OR c.CPF LIKE '%" + clienteFiltro + "%' OR c.EMAIL LIKE '%" + clienteFiltro + "%' OR c.DATA_NASCIMENO::text LIKE '%" + data + "%'";
 		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);

@@ -7,24 +7,26 @@ public class Venda {
 	
 	private int idVenda;
 	private int idCliente;
-	private ArrayList<ItemProduto> produtos;
+	private ArrayList<ItemVenda> itens;
 	private Date dataVenda;
 	private double valor;
+	private int parcelas;
 	private String formaDePagamento;
 	
 	public Venda() {
 		super();
 	}
 
-	public Venda(int idVenda, int idCliente, ArrayList<ItemProduto> produtos, Date dataVenda, double valor,
-			String formaDePagamento) {
+	public Venda(int idVenda, int idCliente, ArrayList<ItemVenda> itens, Date dataVenda, double valor,
+			int parcelas, String formaDePagamento) {
 		super();
 		this.idVenda = idVenda;
 		this.idCliente = idCliente;
-		this.produtos = produtos;
+		this.itens = itens;
 		this.dataVenda = dataVenda;
 		this.valor = valor;
 		this.formaDePagamento = formaDePagamento;
+		this.parcelas = parcelas;
 	}
 
 
@@ -44,12 +46,12 @@ public class Venda {
 		this.idCliente = idCliente;
 	}
 
-	public ArrayList<ItemProduto> getProdutos() {
-		return produtos;
+	public ArrayList<ItemVenda> getItens() {
+		return itens;
 	}
 
-	public void setProdutos(ArrayList<ItemProduto> produtos) {
-		this.produtos = produtos;
+	public void setItens(ArrayList<ItemVenda> itens) {
+		this.itens = itens;
 	}
 
 	public Date getDataVenda() {
@@ -76,10 +78,18 @@ public class Venda {
 		this.formaDePagamento = formaDePagamento;
 	}
 
+	public int getParcelas() {
+		return parcelas;
+	}
+
+	public void setParcelas(int parcelas) {
+		this.parcelas = parcelas;
+	}
+
 	@Override
 	public String toString() {
-		return "Venda [idVenda=" + idVenda + ", cliente=" + idCliente + ", dataVenda="
-				+ dataVenda + ", valor=" + valor + ", formaDePagamento=" + formaDePagamento + "]";
+		return "Venda [idVenda=" + idVenda + ", idCliente=" + idCliente + ", dataVenda=" + dataVenda + ", valor="
+				+ valor + ", parcelas=" + parcelas + ", formaDePagamento=" + formaDePagamento + "]";
 	}
 	
 }

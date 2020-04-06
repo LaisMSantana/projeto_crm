@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { VendaModel } from '../models/venda-model';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ItemProdutoComponent } from '../item-produto/item-produto.component';
 import { VendaService } from '../service/venda.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Cliente } from '../models/cliente';
 import { ClienteService } from '../service/cliente.service';
-import { ItemProduto } from '../models/item-produto';
+import { ItemVenda } from '../models/item-venda';
 
 @Component({
   selector: 'app-venda',
@@ -28,16 +27,10 @@ export class VendaComponent implements OnInit {
 
     resetForm(userForm?: NgForm){
         this.service.formData = new VendaModel();
-        this.service.itensProduto= new Array<ItemProduto>();
+        this.service.itensVenda= new Array<ItemVenda>();
     }
 
   AddouEditarItem(itemProdutoIndex, idVenda){
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.autoFocus = true;
-    dialogConfig.disableClose = true;
-    dialogConfig.width="50%";
-    dialogConfig.data = {itemProdutoIndex, idVenda};
-    this.dialog.open(ItemProdutoComponent, dialogConfig);
   }
 
   ngOnInit() {
@@ -45,14 +38,14 @@ export class VendaComponent implements OnInit {
   }
 
   onDeleteItem(IdItemProduto: number, i: number){
-    this.service.itensProduto.splice(i,1);
+    this.service.itensVenda.splice(i,1);
   }
 
   validateForm(){
     this.isValid = true;
     if(this.service.formData.idCliente==0){
       this.isValid = false;
-    }else if(this.service.itensProduto.length==0){
+    }else if(this.service.itensVenda.length==0){
         this.isValid = false;
       }
       return this.isValid;

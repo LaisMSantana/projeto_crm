@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { VendaModel } from '../models/venda-model';
-import { ItemProduto } from '../models/item-produto';
+import { ItemVenda } from '../models/item-venda';
 
 @Injectable({
   providedIn: 'root'
 })
 export class VendaService {
   formData: VendaModel = new VendaModel();
-  itensProduto: ItemProduto[] = new Array<ItemProduto>();
+  itensVenda: ItemVenda[] = new Array<ItemVenda>();
 
   url = 'http://localhost:8080/api/vendas';
 
@@ -17,7 +17,7 @@ export class VendaService {
   salvarVenda(){
     var body ={
       ...this.formData,
-      produtos : this.itensProduto
+      itens : this.itensVenda
     }
     console.log(body);
     return this.http.post(this.url, body);

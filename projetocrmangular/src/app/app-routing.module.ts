@@ -1,19 +1,21 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ClienteComponent } from './cliente/cliente.component';
-import { ProdutoComponent } from './produto/produto.component';
+import { MarcaComponent } from './marca/marca.component';
+import { CategoriaComponent } from './categoria/categoria.component';
 import { ListagemClientesComponent } from './listagem-clientes/listagem-clientes.component';
 import { VendaComponent } from './venda/venda.component';
-import { ItemProdutoComponent } from './item-produto/item-produto.component';
 
 
 const routes: Routes = [
   { path: 'cliente', component: ClienteComponent},
   { path: 'editar/:id', component: ClienteComponent},
-  { path: 'produto', component: ProdutoComponent},
+  { path: 'marca', component: MarcaComponent},
+  { path: 'marca/:id', component: MarcaComponent},
+  { path: 'categoria', component: CategoriaComponent},
+  { path: 'categoria/:id', component: CategoriaComponent},
   { path: 'listagem-clientes', component: ListagemClientesComponent},
-  { path: 'venda', component: VendaComponent },
-  { path: 'item-produto', component: ItemProdutoComponent }
+  { path: 'venda', component: VendaComponent }
 ];
 
 @NgModule({

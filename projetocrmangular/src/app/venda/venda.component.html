@@ -13,7 +13,7 @@
         <div class="form-group">
           <label>Cliente</label>
           <select name="idCliente" #idCliente="ngModel" [(ngModel)]="service.formData.idCliente" class="form-control">
-            <option value="0">Select</option>
+            <option value="0">Selecione</option>
             <option *ngFor="let cliente of listaClientes" [ngValue]="cliente.idCliente">{{cliente.nome}}</option>
           </select>
         </div>
@@ -24,7 +24,7 @@
           <label>Pagamento</label>
           <select name="formaDePagamento" #formaDePagamento="ngModel" [(ngModel)]="service.formData.formaDePagamento"
             class="form-control">
-            <option value="0">Select</option>
+            <option value="0">Selecione</option>
             <option value="Dinheiro">Dinheiro</option>
             <option value="Debito">Débito</option>
             <option value="Credito">Crédito</option>
@@ -43,25 +43,29 @@
 
     <table class="table table-borderless">
       <thead class="thead-light">
-        <th>Produto</th>
+        <th>Marca</th>
+        <th>Categoria</th>
         <th>Quantidade</th>
+        <th>Valor</th>
         <th>
           <a class="btn btn-sm btn-success text" (click)="AddouEditarItem(null, service.formData.idVenda)">Add
             Produto</a>
         </th>
       </thead>
       <tbody>
-        <tr *ngIf="service.itensProduto.length==0">
+        <tr *ngIf="service.itensVenda.length==0">
           <td class="font-italic text-center" colspan="5">
             Nenhum produto Selecionado.
           </td>
         </tr>
-        <tr *ngFor="let p of service.itensProduto; let i=index;">
-          <td>{{p.itemNome}}</td>
-          <td>{{p.quantidade}}</td>
+        <tr *ngFor="let item of service.itensVenda; let i=index;">
+          <td>{{item.marca}}</td>
+          <td>{{item.categoria}}</td>
+          <td>{{item.quantidade}}</td>
+          <td>{{item.valor}}</td>
           <td>
             <a class="btn btn-sm btn-info text" (click)="AddouEditarItem(i, service.formData.idVenda)">Editar</a>
-            <a class="btn btn-sm btn-danger text ml-1" (click)="onDeleteItem(p.idItemProduto, i)">Excluir</a>
+            <a class="btn btn-sm btn-danger text ml-1" (click)="onDeleteItem(item.idItemVenda, i)">Excluir</a>
           </td>>
         </tr>
       </tbody>

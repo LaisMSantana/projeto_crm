@@ -25,7 +25,7 @@ public class VendaResource {
 		int novoId = vendaDao.cadastrarVenda(venda);
 		venda.setIdVenda(novoId);
 		System.out.println(venda.toString());
-		vendaDao.cadastrarItemProduto(venda);
+		vendaDao.cadastrarItemVenda(venda);
 		
 		return Response.status(Status.CREATED).entity(venda).build();
 	}

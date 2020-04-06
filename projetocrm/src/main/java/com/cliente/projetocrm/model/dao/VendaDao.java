@@ -16,7 +16,7 @@ public class VendaDao {
 	public int cadastrarVenda(Venda venda) throws Exception {
 		int novoId = 0;
 		
-		String sql = " INSERT INTO VENDA (DATA_VENDA, VALOR, FORMA_DE_PAGAMENTO, IDCLIENTE) VALUES (?,?,?,?) ";
+		String sql = " INSERT INTO VENDA (DATA_VENDA, VALOR, FORMA_DE_PAGAMENTO, IDCLIENTE, PARCELAS) VALUES (?,?,?,?,?) ";
 		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
@@ -30,6 +30,7 @@ public class VendaDao {
 			prepStmt.setDouble(2, venda.getValor());
 			prepStmt.setString(3, venda.getFormaDePagamento());
 			prepStmt.setInt(4, venda.getIdCliente());
+			prepStmt.setInt(5, venda.getParcelas());
 			prepStmt.execute();
 
 			ResultSet generatedKeys = prepStmt.getGeneratedKeys();
@@ -47,7 +48,7 @@ public class VendaDao {
 		return novoId;
 	}
 	
-	public int cadastrarItemProduto(Venda venda) {
+	public int cadastrarItemVenda(Venda venda) {
 		int retorno = 0;
 		int resultado = 0;
 		int contador = 0;
@@ -58,17 +59,19 @@ public class VendaDao {
 		PreparedStatement prepStmt = null;
 		
 		try {
-			for(int i = 0; i < venda.getProdutos().size(); i++){
+			for(int i = 0; i < venda.getItens().size(); i++){
 				
-				venda.getProdutos().get(i).setIdVenda(venda.getIdVenda());
+				venda.getItens().get(i).setIdVenda(venda.getIdVenda());
 				
-				sql = "INSERT INTO ITEMPRODUTO (IDPRODUTO, IDVENDA, QUANTIDADE) VALUES (?,?,?)";
+				sql = "INSERT INTO ITEMVENDA (IDMARCA, IDCATEGORIA, IDVENDA, QUANTIDADE, VALOR) VALUES (?,?,?,?,?)";
 				
 				prepStmt = Banco.getPreparedStatement(conexao, sql); 
 				
-				prepStmt.setInt(1, venda.getProdutos().get(i).getIdProduto());
-				prepStmt.setInt(2, venda.getProdutos().get(i).getIdVenda());
-				prepStmt.setInt(3, venda.getProdutos().get(i).getQuantidade());
+				prepStmt.setInt(1, venda.getItens().get(i).getIdMarca());
+				prepStmt.setInt(2, venda.getItens().get(i).getIdCategoria());
+				prepStmt.setInt(3, venda.getItens().get(i).getIdVenda());
+				prepStmt.setInt(4, venda.getItens().get(i).getQuantidade());
+				prepStmt.setDouble(5, venda.getItens().get(i).getValor());
 				
 				resultado = prepStmt.executeUpdate();
 				if(resultado == 1){
@@ -76,11 +79,11 @@ public class VendaDao {
 				}
 			}
 			ResultSet generatedKeys = prepStmt.getGeneratedKeys();
-			if((contador == venda.getProdutos().size()) && (generatedKeys.next())){
+			if((contador == venda.getItens().size()) && (generatedKeys.next())){
 				retorno = generatedKeys.getInt(1);
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro ao salvar Venda com produtos. Causa: \n: " + e.getMessage());
+			System.out.println("Erro ao salvar Venda com Itens. Causa: \n: " + e.getMessage());
 		} finally {
 			Banco.closeStatement(prepStmt);
 			Banco.closeConnection(conexao);

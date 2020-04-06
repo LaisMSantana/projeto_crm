@@ -1,7 +1,7 @@
 export class VendaModel {
   idVenda : number;
   idCliente : number;
-  idItemProduto: number;
+  idItemVenda: number;
   formaDePagamento : string;
   valor : number;
 }
