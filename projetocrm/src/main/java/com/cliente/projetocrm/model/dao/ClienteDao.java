@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,7 +46,7 @@ public class ClienteDao {
 		return novoId;
 	}
 
-	public ArrayList<Cliente> listarTodos() {
+	public ArrayList<Cliente> listarTodos() throws Exception {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
 		String sql = "SELECT * FROM CLIENTE ORDER BY IDCLIENTE DESC";
@@ -57,12 +58,17 @@ public class ClienteDao {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
+				
+				SimpleDateFormat formato1 = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat formato2 = new SimpleDateFormat("dd/MM/yyyy");
+				String data = formato2.format(formato1.parse(rs.getString(5)));
+				
 				Cliente cliente = new Cliente();
 				cliente.setIdCliente(rs.getInt(1));
 				cliente.setNome(rs.getString(2));
 				cliente.setCpf(rs.getString(3));
 				cliente.setEmail(rs.getString(4));
-				cliente.setDataDeNascimento(rs.getString(5));
+				cliente.setDataDeNascimento(data);
 				clientes.add(cliente);
 			}
 		} catch (SQLException e) {
@@ -77,7 +83,6 @@ public class ClienteDao {
 
 	public ArrayList<Cliente> listarPorFiltro(String clienteFiltro) throws Exception {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-		
 		
 		String sql = "SELECT * FROM CLIENTE c WHERE LOWER(c.NOME) LIKE LOWER('%" + clienteFiltro
 				+ "%') OR c.CPF LIKE '%" + clienteFiltro + "%' OR LOWER(c.EMAIL) LIKE LOWER('%" + clienteFiltro + "%') OR c.DATA_NASCIMENTO::text LIKE '%" + clienteFiltro + "%'";
@@ -167,6 +172,7 @@ public class ClienteDao {
 		}
 		return cliente;
 	}
+
 
 	
 }

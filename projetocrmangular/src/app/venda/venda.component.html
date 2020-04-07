@@ -13,7 +13,7 @@
         <div class="form-group">
           <label>Cliente</label>
           <select name="idCliente" #idCliente="ngModel" [(ngModel)]="service.formData.idCliente" class="form-control">
-            <option [ngValue]="undefined" disabled  selected>Selecione</option>
+            <option [ngValue]="undefined" disabled selected>Selecione</option>
             <option *ngFor="let cliente of listaClientes" [ngValue]="cliente.idCliente">{{cliente.nome}}</option>
           </select>
         </div>
@@ -24,7 +24,7 @@
           <label>Pagamento</label>
           <select name="formaDePagamento" #formaDePagamento="ngModel" [(ngModel)]="service.formData.formaDePagamento"
             class="form-control" (change)="selectInput($event)">
-            <option [ngValue]="undefined" disabled  selected>Selecione</option>
+            <option [ngValue]="undefined" disabled selected>Selecione</option>
             <option value="Dinheiro">Dinheiro</option>
             <option value="Debito">Débito</option>
             <option value="Credito">Crédito</option>
@@ -36,7 +36,7 @@
         <div class="form-group">
           <label>Parcelas</label>
           <select name="parcelas" #parcelas="ngModel" [(ngModel)]="service.formData.parcelas" class="form-control">
-            <option [ngValue]="undefined" disabled  selected>Selecione</option>
+            <option [ngValue]="undefined" disabled selected>Selecione</option>
             <option value="1">1x</option>
             <option value="2">2x</option>
             <option value="3">3x</option>
@@ -51,13 +51,12 @@
             <div class="input-group-prepend">
               <div class="input-group-text">R$</div>
             </div>
-            <input type="number" name="valor" #valor="ngModel" [(ngModel)]="service.formData.valor"
-              class="form-control" readonly>
+            <input type="number" name="valor" #valor="ngModel" [(ngModel)]="service.formData.valor" class="form-control"
+              readonly>
           </div>
         </div>
       </div>
     </div>
-
 
     <table class="table table-borderless">
       <thead class="thead-light">
@@ -65,33 +64,71 @@
         <th>Categoria</th>
         <th>Quantidade</th>
         <th>Valor</th>
-        <th>
-          <a class="btn btn-sm btn-success text" >Add
-            Item</a>
-        </th>
+        <th></th>
       </thead>
       <tbody>
-        <tr *ngIf="service.itensVenda.length==0">
-          <td class="font-italic text-center" colspan="5">
-            Nenhum item Selecionado.
+        <tr *ngFor="let item of service.itensVenda; let i = index">
+          <td>
+            <select name="idMarca" #idMarca="ngModel" [(ngModel)]="item.idMarca" class="form-control">
+              <option [ngValue]="undefined" disabled selected>Selecione</option>
+              <option *ngFor="let m of listaMarcas" [ngValue]="m.idMarca">{{m.marca}}</option>
+            </select>
+          </td>
+          <td>
+            <select name="idCategoria" #idCategoria="ngModel" [(ngModel)]="item.idCategoria" class="form-control">
+              <option [ngValue]="undefined" disabled selected>Selecione</option>
+              <option *ngFor="let c of listaCategorias" [ngValue]="c.idCategoria">{{c.categoria}}</option>
+            </select>
+          </td>
+          <td>
+            <input [(ngModel)]="item.quantidade" class="form-control" type="number" name="{{item.quantidade}}" />
+          </td>
+          <td>
+            <div class="input-group mb-2 mr-sm-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">R$</div>
+              </div>
+              <input [(ngModel)]="item.valor" class="form-control" type="number" name="{{item.valor}}" />
+            </div>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-danger text ml-1" type="button" (click)="deleteFieldValue(i)" (keyup)="updateTotal()">Delete</button>
           </td>
         </tr>
-        <tr *ngFor="let item of service.itensVenda; let i=index;">
-          <td>{{item.marca}}</td>
-          <td>{{item.categoria}}</td>
-          <td>{{item.quantidade}}</td>
-          <td>{{item.valor}}</td>
+        <tr>
           <td>
-            <a class="btn btn-sm btn-info text" (click)="AddouEditarItem(i, service.formData.idVenda)">Editar</a>
-            <a class="btn btn-sm btn-danger text ml-1" (click)="onDeleteItem(item.idItemVenda, i)">Excluir</a>
-          </td>>
+            <select name="novoItemMarca" id="novoItemMarca"  [(ngModel)]="service.formItem.idMarca" class="form-control">
+              <option [ngValue]="undefined" disabled selected>Selecione</option>
+              <option *ngFor="let m of listaMarcas" [ngValue]="m.idMarca">{{m.marca}}</option>
+            </select>
+          </td>
+          <td>
+            <select name="novoItemCategoria"id="novoItemCategoria" [(ngModel)]="service.formItem.idCategoria" class="form-control">
+              <option [ngValue]="undefined" disabled selected>Selecione</option>
+              <option *ngFor="let c of listaCategorias" [ngValue]="c.idCategoria">{{c.categoria}}</option>
+            </select>
+          </td>
+          <td>
+            <input class="form-control" type="number" id="novoItemQuantidade" [(ngModel)]="service.formItem.quantidade"
+              name="novoItemQuantidade"/>
+          </td>
+          <td>
+            <div class="input-group mb-2 mr-sm-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">R$</div>
+              </div>
+              <input class="form-control" type="number" id="novoItemValor" [(ngModel)]="service.formItem.valor"
+                name="novoItemValor" (keyup)="updateValor()" />
+            </div>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-info text" type="button" (click)="addFieldValue()">Add</button>
+          </td>
         </tr>
       </tbody>
     </table>
 
-
     <button [disabled]="userForm.form.invalid" class="m-1 btn btn-light btn-outline-primary" Buttonlable="DepScreen"
       type="submit">Salvar</button>
   </form>
-
 </div>

@@ -40,7 +40,7 @@ public class ClienteResource {
 
 	@GET
     @Produces(MediaType.APPLICATION_JSON)
-	public Response listarTodosClientes() {
+	public Response listarTodosClientes() throws Exception {
 		return Response.ok(clienteDao.listarTodos()).build();
 	}
 	

@@ -7,6 +7,10 @@ import { NgForm } from '@angular/forms';
 import { Cliente } from '../models/cliente';
 import { ClienteService } from '../service/cliente.service';
 import { ItemVenda } from '../models/item-venda';
+import { MarcaService } from '../service/marca.service';
+import { CategoriaService } from '../service/categoria.service';
+import { Marca } from '../models/marca';
+import { Categoria } from '../models/categoria';
 
 @Component({
   selector: 'app-venda',
@@ -15,31 +19,41 @@ import { ItemVenda } from '../models/item-venda';
 })
 export class VendaComponent implements OnInit {
   listaClientes: any = [];
+  listaMarcas: any = [];
+  listaCategorias: any = [];
+  valorTotal: number = null;
+
   isValid: Boolean = true;
   isCreditoSelected: boolean;
+
   errorMsg = '';
   succsessMsg = '';
   hideSuccessMessage = false;
 
-  constructor(private dialog:MatDialog,
-    public service: VendaService,
+  constructor(public service: VendaService,
     private router: Router,
-    private clienteService: ClienteService){}
+    private clienteService: ClienteService,
+    private marcaService: MarcaService,
+    private categoriaService: CategoriaService){}
 
-    resetForm(userForm?: NgForm){
+  resetForm(userForm?: NgForm){
         this.service.formData = new VendaModel();
         this.service.itensVenda= new Array<ItemVenda>();
     }
 
-  AddouEditarItem(itemProdutoIndex, idVenda){
+  addFieldValue() {
+      this.service.itensVenda.push(this.service.formItem)
+      this.service.formItem = new ItemVenda();
+  }
+
+  deleteFieldValue(index) {
+      this.service.itensVenda.splice(index, 1);
   }
 
   ngOnInit() {
     this.clienteService.getListaClientes().then(res => this.listaClientes = res as Array<Cliente>);
-  }
-
-  onDeleteItem(IdItemProduto: number, i: number){
-    this.service.itensVenda.splice(i,1);
+    this.marcaService.getListaMarcas().then(res => this.listaMarcas = res as Array<Marca>);
+    this.categoriaService.getListaCategorias().then(res => this.listaCategorias = res as Array<Categoria>);
   }
 
   validateForm(){
@@ -77,5 +91,15 @@ export class VendaComponent implements OnInit {
   }
 }
 
+updateValor(){
+  if(this.service.formData.valor){
+    this.service.formData.valor += parseFloat((this.service.formItem.valor * this.service.formItem.quantidade).toFixed(2));
+  } else {
+    this.service.formData.valor = parseFloat((this.service.formItem.valor * this.service.formItem.quantidade).toFixed(2));
+  }
+}
+
+updateTotal(){
+}
 
 }
