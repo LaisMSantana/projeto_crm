@@ -67,7 +67,7 @@ public class MarcaDao {
 	public ArrayList<Marca> listarPorFiltro(String marcaFiltro) {
 		ArrayList<Marca> marcas = new ArrayList<Marca>();
 		
-		String sql = "SELECT * FROM MARCA WHERE MARCA LIKE '%" + marcaFiltro + "%'";
+		String sql = "SELECT * FROM MARCA WHERE LOWER(MARCA) LIKE LOWER('%" + marcaFiltro + "%')";
 		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);

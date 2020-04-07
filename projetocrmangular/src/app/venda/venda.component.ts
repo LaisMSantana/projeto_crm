@@ -16,6 +16,7 @@ import { ItemVenda } from '../models/item-venda';
 export class VendaComponent implements OnInit {
   listaClientes: any = [];
   isValid: Boolean = true;
+  isCreditoSelected: boolean;
   errorMsg = '';
   succsessMsg = '';
   hideSuccessMessage = false;
@@ -66,5 +67,15 @@ export class VendaComponent implements OnInit {
           this.hideSuccessMessage = true;
        }, 3000);
  }
+
+ selectInput(event) {
+  let selected = event.target.value;
+  if (selected == "Credito") {
+    this.isCreditoSelected = true;
+  } else {
+    this.isCreditoSelected = false;
+  }
+}
+
 
 }

@@ -67,7 +67,7 @@ public class CategoriaDao {
 	public ArrayList<Categoria> listarPorFiltro(String categoriaFiltro) {
 		ArrayList<Categoria> categorias = new ArrayList<Categoria>();
 		
-		String sql = "SELECT * FROM CATEGORIA WHERE CATEGORIA LIKE '%" + categoriaFiltro + "%'";
+		String sql = "SELECT * FROM CATEGORIA WHERE LOWER(CATEGORIA) LIKE LOWER('%" + categoriaFiltro + "%')";
 		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);

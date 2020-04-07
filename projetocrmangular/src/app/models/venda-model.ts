@@ -3,5 +3,6 @@ export class VendaModel {
   idCliente : number;
   idItemVenda: number;
   formaDePagamento : string;
+  parcelas : number;
   valor : number;
 }

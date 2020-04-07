@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Directive } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
@@ -20,6 +20,7 @@ import { VendaComponent } from './venda/venda.component';
 import { VendaService } from './service/venda.service';
 import { MarcaComponent } from './marca/marca.component';
 import { CategoriaComponent } from './categoria/categoria.component';
+import { AddrowDirective } from './addrow.directive';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CategoriaComponent } from './categoria/categoria.component';
     ListagemClientesComponent,
     VendaComponent,
     MarcaComponent,
-    CategoriaComponent
+    CategoriaComponent,
+    AddrowDirective
   ],
   imports: [
     BrowserModule,

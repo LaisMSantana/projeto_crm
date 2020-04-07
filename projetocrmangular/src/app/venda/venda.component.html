@@ -13,7 +13,7 @@
         <div class="form-group">
           <label>Cliente</label>
           <select name="idCliente" #idCliente="ngModel" [(ngModel)]="service.formData.idCliente" class="form-control">
-            <option value="0">Selecione</option>
+            <option [ngValue]="undefined" disabled  selected>Selecione</option>
             <option *ngFor="let cliente of listaClientes" [ngValue]="cliente.idCliente">{{cliente.nome}}</option>
           </select>
         </div>
@@ -23,8 +23,8 @@
         <div class="form-group">
           <label>Pagamento</label>
           <select name="formaDePagamento" #formaDePagamento="ngModel" [(ngModel)]="service.formData.formaDePagamento"
-            class="form-control">
-            <option value="0">Selecione</option>
+            class="form-control" (change)="selectInput($event)">
+            <option [ngValue]="undefined" disabled  selected>Selecione</option>
             <option value="Dinheiro">Dinheiro</option>
             <option value="Debito">Débito</option>
             <option value="Credito">Crédito</option>
@@ -32,10 +32,28 @@
         </div>
       </div>
 
+      <div class="col" *ngIf="isCreditoSelected">
+        <div class="form-group">
+          <label>Parcelas</label>
+          <select name="parcelas" #parcelas="ngModel" [(ngModel)]="service.formData.parcelas" class="form-control">
+            <option [ngValue]="undefined" disabled  selected>Selecione</option>
+            <option value="1">1x</option>
+            <option value="2">2x</option>
+            <option value="3">3x</option>
+          </select>
+        </div>
+      </div>
+
       <div class="col">
         <div class="form-group">
           <label>Valor Total</label>
-          <input type="number" name="valor" #valor="ngModel" [(ngModel)]="service.formData.valor" class="form-control">
+          <div class="input-group mb-2 mr-sm-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">R$</div>
+            </div>
+            <input type="number" name="valor" #valor="ngModel" [(ngModel)]="service.formData.valor"
+              class="form-control" readonly>
+          </div>
         </div>
       </div>
     </div>
@@ -48,14 +66,14 @@
         <th>Quantidade</th>
         <th>Valor</th>
         <th>
-          <a class="btn btn-sm btn-success text" (click)="AddouEditarItem(null, service.formData.idVenda)">Add
-            Produto</a>
+          <a class="btn btn-sm btn-success text" >Add
+            Item</a>
         </th>
       </thead>
       <tbody>
         <tr *ngIf="service.itensVenda.length==0">
           <td class="font-italic text-center" colspan="5">
-            Nenhum produto Selecionado.
+            Nenhum item Selecionado.
           </td>
         </tr>
         <tr *ngFor="let item of service.itensVenda; let i=index;">

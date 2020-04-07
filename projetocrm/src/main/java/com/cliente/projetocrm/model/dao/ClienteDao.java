@@ -78,10 +78,9 @@ public class ClienteDao {
 	public ArrayList<Cliente> listarPorFiltro(String clienteFiltro) throws Exception {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 		
-		Date data = new SimpleDateFormat("yyyy-MM-dd").parse(clienteFiltro);
 		
-		String sql = "SELECT * FROM CLIENTE c WHERE c.NOME LIKE '%" + clienteFiltro
-				+ "%' OR c.CPF LIKE '%" + clienteFiltro + "%' OR c.EMAIL LIKE '%" + clienteFiltro + "%' OR c.DATA_NASCIMENO::text LIKE '%" + data + "%'";
+		String sql = "SELECT * FROM CLIENTE c WHERE LOWER(c.NOME) LIKE LOWER('%" + clienteFiltro
+				+ "%') OR c.CPF LIKE '%" + clienteFiltro + "%' OR LOWER(c.EMAIL) LIKE LOWER('%" + clienteFiltro + "%') OR c.DATA_NASCIMENTO::text LIKE '%" + clienteFiltro + "%'";
 		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
