@@ -5,4 +5,6 @@ export class VendaModel {
   formaDePagamento : string;
   parcelas : number;
   valor : number;
+  cliente: string;
+  dataVenda: string;
 }

@@ -5,6 +5,7 @@ import { MarcaComponent } from './marca/marca.component';
 import { CategoriaComponent } from './categoria/categoria.component';
 import { ListagemClientesComponent } from './listagem-clientes/listagem-clientes.component';
 import { VendaComponent } from './venda/venda.component';
+import { ListagemVendasComponent } from './listagem-vendas/listagem-vendas.component';
 
 
 const routes: Routes = [
@@ -15,7 +16,9 @@ const routes: Routes = [
   { path: 'categoria', component: CategoriaComponent},
   { path: 'categoria/:id', component: CategoriaComponent},
   { path: 'listagem-clientes', component: ListagemClientesComponent},
-  { path: 'venda', component: VendaComponent }
+  { path: 'listagem-vendas', component: ListagemVendasComponent},
+  { path: 'venda', component: VendaComponent },
+  { path: 'venda/:id', component: VendaComponent }
 ];
 
 @NgModule({

@@ -3,8 +3,6 @@ export class ItemVenda {
     idVenda: number;
     idMarca: number;
     idCategoria: number;
-    marca: string;
-    categoria: string;
     quantidade: number;
     valor: number;
 }

@@ -23,4 +23,8 @@ export class VendaService {
     console.log(body);
     return this.http.post(this.url, body);
   }
+
+  getVenda(id : number){
+    this.http.get(this.url + '/venda/' + id).subscribe((data: VendaModel) => this.formData = data);
+  }
 }

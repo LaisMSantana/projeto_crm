@@ -3,10 +3,12 @@ package com.cliente.projetocrm.model.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.cliente.projetocrm.model.vo.Venda;
@@ -90,6 +92,129 @@ public class VendaDao {
 		}
 		
 		return retorno;
+	}
+	public ArrayList<Venda> listarTodos() throws Exception {
+		ArrayList<Venda> vendas = new ArrayList<Venda>();
+
+		String sql = "SELECT c.NOME, v.IDVENDA, v.VALOR, v.FORMA_DE_PAGAMENTO, v.PARCELAS, v.DATA_VENDA FROM VENDA v "
+				+ "INNER JOIN CLIENTE c "
+				+ "ON v.IDCLIENTE = c.IDCLIENTE "
+				+ "ORDER BY IDVENDA DESC";
+
+		Connection conexao = Banco.getConnection();
+		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
+
+		try {
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Date data = new SimpleDateFormat("dd/MM/yyyy").parse(rs.getString(6));
+				
+				Venda venda = new Venda();
+				venda.setCliente(rs.getString(1));
+				venda.setIdVenda(rs.getInt(2));
+				venda.setValor(rs.getDouble(3));
+				venda.setFormaDePagamento(rs.getString(4));
+				venda.setParcelas(rs.getInt(5));
+				venda.setDataVenda(data);
+				vendas.add(venda);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Erro ao listar Venda. Causa: \n: " + e.getMessage());
+		} finally {
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conexao);
+		}
+		return vendas;
+	}
+
+	public ArrayList<Venda> listarPorFiltro(String vendaFiltro) throws Exception {
+		ArrayList<Venda> vendas = new ArrayList<Venda>();
+		
+		String sql = "SELECT * FROM VENDA v WHERE  v.DATA_VENDA::text LIKE '%" + vendaFiltro + "%'";
+		
+		Connection conexao = Banco.getConnection();
+		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
+
+		try {
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				Venda venda = new Venda();
+				venda.setIdVenda(rs.getInt(1));
+				venda.setDataVenda(rs.getDate(2));
+				venda.setValor(rs.getDouble(3));
+				venda.setFormaDePagamento(rs.getString(4));
+				venda.setParcelas(rs.getInt(5));
+				venda.setIdCliente(rs.getInt(6));
+				vendas.add(venda);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("Erro ao listar Venda por filtro. Causa: \n: " + e.getMessage());
+		} finally {
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conexao);
+		}
+		return vendas;
+	}
+
+	public boolean atualizar(Venda venda) throws Exception {
+		boolean sucessoUpdate = false;
+
+		String sql = " UPDATE VENDA SET WHERE IDVENDA = "
+				+ venda.getIdVenda();
+		
+		Connection conexao = Banco.getConnection();
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
+
+		try {			
+			prepStmt.setString(1, venda.getFormaDePagamento());
+
+			int codigoRetorno = prepStmt.executeUpdate();
+
+			if (codigoRetorno == 1) {
+				sucessoUpdate = true;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Erro ao atualizar Venda. Causa: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conexao);
+		}
+
+		return sucessoUpdate;
+	}
+
+	public Venda encontrarPorId(int id) {
+		Venda venda = new Venda();
+
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		ResultSet rs = null;
+
+		String query = "SELECT * FROM VENDA WHERE IDVENDA = " + id;
+		try {
+			rs = stmt.executeQuery(query);
+			if (rs.next()) {
+				venda.setIdVenda(rs.getInt(1));
+				venda.setDataVenda(rs.getDate(2));
+				venda.setValor(rs.getDouble(3));
+				venda.setFormaDePagamento(rs.getString(4));
+				venda.setParcelas(rs.getInt(5));
+				venda.setIdCliente(rs.getInt(6));
+			}
+		} catch (SQLException e) {
+			System.out.println(
+					"Erro ao executar a Query que verifica existência de Venda por ID. Erro:" + e.getMessage());
+		} finally {
+			Banco.closeResultSet(rs);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return venda;
 	}
 	
 	private String getDateTime() {

@@ -12,13 +12,14 @@ public class Venda {
 	private double valor;
 	private int parcelas;
 	private String formaDePagamento;
+	private String cliente;
 	
 	public Venda() {
 		super();
 	}
 
 	public Venda(int idVenda, int idCliente, ArrayList<ItemVenda> itens, Date dataVenda, double valor,
-			int parcelas, String formaDePagamento) {
+			int parcelas, String formaDePagamento, String cliente) {
 		super();
 		this.idVenda = idVenda;
 		this.idCliente = idCliente;
@@ -27,6 +28,7 @@ public class Venda {
 		this.valor = valor;
 		this.formaDePagamento = formaDePagamento;
 		this.parcelas = parcelas;
+		this.cliente = cliente;
 	}
 
 
@@ -85,11 +87,23 @@ public class Venda {
 	public void setParcelas(int parcelas) {
 		this.parcelas = parcelas;
 	}
+	
+
+	public String getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(String cliente) {
+		this.cliente = cliente;
+	}
 
 	@Override
 	public String toString() {
-		return "Venda [idVenda=" + idVenda + ", idCliente=" + idCliente + ", dataVenda=" + dataVenda + ", valor="
-				+ valor + ", parcelas=" + parcelas + ", formaDePagamento=" + formaDePagamento + "]";
+		return "Venda [idVenda=" + idVenda + ", idCliente=" + idCliente + ", itens=" + itens + ", dataVenda="
+				+ dataVenda + ", valor=" + valor + ", parcelas=" + parcelas + ", formaDePagamento=" + formaDePagamento
+				+ ", cliente=" + cliente + "]";
 	}
+
+	
 	
 }

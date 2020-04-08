@@ -21,7 +21,7 @@ export class VendaComponent implements OnInit {
   listaClientes: any = [];
   listaMarcas: any = [];
   listaCategorias: any = [];
-  valorTotal: number = null;
+  titulo: string;
 
   isValid: Boolean = true;
   isCreditoSelected: boolean;
@@ -30,11 +30,12 @@ export class VendaComponent implements OnInit {
   succsessMsg = '';
   hideSuccessMessage = false;
 
-  constructor(public service: VendaService,
+  constructor( public service: VendaService,
     private router: Router,
     private clienteService: ClienteService,
     private marcaService: MarcaService,
-    private categoriaService: CategoriaService){}
+    private categoriaService: CategoriaService,
+    private _route: ActivatedRoute){}
 
   resetForm(userForm?: NgForm){
         this.service.formData = new VendaModel();
@@ -42,17 +43,21 @@ export class VendaComponent implements OnInit {
     }
 
   addFieldValue() {
-      this.updateValor();
+      this.updateValor(null);
       this.service.itensVenda.push(this.service.formItem);
       this.service.formItem = new ItemVenda();
   }
 
-  deleteFieldValue(index) {
-      this.deleteValor();
+  deleteFieldValue(index, item) {
       this.service.itensVenda.splice(index, 1);
+      this.deleteValor(item);
   }
 
   ngOnInit() {
+    this._route.paramMap.subscribe(parameterMap =>{
+      const id = +parameterMap.get('id');
+      this.getVenda(id)
+    });
     this.clienteService.getListaClientes().then(res => this.listaClientes = res as Array<Cliente>);
     this.marcaService.getListaMarcas().then(res => this.listaMarcas = res as Array<Marca>);
     this.categoriaService.getListaCategorias().then(res => this.listaCategorias = res as Array<Categoria>);
@@ -71,9 +76,7 @@ export class VendaComponent implements OnInit {
   onSubmit(form: NgForm){
     if(this.validateForm()){
       this.service.salvarVenda().subscribe(res => {
-        this.resetForm(),
-        data => this.succsessMsg = "Venda salva com sucesso!",
-        error => this.errorMsg = error.statusText
+        this.resetForm()
       });
     }
   }
@@ -93,16 +96,42 @@ export class VendaComponent implements OnInit {
   }
 }
 
-updateValor(){
-  if(this.service.formData.valor){
-    this.service.formData.valor += parseFloat((this.service.formItem.valor * this.service.formItem.quantidade).toFixed(2));
+updateValor(item){
+  if(item == null){
+    if(this.service.formData.valor){
+      this.service.formData.valor += parseFloat((this.service.formItem.valor * this.service.formItem.quantidade).toFixed(2));
+    } else {
+      this.service.formData.valor = parseFloat((this.service.formItem.valor * this.service.formItem.quantidade).toFixed(2));
+    }
   } else {
-    this.service.formData.valor = parseFloat((this.service.formItem.valor * this.service.formItem.quantidade).toFixed(2));
+    if(this.service.formData.valor){
+      this.service.formData.valor += parseFloat((item.valor * item.quantidade).toFixed(2));
+    } else {
+      this.service.formData.valor = parseFloat((item.valor * item.quantidade).toFixed(2));
+    }
   }
+  console.log(item);
 }
 
-deleteValor(){
-    this.service.formData.valor -= parseFloat((this.service.formItem.valor * this.service.formItem.quantidade).toFixed(2));
+deleteValor(item){
+  console.log(item);
+  this.service.formData.valor -= item.valor * item.quantidade;
+}
+
+onChange(item) {
+    this.deleteValor(item);
+    this.updateValor(item);
+
+}
+
+getVenda(id : number){
+  if(id == 0){
+    this.service.formData = new VendaModel();
+    this.titulo = 'Nova Venda';
+  } else {
+    this.service.getVenda(id);
+    this.titulo = 'Editar Venda';
+  }
 }
 
 }

@@ -1,0 +1,23 @@
+<div>
+  <br>
+  <h2>Vendas</h2>
+    <input class="form-control" id="myInput" type="text" (keyup)="applyFilter($event.target.value)" placeholder="Pesquise..">
+    <br>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th *ngFor="let head of headElements" scope="col">{{head}}</th>
+        <th><button class="btn-primary" (click)="cadastrarNovo()">Novo</button></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of vendas; let id = index">
+        <td>{{v.cliente}} </td>
+        <td>{{v.formaDePagamento}}</td>
+        <td>{{v.valor}} </td>
+        <td>{{v.dataVenda}} </td>
+        <td><button class="btn-primary" (click)="editarItem(v)">Editar</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

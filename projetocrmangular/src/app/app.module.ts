@@ -21,6 +21,7 @@ import { VendaService } from './service/venda.service';
 import { MarcaComponent } from './marca/marca.component';
 import { CategoriaComponent } from './categoria/categoria.component';
 import { AddrowDirective } from './addrow.directive';
+import { ListagemVendasComponent } from './listagem-vendas/listagem-vendas.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AddrowDirective } from './addrow.directive';
     VendaComponent,
     MarcaComponent,
     CategoriaComponent,
-    AddrowDirective
+    AddrowDirective,
+    ListagemVendasComponent
   ],
   imports: [
     BrowserModule,

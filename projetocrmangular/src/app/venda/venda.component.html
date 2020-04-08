@@ -1,11 +1,5 @@
 <div class="container-fluid">
-  <h2>Nova Venda</h2>
-  <div class="alert alert-danger" *ngIf="errorMsg">
-    <strong [ngClass]="FadeOutSuccessMsg()"> {{errorMsg}} </strong>
-  </div>
-  <div class="alert alert-success" *ngIf="succsessMsg && !hideSuccessMessage">
-    <strong [ngClass]="FadeOutSuccessMsg()"> {{succsessMsg}} </strong>
-  </div>
+  <h2>{{titulo}}</h2>
   <form #userForm="ngForm" (submit)="onSubmit(userForm)">
     <div class="row">
 
@@ -37,9 +31,9 @@
           <label>Parcelas</label>
           <select name="parcelas" #parcelas="ngModel" [(ngModel)]="service.formData.parcelas" class="form-control">
             <option [ngValue]="undefined" disabled selected>Selecione</option>
-            <option value="1">1x</option>
-            <option value="2">2x</option>
-            <option value="3">3x</option>
+            <option [ngValue]=1>1x</option>
+            <option [ngValue]=2>2x</option>
+            <option [ngValue]=3>3x</option>
           </select>
         </div>
       </div>
@@ -81,18 +75,18 @@
             </select>
           </td>
           <td>
-            <input [(ngModel)]="item.quantidade" class="form-control" type="number" name="{{item.quantidade}}" />
+            <input [(ngModel)]="item.quantidade" class="form-control" type="number" name="{{item.quantidade}}" (ngModelChange)="onChange(item)"/>
           </td>
           <td>
             <div class="input-group mb-2 mr-sm-2">
               <div class="input-group-prepend">
                 <div class="input-group-text">R$</div>
               </div>
-              <input [(ngModel)]="item.valor" class="form-control" type="number" name="{{item.valor}}" />
+              <input [(ngModel)]="item.valor" class="form-control" type="number" name="{{item.valor}}" (ngModelChange)="onChange(item)"/>
             </div>
           </td>
           <td>
-            <button class="btn btn-sm btn-danger text ml-1" type="button" (click)="deleteFieldValue(i)">Delete</button>
+            <button class="btn btn-sm btn-danger text ml-1" type="button" (click)="deleteFieldValue(i, item)">Delete</button>
           </td>
         </tr>
         <tr>
