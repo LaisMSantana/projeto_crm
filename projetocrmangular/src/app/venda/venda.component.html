@@ -92,7 +92,7 @@
             </div>
           </td>
           <td>
-            <button class="btn btn-sm btn-danger text ml-1" type="button" (click)="deleteFieldValue(i)" (keyup)="updateTotal()">Delete</button>
+            <button class="btn btn-sm btn-danger text ml-1" type="button" (click)="deleteFieldValue(i)">Delete</button>
           </td>
         </tr>
         <tr>
@@ -118,7 +118,7 @@
                 <div class="input-group-text">R$</div>
               </div>
               <input class="form-control" type="number" id="novoItemValor" [(ngModel)]="service.formItem.valor"
-                name="novoItemValor" (keyup)="updateValor()" />
+                name="novoItemValor"/>
             </div>
           </td>
           <td>

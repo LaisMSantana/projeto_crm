@@ -42,11 +42,13 @@ export class VendaComponent implements OnInit {
     }
 
   addFieldValue() {
-      this.service.itensVenda.push(this.service.formItem)
+      this.updateValor();
+      this.service.itensVenda.push(this.service.formItem);
       this.service.formItem = new ItemVenda();
   }
 
   deleteFieldValue(index) {
+      this.deleteValor();
       this.service.itensVenda.splice(index, 1);
   }
 
@@ -99,7 +101,8 @@ updateValor(){
   }
 }
 
-updateTotal(){
+deleteValor(){
+    this.service.formData.valor -= parseFloat((this.service.formItem.valor * this.service.formItem.quantidade).toFixed(2));
 }
 
 }
