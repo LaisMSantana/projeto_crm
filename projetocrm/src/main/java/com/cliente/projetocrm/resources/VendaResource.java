@@ -77,17 +77,28 @@ public class VendaResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response atualizarCliente(@PathParam("idVenda") int id, @RequestBody Venda venda) throws Exception {
 		Venda atualizarVenda = vendaDao.encontrarPorId(id);
+		ArrayList<ItemVenda> novoItem = new ArrayList<ItemVenda>();
 		
 		atualizarVenda.setIdVenda(id);
 		atualizarVenda.setIdCliente(venda.getIdCliente());
 		atualizarVenda.setFormaDePagamento(venda.getFormaDePagamento());
-		atualizarVenda.setItens(venda.getItens());
 		atualizarVenda.setParcelas(venda.getParcelas());
 		atualizarVenda.setValor(venda.getValor());
 		System.out.println(atualizarVenda);
 		
 		vendaDao.atualizarVenda(atualizarVenda);
-		vendaDao.atualizarItemVenda(atualizarVenda);
+		
+		for(int i = 0; i < venda.getItens().size(); i++) {
+			if(vendaDao.existeItem(venda.getItens().get(i))) {
+				vendaDao.atualizarItemVenda(venda.getItens().get(i));
+			} else {
+				novoItem.add(venda.getItens().get(i));
+			}
+		}
+		if(novoItem != null) {
+			atualizarVenda.setItens(novoItem);
+			vendaDao.cadastrarItemVenda(atualizarVenda);
+		}
 		
 		return Response.ok().build();
 	}

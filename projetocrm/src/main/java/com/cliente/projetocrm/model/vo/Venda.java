@@ -8,7 +8,7 @@ public class Venda {
 	private int idVenda;
 	private int idCliente;
 	private ArrayList<ItemVenda> itens;
-	private Date dataVenda;
+	private String dataVenda;
 	private double valor;
 	private int parcelas;
 	private String formaDePagamento;
@@ -18,7 +18,7 @@ public class Venda {
 		super();
 	}
 
-	public Venda(int idVenda, int idCliente, ArrayList<ItemVenda> itens, Date dataVenda, double valor,
+	public Venda(int idVenda, int idCliente, ArrayList<ItemVenda> itens, String dataVenda, double valor,
 			int parcelas, String formaDePagamento, String cliente) {
 		super();
 		this.idVenda = idVenda;
@@ -56,11 +56,11 @@ public class Venda {
 		this.itens = itens;
 	}
 
-	public Date getDataVenda() {
+	public String getDataVenda() {
 		return dataVenda;
 	}
 
-	public void setDataVenda(Date dataVenda) {
+	public void setDataVenda(String dataVenda) {
 		this.dataVenda = dataVenda;
 	}
 

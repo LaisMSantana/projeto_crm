@@ -43,14 +43,14 @@ export class VendaComponent implements OnInit {
     }
 
   addFieldValue() {
-      this.updateValor(null);
+    this.updateValor();
       this.service.itensVenda.push(this.service.formItem);
       this.service.formItem = new ItemVenda();
   }
 
   deleteFieldValue(index, item) {
       this.service.itensVenda.splice(index, 1);
-      this.deleteValor(item);
+      this.atualizarValorVenda();
   }
 
   ngOnInit() {
@@ -105,33 +105,19 @@ export class VendaComponent implements OnInit {
     this.isCreditoSelected = false;
   }
 }
-
-updateValor(item){
-  if(item == null){
+updateValor(){
     if(this.service.formData.valor){
       this.service.formData.valor += parseFloat((this.service.formItem.valor * this.service.formItem.quantidade).toFixed(2));
     } else {
       this.service.formData.valor = parseFloat((this.service.formItem.valor * this.service.formItem.quantidade).toFixed(2));
     }
-  } else {
-    if(this.service.formData.valor){
-      this.service.formData.valor += parseFloat((item.valor * item.quantidade).toFixed(2));
-      console.log(this.service.formData.valor);
-    } else {
-      this.service.formData.valor = parseFloat((item.valor * item.quantidade).toFixed(2));
-    }
+}
+
+atualizarValorVenda(){
+  this.service.formData.valor = 0;
+  for(const item of this.service.itensVenda){
+    this.service.formData.valor += item.valor * item.quantidade;
   }
-
-}
-
-deleteValor(item){
-  this.service.formData.valor -= item.valor * item.quantidade;
-  console.log(this.service.formData.valor);
-}
-
-onChange(item) {
-  this.deleteValor(item);
-  this.updateValor(item);
 }
 
 getVenda(id : number){

@@ -36,7 +36,7 @@ export class ListagemClientesComponent implements OnInit {
 }
 
 editarItem(cliente: Cliente){
-  this.router.navigate(['/editar', cliente.idCliente]);
+  this.router.navigate(['/cliente', cliente.idCliente]);
 }
 
 cadastrarNovo(){

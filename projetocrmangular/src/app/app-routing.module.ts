@@ -10,7 +10,7 @@ import { ListagemVendasComponent } from './listagem-vendas/listagem-vendas.compo
 
 const routes: Routes = [
   { path: 'cliente', component: ClienteComponent},
-  { path: 'editar/:id', component: ClienteComponent},
+  { path: 'cliente/:id', component: ClienteComponent},
   { path: 'marca', component: MarcaComponent},
   { path: 'marca/:id', component: MarcaComponent},
   { path: 'categoria', component: CategoriaComponent},

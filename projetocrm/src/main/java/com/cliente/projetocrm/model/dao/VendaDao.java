@@ -26,7 +26,6 @@ public class VendaDao {
 		
 		String dataAtual = this.getDateTime();
 		Date data = new SimpleDateFormat("yyyy-MM-dd").parse(dataAtual);
-		venda.setDataVenda(data);
 		
 		try {
 			prepStmt.setDate(1, new java.sql.Date(data.getTime()));
@@ -110,7 +109,9 @@ public class VendaDao {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				//Date data = new SimpleDateFormat("dd/MM/yyyy").parse(rs.getString(6));
+				SimpleDateFormat formato1 = new SimpleDateFormat("yyyy-MM-dd");
+				SimpleDateFormat formato2 = new SimpleDateFormat("dd/MM/yyyy");
+				String data = formato2.format(formato1.parse(rs.getString(6)));
 				
 				Venda venda = new Venda();
 				venda.setCliente(rs.getString(1));
@@ -118,7 +119,7 @@ public class VendaDao {
 				venda.setValor(rs.getDouble(3));
 				venda.setFormaDePagamento(rs.getString(4));
 				venda.setParcelas(rs.getInt(5));
-				//venda.setDataVenda(rs.getDate(6));
+				venda.setDataVenda(data);
 				vendas.add(venda);
 			}
 		} catch (SQLException e) {
@@ -134,13 +135,16 @@ public class VendaDao {
 	public ArrayList<Venda> listarPorFiltro(String vendaFiltro) throws Exception {
 		ArrayList<Venda> vendas = new ArrayList<Venda>();
 		
+		String data = formatarData(vendaFiltro);
+		
 		String sql = "SELECT * FROM VENDA v "
 				+ "INNER JOIN CLIENTE c "
 				+ "ON v.IDCLIENTE = c.IDCLIENTE "
 				+ "WHERE LOWER(c.NOME) LIKE LOWER('%" + vendaFiltro + "%') OR "
 				+ "LOWER(v.FORMA_DE_PAGAMENTO) LIKE LOWER('%" + vendaFiltro + "%') OR "
 				+ "v.VALOR::text LIKE '%" + vendaFiltro + "%' OR "
-				+ "v.DATA_VENDA::text LIKE '%" + vendaFiltro + "%'";
+				+ "v.DATA_VENDA::text LIKE '%" + vendaFiltro + "%'OR " 
+				+ "v.DATA_VENDA::text LIKE '%" + data + "%'";
 		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
@@ -151,7 +155,7 @@ public class VendaDao {
 			while (rs.next()) {
 				Venda venda = new Venda();
 				venda.setIdVenda(rs.getInt(1));
-				//venda.setDataVenda(rs.getDate(2));
+				venda.setDataVenda(rs.getString(2));
 				venda.setValor(rs.getDouble(3));
 				venda.setFormaDePagamento(rs.getString(4));
 				venda.setParcelas(rs.getInt(5));
@@ -200,40 +204,26 @@ public class VendaDao {
 		return sucessoUpdate;
 	}
 	
-	public boolean atualizarItemVenda(Venda venda) throws Exception {
+	public boolean atualizarItemVenda(ItemVenda item) throws Exception {
 		boolean sucessoUpdate = false;
-		int retorno = 0;
-		int resultado = 0;
-		int contador = 0;
 		
-		String sql = "";
+		String sql = " UPDATE ITEMVENDA SET IDMARCA = ?, IDCATEGORIA = ?, QUANTIDADE = ?, VALOR = ? WHERE IDVENDA = "
+				+ item.getIdVenda();
 		
 		Connection conexao = Banco.getConnection();
-		PreparedStatement prepStmt = null;
+		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
 
 		try {
-			for(int i = 0; i < venda.getItens().size(); i++){
+				prepStmt.setInt(1, item.getIdMarca());
+				prepStmt.setInt(2, item.getIdCategoria());
+				prepStmt.setInt(3, item.getQuantidade());
+				prepStmt.setDouble(4, item.getValor());
 				
-				venda.getItens().get(i).setIdVenda(venda.getIdVenda());
-				
-				sql = " UPDATE ITEMVENDA SET IDMARCA = ?, IDCATEGORIA = ?, QUANTIDADE = ?, VALOR = ? WHERE IDVENDA = "
-						+ venda.getIdVenda();
-				
-				prepStmt = Banco.getPreparedStatement(conexao, sql); 
-				
-				prepStmt.setInt(1, venda.getItens().get(i).getIdMarca());
-				prepStmt.setInt(2, venda.getItens().get(i).getIdCategoria());
-				prepStmt.setInt(3, venda.getItens().get(i).getQuantidade());
-				prepStmt.setDouble(4, venda.getItens().get(i).getValor());
-				
-				resultado = prepStmt.executeUpdate();
-				if(resultado == 1){
-					contador++;
+				int codigoRetorno = prepStmt.executeUpdate();
+
+				if (codigoRetorno == 1) {
+					sucessoUpdate = true;
 				}
-			}
-			if(contador == venda.getItens().size()){
-				sucessoUpdate = true;
-			}
 
 		} catch (SQLException e) {
 			System.out.println("Erro ao atualizar itens Venda. Causa: " + e.getMessage());
@@ -258,7 +248,7 @@ public class VendaDao {
 			rs = stmt.executeQuery(query);
 			if (rs.next()) {
 				venda.setIdVenda(rs.getInt(1));
-				//venda.setDataVenda(rs.getDate(2));
+				venda.setDataVenda(rs.getString(2));
 				venda.setValor(rs.getDouble(3));
 				venda.setFormaDePagamento(rs.getString(4));
 				venda.setParcelas(rs.getInt(5));
@@ -278,13 +268,11 @@ public class VendaDao {
 	public ArrayList<ItemVenda> encontrarPorIdItem(int id) {
 		ArrayList<ItemVenda> itens = new ArrayList<ItemVenda>();
 		
-
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet rs = null;
-
-		String query = "SELECT * FROM ITEMVENDA v  WHERE v.IDVENDA = " + id;
-
+		
+			String query = "SELECT * FROM ITEMVENDA v  WHERE v.IDVENDA = " + id;
 		try {
 			rs = stmt.executeQuery(query);
 				while (rs.next()) {
@@ -309,10 +297,52 @@ public class VendaDao {
 		return itens;
 	}
 	
+	public boolean existeItem(ItemVenda item) {
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		ResultSet rs = null;
+		
+			String query = "SELECT * FROM ITEMVENDA v  WHERE  v.IDITEMVENDA = " + item.getIdItemVenda();
+		
+			try {
+				rs = stmt.executeQuery(query);
+				if (rs.next()){
+					return true;
+				}
+			} catch (SQLException e) {
+				System.out.println("Erro ao executar a Query que "
+						+ "verifica existência de Item por ID. Erro:"
+						+ e.getMessage());
+				return false;
+			} finally {
+				Banco.closeResultSet(rs);
+				Banco.closeStatement(stmt);
+				Banco.closeConnection(conn);
+			}
+			return false;
+	}
+	
 	private String getDateTime() {
 	    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	    Date date = new Date();
 	    return dateFormat.format(date);
 	}
 
+	private String formatarData(String data) {
+		String dia = data.substring(0, 3);
+		String mes = data.substring(3, 6);
+		String ano = data.substring(6, 10);
+		
+		String dataFormatada = null;
+		if(ano == null && mes ==null) {
+			dataFormatada =  dia;
+		} else if(ano == null) {
+			dataFormatada = mes+ "-" + dia;
+		} else {
+			dataFormatada = ano + "-" + mes+ "-" + dia;
+		}
+		
+		
+		return dataFormatada;
+	}
 }

@@ -75,14 +75,14 @@
             </select>
           </td>
           <td>
-            <input [(ngModel)]="item.quantidade" class="form-control" type="number" name="{{item.quantidade}}" (ngModelChange)="onChange(item)"/>
+            <input [(ngModel)]="item.quantidade" class="form-control" type="number" name="{{item.quantidade}}" (ngModelChange)="atualizarValorVenda()"/>
           </td>
           <td>
             <div class="input-group mb-2 mr-sm-2">
               <div class="input-group-prepend">
                 <div class="input-group-text">R$</div>
               </div>
-              <input [(ngModel)]="item.valor" class="form-control" type="number" name="{{item.valor}}" (ngModelChange)="onChange(item)"/>
+              <input [(ngModel)]="item.valor" class="form-control" type="number" name="{{item.valor}}" (ngModelChange)="atualizarValorVenda()"/>
             </div>
           </td>
           <td>
