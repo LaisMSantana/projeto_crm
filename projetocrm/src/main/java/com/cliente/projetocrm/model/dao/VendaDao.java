@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.cliente.projetocrm.model.vo.ItemVenda;
 import com.cliente.projetocrm.model.vo.Venda;
 
 public class VendaDao {
@@ -93,6 +94,7 @@ public class VendaDao {
 		
 		return retorno;
 	}
+	
 	public ArrayList<Venda> listarTodos() throws Exception {
 		ArrayList<Venda> vendas = new ArrayList<Venda>();
 
@@ -108,7 +110,7 @@ public class VendaDao {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				Date data = new SimpleDateFormat("dd/MM/yyyy").parse(rs.getString(6));
+				//Date data = new SimpleDateFormat("dd/MM/yyyy").parse(rs.getString(6));
 				
 				Venda venda = new Venda();
 				venda.setCliente(rs.getString(1));
@@ -116,7 +118,7 @@ public class VendaDao {
 				venda.setValor(rs.getDouble(3));
 				venda.setFormaDePagamento(rs.getString(4));
 				venda.setParcelas(rs.getInt(5));
-				venda.setDataVenda(data);
+				//venda.setDataVenda(rs.getDate(6));
 				vendas.add(venda);
 			}
 		} catch (SQLException e) {
@@ -132,7 +134,13 @@ public class VendaDao {
 	public ArrayList<Venda> listarPorFiltro(String vendaFiltro) throws Exception {
 		ArrayList<Venda> vendas = new ArrayList<Venda>();
 		
-		String sql = "SELECT * FROM VENDA v WHERE  v.DATA_VENDA::text LIKE '%" + vendaFiltro + "%'";
+		String sql = "SELECT * FROM VENDA v "
+				+ "INNER JOIN CLIENTE c "
+				+ "ON v.IDCLIENTE = c.IDCLIENTE "
+				+ "WHERE LOWER(c.NOME) LIKE LOWER('%" + vendaFiltro + "%') OR "
+				+ "LOWER(v.FORMA_DE_PAGAMENTO) LIKE LOWER('%" + vendaFiltro + "%') OR "
+				+ "v.VALOR::text LIKE '%" + vendaFiltro + "%' OR "
+				+ "v.DATA_VENDA::text LIKE '%" + vendaFiltro + "%'";
 		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
@@ -143,11 +151,12 @@ public class VendaDao {
 			while (rs.next()) {
 				Venda venda = new Venda();
 				venda.setIdVenda(rs.getInt(1));
-				venda.setDataVenda(rs.getDate(2));
+				//venda.setDataVenda(rs.getDate(2));
 				venda.setValor(rs.getDouble(3));
 				venda.setFormaDePagamento(rs.getString(4));
 				venda.setParcelas(rs.getInt(5));
 				venda.setIdCliente(rs.getInt(6));
+				venda.setCliente(rs.getString(8));
 				vendas.add(venda);
 			}
 		} catch (SQLException e) {
@@ -160,17 +169,20 @@ public class VendaDao {
 		return vendas;
 	}
 
-	public boolean atualizar(Venda venda) throws Exception {
+	public boolean atualizarVenda(Venda venda) throws Exception {
 		boolean sucessoUpdate = false;
 
-		String sql = " UPDATE VENDA SET WHERE IDVENDA = "
+		String sql = " UPDATE VENDA SET VALOR = ?, FORMA_DE_PAGAMENTO = ?, IDCLIENTE = ?, PARCELAS = ? WHERE IDVENDA = "
 				+ venda.getIdVenda();
 		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);
 
-		try {			
-			prepStmt.setString(1, venda.getFormaDePagamento());
+		try {
+			prepStmt.setDouble(1, venda.getValor());
+			prepStmt.setString(2, venda.getFormaDePagamento());
+			prepStmt.setInt(3, venda.getIdCliente());
+			prepStmt.setInt(4, venda.getParcelas());
 
 			int codigoRetorno = prepStmt.executeUpdate();
 
@@ -187,6 +199,51 @@ public class VendaDao {
 
 		return sucessoUpdate;
 	}
+	
+	public boolean atualizarItemVenda(Venda venda) throws Exception {
+		boolean sucessoUpdate = false;
+		int retorno = 0;
+		int resultado = 0;
+		int contador = 0;
+		
+		String sql = "";
+		
+		Connection conexao = Banco.getConnection();
+		PreparedStatement prepStmt = null;
+
+		try {
+			for(int i = 0; i < venda.getItens().size(); i++){
+				
+				venda.getItens().get(i).setIdVenda(venda.getIdVenda());
+				
+				sql = " UPDATE ITEMVENDA SET IDMARCA = ?, IDCATEGORIA = ?, QUANTIDADE = ?, VALOR = ? WHERE IDVENDA = "
+						+ venda.getIdVenda();
+				
+				prepStmt = Banco.getPreparedStatement(conexao, sql); 
+				
+				prepStmt.setInt(1, venda.getItens().get(i).getIdMarca());
+				prepStmt.setInt(2, venda.getItens().get(i).getIdCategoria());
+				prepStmt.setInt(3, venda.getItens().get(i).getQuantidade());
+				prepStmt.setDouble(4, venda.getItens().get(i).getValor());
+				
+				resultado = prepStmt.executeUpdate();
+				if(resultado == 1){
+					contador++;
+				}
+			}
+			if(contador == venda.getItens().size()){
+				sucessoUpdate = true;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("Erro ao atualizar itens Venda. Causa: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(prepStmt);
+			Banco.closeConnection(conexao);
+		}
+
+		return sucessoUpdate;
+	}
 
 	public Venda encontrarPorId(int id) {
 		Venda venda = new Venda();
@@ -196,11 +253,12 @@ public class VendaDao {
 		ResultSet rs = null;
 
 		String query = "SELECT * FROM VENDA WHERE IDVENDA = " + id;
+
 		try {
 			rs = stmt.executeQuery(query);
 			if (rs.next()) {
 				venda.setIdVenda(rs.getInt(1));
-				venda.setDataVenda(rs.getDate(2));
+				//venda.setDataVenda(rs.getDate(2));
 				venda.setValor(rs.getDouble(3));
 				venda.setFormaDePagamento(rs.getString(4));
 				venda.setParcelas(rs.getInt(5));
@@ -215,6 +273,40 @@ public class VendaDao {
 			Banco.closeConnection(conn);
 		}
 		return venda;
+	}
+	
+	public ArrayList<ItemVenda> encontrarPorIdItem(int id) {
+		ArrayList<ItemVenda> itens = new ArrayList<ItemVenda>();
+		
+
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		ResultSet rs = null;
+
+		String query = "SELECT * FROM ITEMVENDA v  WHERE v.IDVENDA = " + id;
+
+		try {
+			rs = stmt.executeQuery(query);
+				while (rs.next()) {
+					ItemVenda itemVenda = new ItemVenda();
+					itemVenda.setIdItemVenda(rs.getInt(1));
+					itemVenda.setIdVenda(rs.getInt(2));
+					itemVenda.setIdMarca(rs.getInt(3));
+					itemVenda.setIdCategoria(rs.getInt(4));
+					itemVenda.setQuantidade(rs.getInt(5));
+					itemVenda.setValor(rs.getInt(6));
+					itens.add(itemVenda);
+				}
+			
+		} catch (SQLException e) {
+			System.out.println(
+					"Erro ao executar a Query que verifica existência de Item Venda por ID. Erro:" + e.getMessage());
+		} finally {
+			Banco.closeResultSet(rs);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return itens;
 	}
 	
 	private String getDateTime() {

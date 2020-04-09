@@ -24,7 +24,16 @@ export class VendaService {
     return this.http.post(this.url, body);
   }
 
+  updateVenda(){
+    var body ={
+      ...this.formData,
+      itens : this.itensVenda
+    }
+    this.http.put<VendaModel>(this.url + '/' + this.formData.idVenda, body).subscribe();
+  }
+
   getVenda(id : number){
     this.http.get(this.url + '/venda/' + id).subscribe((data: VendaModel) => this.formData = data);
+    this.http.get(this.url + '/itemVenda/' + id).subscribe((data: ItemVenda[]) => this.itensVenda = data);
   }
 }

@@ -74,11 +74,21 @@ export class VendaComponent implements OnInit {
   }
 
   onSubmit(form: NgForm){
-    if(this.validateForm()){
-      this.service.salvarVenda().subscribe(res => {
-        this.resetForm()
+    this._route.paramMap.subscribe(parameterMap =>{
+      const id = +parameterMap.get('id');
+    if(id == 0){
+      if(this.validateForm()){
+        this.service.salvarVenda().subscribe(res => {
+          this.resetForm()
+        });
+      }
+    } else{
+      this.service.updateVenda();
+      this.router.navigate(['/listagem-vendas']).then(() => {
+        window.location.reload();
       });
-    }
+      }
+    });
   }
 
   FadeOutSuccessMsg() {
@@ -106,22 +116,22 @@ updateValor(item){
   } else {
     if(this.service.formData.valor){
       this.service.formData.valor += parseFloat((item.valor * item.quantidade).toFixed(2));
+      console.log(this.service.formData.valor);
     } else {
       this.service.formData.valor = parseFloat((item.valor * item.quantidade).toFixed(2));
     }
   }
-  console.log(item);
+
 }
 
 deleteValor(item){
-  console.log(item);
   this.service.formData.valor -= item.valor * item.quantidade;
+  console.log(this.service.formData.valor);
 }
 
 onChange(item) {
-    this.deleteValor(item);
-    this.updateValor(item);
-
+  this.deleteValor(item);
+  this.updateValor(item);
 }
 
 getVenda(id : number){

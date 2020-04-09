@@ -19,6 +19,7 @@ import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import javax.ws.rs.core.MediaType;
 
 import com.cliente.projetocrm.model.dao.VendaDao;
+import com.cliente.projetocrm.model.vo.ItemVenda;
 import com.cliente.projetocrm.model.vo.Venda;
 
 @Path("/vendas")
@@ -62,6 +63,14 @@ public class VendaResource {
 		return Response.ok(venda).build();
 	}
 	
+	@GET
+	@Path("/itemVenda/{idVenda}")
+    @Produces(MediaType.APPLICATION_JSON)
+	public Response listarPorIdItem(@PathParam("idVenda") int idVenda) {
+		ArrayList<ItemVenda> item = vendaDao.encontrarPorIdItem(idVenda);
+		return Response.ok(item).build();
+	}
+	
 	@PUT
 	@Path("/{idVenda}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -69,10 +78,16 @@ public class VendaResource {
 	public Response atualizarCliente(@PathParam("idVenda") int id, @RequestBody Venda venda) throws Exception {
 		Venda atualizarVenda = vendaDao.encontrarPorId(id);
 		
-		atualizarVenda.setIdCliente(id);
+		atualizarVenda.setIdVenda(id);
+		atualizarVenda.setIdCliente(venda.getIdCliente());
+		atualizarVenda.setFormaDePagamento(venda.getFormaDePagamento());
+		atualizarVenda.setItens(venda.getItens());
+		atualizarVenda.setParcelas(venda.getParcelas());
+		atualizarVenda.setValor(venda.getValor());
 		System.out.println(atualizarVenda);
 		
-		vendaDao.atualizar(atualizarVenda);
+		vendaDao.atualizarVenda(atualizarVenda);
+		vendaDao.atualizarItemVenda(atualizarVenda);
 		
 		return Response.ok().build();
 	}
