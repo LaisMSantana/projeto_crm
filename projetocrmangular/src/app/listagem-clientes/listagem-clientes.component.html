@@ -1,13 +1,20 @@
 <div>
   <br>
   <h2>Clientes</h2>
-    <input class="form-control" id="myInput" type="text" (keyup)="applyFilter($event.target.value)" placeholder="Pesquise..">
-    <br>
+  <div class="form-row">
+    <div class="col">
+      <input class="form-control" id="search" #search type="text" (keyup.enter)="applyFilter($event.target.value)" placeholder="Pesquise..">
+    </div>
+    <div>
+      <button class="m-1 btn btn-primary" (click)="applyFilter(search.value)">Pesquise</button>
+    </div>
+  </div>
+  <br>
   <table class="table table-bordered table-striped">
     <thead>
       <tr>
         <th *ngFor="let head of headElements" scope="col">{{head}}</th>
-        <th><button class="btn-primary" (click)="cadastrarNovo()">Novo</button></th>
+        <th><button class="m-1 btn btn-primary" (click)="cadastrarNovo()">Novo</button></th>
       </tr>
     </thead>
     <tbody>
@@ -16,7 +23,7 @@
         <td>{{c.cpf}} </td>
         <td>{{c.email}} </td>
         <td>{{c.dataDeNascimento}} </td>
-        <td><button class="btn-primary" (click)="editarItem(c)">Editar</button></td>
+        <td><button class="m-1 btn btn-primary" (click)="editarItem(c)">Editar</button></td>
       </tr>
     </tbody>
   </table>

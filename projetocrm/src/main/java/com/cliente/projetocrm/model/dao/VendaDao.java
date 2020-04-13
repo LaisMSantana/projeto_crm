@@ -62,23 +62,22 @@ public class VendaDao {
 		
 		try {
 			for(int i = 0; i < venda.getItens().size(); i++){
-				
-				venda.getItens().get(i).setIdVenda(venda.getIdVenda());
-				
-				sql = "INSERT INTO ITEMVENDA (IDMARCA, IDCATEGORIA, IDVENDA, QUANTIDADE, VALOR) VALUES (?,?,?,?,?)";
-				
-				prepStmt = Banco.getPreparedStatement(conexao, sql); 
-				
-				prepStmt.setInt(1, venda.getItens().get(i).getIdMarca());
-				prepStmt.setInt(2, venda.getItens().get(i).getIdCategoria());
-				prepStmt.setInt(3, venda.getItens().get(i).getIdVenda());
-				prepStmt.setInt(4, venda.getItens().get(i).getQuantidade());
-				prepStmt.setDouble(5, venda.getItens().get(i).getValor());
-				
-				resultado = prepStmt.executeUpdate();
-				if(resultado == 1){
-					contador++;
-				}
+					venda.getItens().get(i).setIdVenda(venda.getIdVenda());
+						
+					sql = "INSERT INTO ITEMVENDA (IDMARCA, IDCATEGORIA, IDVENDA, QUANTIDADE, VALOR) VALUES (?,?,?,?,?)";
+						
+					prepStmt = Banco.getPreparedStatement(conexao, sql); 
+						
+					prepStmt.setInt(1, venda.getItens().get(i).getIdMarca());
+					prepStmt.setInt(2, venda.getItens().get(i).getIdCategoria());
+					prepStmt.setInt(3, venda.getItens().get(i).getIdVenda());
+					prepStmt.setInt(4, venda.getItens().get(i).getQuantidade());
+					prepStmt.setDouble(5, venda.getItens().get(i).getValor());
+						
+					resultado = prepStmt.executeUpdate();
+					if(resultado == 1){
+						contador++;
+					}
 			}
 			ResultSet generatedKeys = prepStmt.getGeneratedKeys();
 			if((contador == venda.getItens().size()) && (generatedKeys.next())){
@@ -97,7 +96,7 @@ public class VendaDao {
 	public ArrayList<Venda> listarTodos() throws Exception {
 		ArrayList<Venda> vendas = new ArrayList<Venda>();
 
-		String sql = "SELECT c.NOME, v.IDVENDA, v.VALOR, v.FORMA_DE_PAGAMENTO, v.PARCELAS, v.DATA_VENDA FROM VENDA v "
+		String sql = "SELECT c.NOME, v.IDVENDA, v.VALOR, v.FORMA_DE_PAGAMENTO, v.PARCELAS, to_char(\"data_venda\", 'DD/MM/YYYY') FROM VENDA v "
 				+ "INNER JOIN CLIENTE c "
 				+ "ON v.IDCLIENTE = c.IDCLIENTE "
 				+ "ORDER BY IDVENDA DESC";
@@ -109,9 +108,6 @@ public class VendaDao {
 			ResultSet rs = stmt.executeQuery();
 
 			while (rs.next()) {
-				SimpleDateFormat formato1 = new SimpleDateFormat("yyyy-MM-dd");
-				SimpleDateFormat formato2 = new SimpleDateFormat("dd/MM/yyyy");
-				String data = formato2.format(formato1.parse(rs.getString(6)));
 				
 				Venda venda = new Venda();
 				venda.setCliente(rs.getString(1));
@@ -119,7 +115,7 @@ public class VendaDao {
 				venda.setValor(rs.getDouble(3));
 				venda.setFormaDePagamento(rs.getString(4));
 				venda.setParcelas(rs.getInt(5));
-				venda.setDataVenda(data);
+				venda.setDataVenda(rs.getString(6));
 				vendas.add(venda);
 			}
 		} catch (SQLException e) {
@@ -135,16 +131,13 @@ public class VendaDao {
 	public ArrayList<Venda> listarPorFiltro(String vendaFiltro) throws Exception {
 		ArrayList<Venda> vendas = new ArrayList<Venda>();
 		
-		String data = formatarData(vendaFiltro);
-		
-		String sql = "SELECT * FROM VENDA v "
+		String sql = "SELECT v.IDVENDA, to_char(\"data_venda\", 'DD/MM/YYYY'), v.VALOR, "
+				+ "v.FORMA_DE_PAGAMENTO, v.PARCELAS,c.IDCLIENTE, c.NOME FROM VENDA v "
 				+ "INNER JOIN CLIENTE c "
 				+ "ON v.IDCLIENTE = c.IDCLIENTE "
 				+ "WHERE LOWER(c.NOME) LIKE LOWER('%" + vendaFiltro + "%') OR "
 				+ "LOWER(v.FORMA_DE_PAGAMENTO) LIKE LOWER('%" + vendaFiltro + "%') OR "
-				+ "v.VALOR::text LIKE '%" + vendaFiltro + "%' OR "
-				+ "v.DATA_VENDA::text LIKE '%" + vendaFiltro + "%'OR " 
-				+ "v.DATA_VENDA::text LIKE '%" + data + "%'";
+				+ "v.VALOR::text LIKE '%" + vendaFiltro + "%' OR v.DATA_VENDA = to_date('"+ vendaFiltro +"', 'DDMMYYYY')";
 		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
@@ -160,7 +153,7 @@ public class VendaDao {
 				venda.setFormaDePagamento(rs.getString(4));
 				venda.setParcelas(rs.getInt(5));
 				venda.setIdCliente(rs.getInt(6));
-				venda.setCliente(rs.getString(8));
+				venda.setCliente(rs.getString(7));
 				vendas.add(venda);
 			}
 		} catch (SQLException e) {
@@ -326,23 +319,5 @@ public class VendaDao {
 	    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 	    Date date = new Date();
 	    return dateFormat.format(date);
-	}
-
-	private String formatarData(String data) {
-		String dia = data.substring(0, 3);
-		String mes = data.substring(3, 6);
-		String ano = data.substring(6, 10);
-		
-		String dataFormatada = null;
-		if(ano == null && mes ==null) {
-			dataFormatada =  dia;
-		} else if(ano == null) {
-			dataFormatada = mes+ "-" + dia;
-		} else {
-			dataFormatada = ano + "-" + mes+ "-" + dia;
-		}
-		
-		
-		return dataFormatada;
 	}
 }

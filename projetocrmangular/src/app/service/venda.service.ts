@@ -30,6 +30,7 @@ export class VendaService {
       itens : this.itensVenda
     }
     this.http.put<VendaModel>(this.url + '/' + this.formData.idVenda, body).subscribe();
+    console.log(body);
   }
 
   getVenda(id : number){

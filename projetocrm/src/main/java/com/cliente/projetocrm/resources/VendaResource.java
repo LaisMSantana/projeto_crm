@@ -77,30 +77,40 @@ public class VendaResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response atualizarCliente(@PathParam("idVenda") int id, @RequestBody Venda venda) throws Exception {
 		Venda atualizarVenda = vendaDao.encontrarPorId(id);
-		ArrayList<ItemVenda> novoItem = new ArrayList<ItemVenda>();
+		ArrayList<ItemVenda> novosItens = new ArrayList<ItemVenda>();
 		
 		atualizarVenda.setIdVenda(id);
 		atualizarVenda.setIdCliente(venda.getIdCliente());
 		atualizarVenda.setFormaDePagamento(venda.getFormaDePagamento());
 		atualizarVenda.setParcelas(venda.getParcelas());
 		atualizarVenda.setValor(venda.getValor());
-		System.out.println(atualizarVenda);
+		atualizarVenda.setItens(ItensVenda(venda));
 		
 		vendaDao.atualizarVenda(atualizarVenda);
+		System.out.println(atualizarVenda);
+		
+		return Response.ok().build();
+	}
+	
+	private ArrayList<ItemVenda> ItensVenda(Venda venda) throws Exception{
+		ArrayList<ItemVenda> itens = new ArrayList<ItemVenda>();
+		ArrayList<ItemVenda> itensNovos = new ArrayList<ItemVenda>();
+		Venda atualizarItens = venda;
 		
 		for(int i = 0; i < venda.getItens().size(); i++) {
 			if(vendaDao.existeItem(venda.getItens().get(i))) {
 				vendaDao.atualizarItemVenda(venda.getItens().get(i));
 			} else {
-				novoItem.add(venda.getItens().get(i));
+				itensNovos.add(venda.getItens().get(i));
 			}
 		}
-		if(novoItem != null) {
-			atualizarVenda.setItens(novoItem);
-			vendaDao.cadastrarItemVenda(atualizarVenda);
+		if(!itensNovos.isEmpty()) {
+			atualizarItens.setItens(itensNovos);
+			vendaDao.cadastrarItemVenda(atualizarItens);
 		}
-		
-		return Response.ok().build();
+		itens.addAll(venda.getItens());
+		itens.addAll(itensNovos);
+		return itens;
 	}
 }
 

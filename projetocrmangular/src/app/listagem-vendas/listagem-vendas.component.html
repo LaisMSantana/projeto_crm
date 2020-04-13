@@ -1,7 +1,14 @@
 <div>
   <br>
   <h2>Vendas</h2>
-    <input class="form-control" id="myInput" type="text" (keyup)="applyFilter($event.target.value)" placeholder="Pesquise..">
+  <div class="form-row">
+    <div class="col">
+      <input class="form-control" id="search" #search type="text" (keyup.enter)="applyFilter($event.target.value)" placeholder="Pesquise..">
+    </div>
+    <div>
+      <button class="m-1 btn btn-primary" (click)="applyFilter(search.value)">Pesquise</button>
+    </div>
+  </div>
     <br>
   <table class="table table-bordered table-striped">
     <thead>

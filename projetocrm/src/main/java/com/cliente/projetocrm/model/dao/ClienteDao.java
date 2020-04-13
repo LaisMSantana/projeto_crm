@@ -49,7 +49,7 @@ public class ClienteDao {
 	public ArrayList<Cliente> listarTodos() throws Exception {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 
-		String sql = "SELECT * FROM CLIENTE ORDER BY IDCLIENTE DESC";
+		String sql = "SELECT *, to_char(\"data_nascimento\", 'DD/MM/YYYY') FROM CLIENTE ORDER BY IDCLIENTE DESC";
 
 		Connection conexao = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
@@ -59,16 +59,12 @@ public class ClienteDao {
 
 			while (rs.next()) {
 				
-				SimpleDateFormat formato1 = new SimpleDateFormat("yyyy-MM-dd");
-				SimpleDateFormat formato2 = new SimpleDateFormat("dd/MM/yyyy");
-				String data = formato2.format(formato1.parse(rs.getString(5)));
-				
 				Cliente cliente = new Cliente();
 				cliente.setIdCliente(rs.getInt(1));
 				cliente.setNome(rs.getString(2));
 				cliente.setCpf(rs.getString(3));
 				cliente.setEmail(rs.getString(4));
-				cliente.setDataDeNascimento(data);
+				cliente.setDataDeNascimento(rs.getString(6));
 				clientes.add(cliente);
 			}
 		} catch (SQLException e) {
@@ -84,8 +80,10 @@ public class ClienteDao {
 	public ArrayList<Cliente> listarPorFiltro(String clienteFiltro) throws Exception {
 		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 		
-		String sql = "SELECT * FROM CLIENTE c WHERE LOWER(c.NOME) LIKE LOWER('%" + clienteFiltro
-				+ "%') OR c.CPF LIKE '%" + clienteFiltro + "%' OR LOWER(c.EMAIL) LIKE LOWER('%" + clienteFiltro + "%') OR c.DATA_NASCIMENTO::text LIKE '%" + clienteFiltro + "%'";
+		String sql = "SELECT *,to_char(\"data_nascimento\", 'DD/MM/YYYY') FROM CLIENTE c WHERE LOWER(c.NOME) LIKE LOWER('%" + clienteFiltro
+				+ "%') OR c.CPF LIKE '%" + clienteFiltro + "%' OR LOWER(c.EMAIL) LIKE LOWER('%" + clienteFiltro + "%') "
+						+ "OR c.DATA_NASCIMENTO = to_date('"+ clienteFiltro +"', 'DDMMYYYY')";
+		
 		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement stmt = Banco.getPreparedStatement(conexao, sql);
@@ -99,7 +97,7 @@ public class ClienteDao {
 				cliente.setNome(rs.getString(2));
 				cliente.setCpf(rs.getString(3));
 				cliente.setEmail(rs.getString(4));
-				cliente.setDataDeNascimento(rs.getString(5));
+				cliente.setDataDeNascimento(rs.getString(6));
 				clientes.add(cliente);
 			}
 		} catch (SQLException e) {

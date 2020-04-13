@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ClienteComponent } from '../cliente/cliente.component';
 import { Router } from '@angular/router';
 import { FormArray, FormGroup, FormControl } from '@angular/forms';
 import { Cliente } from '../models/cliente';
@@ -17,6 +16,7 @@ export class ListagemClientesComponent implements OnInit {
   editField: string;
   errorMsg = '';
   succsessMsg = '';
+  searchkey= '';
   hideSuccessMessage = false;
 
   controls: FormArray;
@@ -42,8 +42,12 @@ editarItem(cliente: Cliente){
 cadastrarNovo(){
   this.router.navigate(['/cliente']);
 }
-applyFilter(filterValue: string){
-  return this.http.get(this.url + '/' +filterValue.trim().toLocaleLowerCase()).subscribe((data) =>{
+applyFilter(filtro: string){
+  if(filtro.includes("/")){
+    filtro = filtro.split("/").join("");
+    console.log(filtro);
+  }
+  return this.http.get(this.url + '/' + filtro.trim().toLocaleLowerCase()).subscribe((data) =>{
     this.clientes = data;
   });
 }

@@ -84,9 +84,7 @@ export class VendaComponent implements OnInit {
       }
     } else{
       this.service.updateVenda();
-      this.router.navigate(['/listagem-vendas']).then(() => {
-        window.location.reload();
-      });
+
       }
     });
   }

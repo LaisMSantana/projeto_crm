@@ -41,8 +41,12 @@ editarItem(venda: VendaModel){
 cadastrarNovo(){
   this.router.navigate(['/venda']);
 }
-applyFilter(filterValue: string){
-  return this.http.get(this.url + '/' +filterValue.trim().toLocaleLowerCase()).subscribe((data) =>{
+applyFilter(filtro: string){
+  if(filtro.includes("/")){
+    filtro = filtro.split("/").join("");
+    console.log(filtro);
+  }
+  return this.http.get(this.url + '/' +filtro.trim().toLocaleLowerCase()).subscribe((data) =>{
     this.vendas = data;
   });
 }
