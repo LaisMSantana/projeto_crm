@@ -63,26 +63,29 @@
       <tbody>
         <tr *ngFor="let item of service.itensVenda; let i = index">
           <td>
-            <select name="idMarca" #idMarca="ngModel" [(ngModel)]="item.idMarca" class="form-control">
-              <option [ngValue]="undefined" disabled selected>Selecione</option>
+            <select name="idMarca" #idMarca="ngModel" [(ngModel)]="item.idMarca" class="form-control" [compareWith]="compareFn">
+              <option disabled selected>Selecione</option>
               <option *ngFor="let m of listaMarcas" [ngValue]="m.idMarca">{{m.marca}}</option>
             </select>
           </td>
           <td>
             <select name="idCategoria" #idCategoria="ngModel" [(ngModel)]="item.idCategoria" class="form-control">
-              <option [ngValue]="undefined" disabled selected>Selecione</option>
+              <option disabled selected>Selecione</option>
               <option *ngFor="let c of listaCategorias" [ngValue]="c.idCategoria">{{c.categoria}}</option>
             </select>
           </td>
+          <pre>
+            {{service.itensVenda | json}}
+          </pre>
           <td>
-            <input [(ngModel)]="item.quantidade" class="form-control" type="number" name="{{item.quantidade}}" (ngModelChange)="atualizarValorVenda()"/>
+            <input [(ngModel)]="item.quantidade" class="form-control" type="number" name="quantidade" (ngModelChange)="atualizarValorVenda()"/>
           </td>
           <td>
             <div class="input-group mb-2 mr-sm-2">
               <div class="input-group-prepend">
                 <div class="input-group-text">R$</div>
               </div>
-              <input [(ngModel)]="item.valor" class="form-control" type="number" name="{{item.valor}}" (ngModelChange)="atualizarValorVenda()"/>
+              <input [(ngModel)]="item.valor" class="form-control" type="number" name="valor" (ngModelChange)="atualizarValorVenda()"/>
             </div>
           </td>
           <td>
@@ -92,13 +95,13 @@
         <tr>
           <td>
             <select name="novoItemMarca" id="novoItemMarca"  [(ngModel)]="service.formItem.idMarca" class="form-control">
-              <option [ngValue]="undefined" disabled selected>Selecione</option>
+              <option disabled selected>Selecione</option>
               <option *ngFor="let m of listaMarcas" [ngValue]="m.idMarca">{{m.marca}}</option>
             </select>
           </td>
           <td>
             <select name="novoItemCategoria"id="novoItemCategoria" [(ngModel)]="service.formItem.idCategoria" class="form-control">
-              <option [ngValue]="undefined" disabled selected>Selecione</option>
+              <option disabled selected>Selecione</option>
               <option *ngFor="let c of listaCategorias" [ngValue]="c.idCategoria">{{c.categoria}}</option>
             </select>
           </td>

@@ -23,8 +23,8 @@ export class VendaComponent implements OnInit {
   listaCategorias: any = [];
   titulo: string;
 
-  isValid: Boolean = true;
   isCreditoSelected: boolean;
+  isValid: Boolean = true;
 
   errorMsg = '';
   succsessMsg = '';
@@ -131,4 +131,7 @@ getVenda(id : number){
   }
 }
 
+compareFn(optionOne, optionTwo){
+  return optionOne.id === optionTwo.id;
+}
 }

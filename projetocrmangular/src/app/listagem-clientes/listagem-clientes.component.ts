@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { FormArray, FormGroup, FormControl } from '@angular/forms';
 import { Cliente } from '../models/cliente';
 
 @Component({
@@ -13,13 +12,6 @@ export class ListagemClientesComponent implements OnInit {
 
   headElements = ['Nome', 'CPF', 'Email', 'Data de Nascimento'];
   clientes: any = [];
-  editField: string;
-  errorMsg = '';
-  succsessMsg = '';
-  searchkey= '';
-  hideSuccessMessage = false;
-
-  controls: FormArray;
 
   url = 'http://localhost:8080/api/clientes';
 
@@ -50,12 +42,6 @@ applyFilter(filtro: string){
   return this.http.get(this.url + '/' + filtro.trim().toLocaleLowerCase()).subscribe((data) =>{
     this.clientes = data;
   });
-}
-
-FadeOutSuccessMsg() {
-  setTimeout( () => {
-        this.hideSuccessMessage = true;
-     }, 3000);
 }
 
 

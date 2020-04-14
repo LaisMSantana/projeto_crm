@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { FormArray } from '@angular/forms';
 import { VendaModel } from '../models/venda-model';
 
 @Component({
@@ -13,12 +12,7 @@ export class ListagemVendasComponent implements OnInit {
 
   headElements = ['Cliente','Forma de Pagamento', 'Valor', 'Data'];
   vendas: any = [];
-  editField: string;
-  errorMsg = '';
-  succsessMsg = '';
-  hideSuccessMessage = false;
 
-  controls: FormArray;
 
   url = 'http://localhost:8080/api/vendas';
 
@@ -49,12 +43,6 @@ applyFilter(filtro: string){
   return this.http.get(this.url + '/' +filtro.trim().toLocaleLowerCase()).subscribe((data) =>{
     this.vendas = data;
   });
-}
-
-FadeOutSuccessMsg() {
-  setTimeout( () => {
-        this.hideSuccessMessage = true;
-     }, 3000);
 }
 
 
