@@ -77,7 +77,6 @@ public class VendaResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response atualizarCliente(@PathParam("idVenda") int id, @RequestBody Venda venda) throws Exception {
 		Venda atualizarVenda = vendaDao.encontrarPorId(id);
-		ArrayList<ItemVenda> novosItens = new ArrayList<ItemVenda>();
 		
 		atualizarVenda.setIdVenda(id);
 		atualizarVenda.setIdCliente(venda.getIdCliente());

@@ -201,7 +201,7 @@ public class VendaDao {
 		boolean sucessoUpdate = false;
 		
 		String sql = " UPDATE ITEMVENDA SET IDMARCA = ?, IDCATEGORIA = ?, QUANTIDADE = ?, VALOR = ? WHERE IDVENDA = "
-				+ item.getIdVenda();
+				+ item.getIdVenda() + "AND IDITEMVENDA = " + item.getIdItemVenda();
 		
 		Connection conexao = Banco.getConnection();
 		PreparedStatement prepStmt = Banco.getPreparedStatement(conexao, sql);

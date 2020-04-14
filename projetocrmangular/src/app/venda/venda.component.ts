@@ -54,6 +54,7 @@ export class VendaComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.resetForm();
     this._route.paramMap.subscribe(parameterMap =>{
       const id = +parameterMap.get('id');
       this.getVenda(id)
@@ -83,7 +84,9 @@ export class VendaComponent implements OnInit {
         });
       }
     } else{
-      this.service.updateVenda();
+      this.service.updateVenda().subscribe(res => {
+        this.resetForm()
+      });
 
       }
     });
