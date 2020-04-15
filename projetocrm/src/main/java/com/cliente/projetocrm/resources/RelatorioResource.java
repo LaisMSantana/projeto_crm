@@ -3,6 +3,7 @@ package com.cliente.projetocrm.resources;
 import java.util.ArrayList;
 
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -10,6 +11,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
+
+import com.cliente.projetocrm.model.dao.RelatorioDao;
+import com.cliente.projetocrm.model.dao.VendaDao;
 import com.cliente.projetocrm.model.vo.Relatorio;
 import com.cliente.projetocrm.model.vo.Venda;
 
@@ -17,12 +22,16 @@ import com.cliente.projetocrm.model.vo.Venda;
 @RequestScoped
 public class RelatorioResource {
 	
+	@Inject
+	private RelatorioDao relatorioDao;
+	
 	@GET
-	@Path("{relatorio}")
+	@Path("/data")
     @Produces(MediaType.APPLICATION_JSON)
-	public Response listarPorData(@PathParam("relatorio") Relatorio relatorio) {
+	public Response listarPorData(@RequestBody Relatorio relatorio) {
 		ArrayList<Venda> vendas = new ArrayList<Venda>();
-		vendas = validarDados(relatorio);
+		System.out.println(relatorio.toString());
+		vendas = relatorioDao.totalPorData(relatorio);
 		return Response.ok(vendas).build();
 	}
 

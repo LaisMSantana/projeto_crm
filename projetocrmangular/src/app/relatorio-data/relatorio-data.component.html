@@ -1,0 +1,42 @@
+<div>
+  <br>
+  <h2>Relatório de Vendas por Data</h2>
+  <div>
+    <div class="form-check form-check-inline">
+      <input class="form-check-input" type="checkbox" id="dataUnica" value="dataUnica" (change)="selectInput($event)">
+      <label class="form-check-label" for="dataUnica">Data Unica</label>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col">
+      <label>Período Inicial</label>
+      <input type="date"  placeholder="dd/mm/yyyy" required class="form-control" name="dataVendaInicio" [(ngModel)]="dataInicial">
+    </div>
+    <div class="col" *ngIf="!isDataUnicaSelected">
+      <label>Período Final</label>
+      <input type="date"  placeholder="dd/mm/yyyy" required class="form-control" name="dataVendaInicio" [(ngModel)]="dataFinal">
+    </div>
+    <div>
+      <br>
+      <button class="m-1 btn btn-primary" (click)="resultadoRelatorio()">Pesquise</button>
+    </div>
+  </div>
+  <br>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th *ngFor="let head of headElements" scope="col">{{head}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of vendas; let id = index">
+        <td>{{v.cliente}} </td>
+        <td>{{v.formaDePagamento}}</td>
+        <td>{{v.valor}} </td>
+        <td>{{v.dataVenda}} </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+

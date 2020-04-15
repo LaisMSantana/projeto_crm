@@ -53,6 +53,12 @@ public class Relatorio {
 	public void setFormaDePagamento(String formaDePagamento) {
 		this.formaDePagamento = formaDePagamento;
 	}
+
+	@Override
+	public String toString() {
+		return "Relatorio [dataInicial=" + dataInicial + ", dataFinal=" + dataFinal + ", idCategoria=" + idCategoria
+				+ ", idMarca=" + idMarca + ", formaDePagamento=" + formaDePagamento + "]";
+	}
 	
 	
 

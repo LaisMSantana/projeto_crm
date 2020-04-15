@@ -23,6 +23,9 @@ import { CategoriaComponent } from './categoria/categoria.component';
 import { AddrowDirective } from './addrow.directive';
 import { ListagemVendasComponent } from './listagem-vendas/listagem-vendas.component';
 import { RelatorioComponent } from './relatorio/relatorio.component';
+import { RelatorioDataComponent } from './relatorio-data/relatorio-data.component';
+import { RelatorioMarcaComponent } from './relatorio-marca/relatorio-marca.component';
+import { RelatorioCategoriaComponent } from './relatorio-categoria/relatorio-categoria.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,10 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
     CategoriaComponent,
     AddrowDirective,
     ListagemVendasComponent,
-    RelatorioComponent
+    RelatorioComponent,
+    RelatorioDataComponent,
+    RelatorioMarcaComponent,
+    RelatorioCategoriaComponent
   ],
   imports: [
     BrowserModule,

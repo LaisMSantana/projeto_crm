@@ -1,4 +1,6 @@
+com/cliente/projetocrm/resources/RelatorioResource.class
 com/cliente/projetocrm/model/vo/ItemVenda.class
+com/cliente/projetocrm/model/vo/Relatorio.class
 com/cliente/projetocrm/model/dao/Banco.class
 com/cliente/projetocrm/resources/CategoriaResource.class
 com/cliente/projetocrm/resources/ClienteResource.class
@@ -13,3 +15,4 @@ com/cliente/projetocrm/model/vo/Venda.class
 com/cliente/projetocrm/resources/VendaResource.class
 com/cliente/projetocrm/model/vo/Categoria.class
 com/cliente/projetocrm/model/dao/MarcaDao.class
+com/cliente/projetocrm/model/dao/RelatorioDao.class

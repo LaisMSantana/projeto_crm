@@ -1,7 +1,10 @@
+/home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/resources/RelatorioResource.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/model/vo/Marca.java
+/home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/model/vo/Relatorio.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/model/vo/ItemVenda.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/model/vo/Cliente.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/model/vo/Venda.java
+/home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/model/dao/RelatorioDao.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/model/vo/Categoria.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/resources/VendaResource.java
 /home/lais/Documents/demo/projetocrm/src/main/java/com/cliente/projetocrm/ProjetocrmRestApplication.java

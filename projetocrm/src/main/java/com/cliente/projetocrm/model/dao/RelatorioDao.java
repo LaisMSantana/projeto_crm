@@ -18,41 +18,14 @@ public class RelatorioDao {
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet rs = null;
 
-		String query = "SELECT *, to_char(\"data_venda\", 'DD/MM/YYYY') FROM VENDA WHERE DATA_VENDA = to_date('"+ relatorio.getDataInicial() +"', 'DDMMYYYY')";
+		String query = "SELECT *, to_char(\"data_venda\", 'DD/MM/YYYY') FROM VENDA WHERE";
 
-		try {
-			rs = stmt.executeQuery(query);
-			while (rs.next()) {
-				Venda venda = new Venda();
-				venda.setIdVenda(rs.getInt(1));
-				venda.setDataVenda(rs.getString(7));
-				venda.setValor(rs.getDouble(3));
-				venda.setFormaDePagamento(rs.getString(4));
-				venda.setParcelas(rs.getInt(5));
-				venda.setIdCliente(rs.getInt(6));
-				vendas.add(venda);
-			}
-		} catch (SQLException e) {
-			System.out.println(
-					"Erro ao executar a Query que verifica existência de Venda por data. Erro:" + e.getMessage());
-		} finally {
-			Banco.closeResultSet(rs);
-			Banco.closeStatement(stmt);
-			Banco.closeConnection(conn);
+		if(!relatorio.getDataInicial().isEmpty() && !relatorio.getDataFinal().isEmpty()) {
+			query += " DATA_VENDA::text BETWEEN '"+ relatorio.getDataInicial() +"' AND '"+ relatorio.getDataFinal() +"'";
+		} else if(!relatorio.getDataInicial().isEmpty()) {
+			query += " DATA_VENDA::text = '"+ relatorio.getDataInicial() +"'";
 		}
-		return vendas;
-	}
-	
-	public ArrayList<Venda> totalEntreDatas(Relatorio relatorio) {
-		ArrayList<Venda> vendas = new ArrayList<Venda>();
-
-		Connection conn = Banco.getConnection();
-		Statement stmt = Banco.getStatement(conn);
-		ResultSet rs = null;
-
-		String query = "SELECT *, to_char(\"data_venda\", 'DD/MM/YYYY') FROM VENDA WHERE DATA_VENDA BETWEEN "
-				+ "to_date('"+ relatorio.getDataInicial() +"', 'DDMMYYYY') AND to_date('"+ relatorio.getDataFinal() +"', 'DDMMYYYY')";
-
+		
 		try {
 			rs = stmt.executeQuery(query);
 			while (rs.next()) {
@@ -90,9 +63,9 @@ public class RelatorioDao {
 				+ "WHERE i.IDMARCA = " + relatorio.getIdMarca();
 		
 		if(!relatorio.getDataInicial().isEmpty() && !relatorio.getDataFinal().isEmpty()) {
-			query += " AND v.DATA_VENDA BETWEEN to_date('"+ relatorio.getDataInicial() +"', 'DDMMYYYY') AND to_date('"+ relatorio.getDataFinal() +"', 'DDMMYYYY') ";
+			query += " AND v.DATA_VENDA::text BETWEEN '"+ relatorio.getDataInicial() +"' AND '"+ relatorio.getDataFinal() +"'";
 		} else if(!relatorio.getDataInicial().isEmpty()) {
-			query += " AND v.DATA_VENDA = to_date('"+ relatorio.getDataInicial() +"', 'DDMMYYYY')";
+			query += " AND v.DATA_VENDA::text = '"+ relatorio.getDataInicial() +"'";
 		}
 
 		try {
@@ -132,9 +105,9 @@ public class RelatorioDao {
 				+ "WHERE i.IDCATEGORIA = " + relatorio.getIdCategoria();
 
 		if(!relatorio.getDataInicial().isEmpty() && !relatorio.getDataFinal().isEmpty()) {
-			query += " AND v.DATA_VENDA BETWEEN to_date('"+ relatorio.getDataInicial() +"', 'DDMMYYYY') AND to_date('"+ relatorio.getDataFinal() +"', 'DDMMYYYY') ";
+			query += " AND v.DATA_VENDA::text BETWEEN '"+ relatorio.getDataInicial() +"' AND '"+ relatorio.getDataFinal() +"'";
 		} else if(!relatorio.getDataInicial().isEmpty()) {
-			query += " AND v.DATA_VENDA = to_date('"+ relatorio.getDataInicial() +"', 'DDMMYYYY')";
+			query += " AND v.DATA_VENDA::text = '"+ relatorio.getDataInicial() +"'";
 		}
 
 		try {
@@ -174,9 +147,9 @@ public class RelatorioDao {
 				+ "WHERE v.FORMA_DE_PAGAMENTO = " + relatorio.getFormaDePagamento();
 
 		if(!relatorio.getDataInicial().isEmpty() && !relatorio.getDataFinal().isEmpty()) {
-			query += " AND v.DATA_VENDA BETWEEN to_date('"+ relatorio.getDataInicial() +"', 'DDMMYYYY') AND to_date('"+ relatorio.getDataFinal() +"', 'DDMMYYYY') ";
+			query += " AND v.DATA_VENDA::text BETWEEN '"+ relatorio.getDataInicial() +"' AND '"+ relatorio.getDataFinal() +"'";
 		} else if(!relatorio.getDataInicial().isEmpty()) {
-			query += " AND v.DATA_VENDA = to_date('"+ relatorio.getDataInicial() +"', 'DDMMYYYY')";
+			query += " AND v.DATA_VENDA::text = '"+ relatorio.getDataInicial() +"'";
 		}
 
 		try {

@@ -1,29 +1,42 @@
-  <img src="assets/imagens/strass.jpeg" alt="Strass" class="img-responsive" style="display: block;margin-left: auto;
+<img src="assets/imagens/strass.jpeg" alt="Strass" class="img-responsive" style="display: block;margin-left: auto;
   margin-right: auto;" height="100" width="150">
-  <div class="container">
-    <ul class="nav justify-content-center">
-      <li class="nav-item">
-        <a class="nav-link active" routerLink="marca" style="color:black">Marca</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" routerLink="categoria" style="color:black">Categoria</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" routerLink="cliente" style="color:black">Cliente</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" routerLink="listagem-clientes" style="color:black">Lista Clientes</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" routerLink="venda" style="color:black">Venda</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" routerLink="listagem-vendas" style="color:black">Lista Vendas</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" routerLink="relatorio" style="color:black">Relatorio</a>
-      </li>
-    </ul>
-  </div>
+<div class="container">
+  <ul class="nav justify-content-center">
+    <li class="nav-item">
+      <a class="nav-link active" routerLink="marca" style="color:black">Marca</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" routerLink="categoria" style="color:black">Categoria</a>
+    </li>
+    <div class="btn-group" dropdown>
+      <button id="button-basic" dropdownToggle type="button" class="btn btn-default dropdown-toggle" aria-controls="dropdown-basic">
+        Cliente <span class="caret"></span>
+      </button>
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+        <li role="menuitem"><a class="dropdown-item" routerLink="cliente">Cadastro de Cliente</a></li>
+        <li role="menuitem"><a class="dropdown-item" routerLink="listagem-clientes">Lista de Clientes</a></li>
+      </ul>
+    </div>
+    <div class="btn-group" dropdown>
+      <button id="button-basic" dropdownToggle type="button" class="btn btn-default dropdown-toggle" aria-controls="dropdown-basic">
+        Venda <span class="caret"></span>
+      </button>
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+        <li role="menuitem"><a class="dropdown-item" routerLink="venda">Nova Venda</a></li>
+        <li role="menuitem"><a class="dropdown-item" routerLink="listagem-vendas">Lista de Vendas</a></li>
+      </ul>
+    </div>
+    <div class="btn-group" dropdown>
+      <button id="button-basic" dropdownToggle type="button" class="btn btn-default dropdown-toggle" aria-controls="dropdown-basic">
+        Relatorios <span class="caret"></span>
+      </button>
+      <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
+        <li role="menuitem"><a class="dropdown-item" routerLink="relatorioData">Relatorio Data</a></li>
+        <li role="menuitem"><a class="dropdown-item" routerLink="relatorioMarca">Relatorio Marca</a></li>
+        <li role="menuitem"><a class="dropdown-item" routerLink="relatorioCategoria">Relatorio Categoria </a></li>
+      </ul>
+    </div>
+  </ul>
+</div>
 
 <router-outlet></router-outlet>

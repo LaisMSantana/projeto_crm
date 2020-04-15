@@ -1,0 +1,6 @@
+0:0:0:0:0:0:0:1 - - [15/Apr/2020:15:54:50 -0300] "GET /api/relatorios/data HTTP/1.1" 200 777
+0:0:0:0:0:0:0:1 - - [15/Apr/2020:15:55:04 -0300] "GET /api/relatorios/data HTTP/1.1" 500 3454
+0:0:0:0:0:0:0:1 - - [15/Apr/2020:15:55:51 -0300] "GET /api/relatorios/data HTTP/1.1" 200 231
+0:0:0:0:0:0:0:1 - - [15/Apr/2020:15:57:07 -0300] "OPTIONS /api/relatorios/data HTTP/1.1" 200 -
+0:0:0:0:0:0:0:1 - - [15/Apr/2020:15:57:07 -0300] "GET /api/relatorios/data HTTP/1.1" 415 -
+0:0:0:0:0:0:0:1 - - [15/Apr/2020:16:03:40 -0300] "GET /api/relatorios/data HTTP/1.1" 415 -

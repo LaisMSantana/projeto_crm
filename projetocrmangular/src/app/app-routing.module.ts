@@ -7,6 +7,9 @@ import { ListagemClientesComponent } from './listagem-clientes/listagem-clientes
 import { VendaComponent } from './venda/venda.component';
 import { ListagemVendasComponent } from './listagem-vendas/listagem-vendas.component';
 import { RelatorioComponent } from './relatorio/relatorio.component';
+import { RelatorioDataComponent } from './relatorio-data/relatorio-data.component';
+import { RelatorioMarcaComponent } from './relatorio-marca/relatorio-marca.component';
+import { RelatorioCategoriaComponent } from './relatorio-categoria/relatorio-categoria.component';
 
 
 const routes: Routes = [
@@ -20,7 +23,9 @@ const routes: Routes = [
   { path: 'listagem-vendas', component: ListagemVendasComponent},
   { path: 'venda', component: VendaComponent },
   { path: 'venda/:id', component: VendaComponent },
-  { path: 'relatorio', component: RelatorioComponent}
+  { path: 'relatorioData', component: RelatorioDataComponent},
+  { path: 'relatorioMarca', component: RelatorioMarcaComponent},
+  { path: 'relatorioCategoria', component: RelatorioCategoriaComponent}
 ];
 
 @NgModule({
